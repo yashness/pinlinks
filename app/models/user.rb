@@ -13,4 +13,5 @@ class User < ActiveRecord::Base
   					  	with: /\A[a-zA-Z\-\_]+\Z/,
   					  	message: 'Must be formatted correctly.'
   					  }
+  has_many :repos  
 end
