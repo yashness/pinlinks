@@ -11,9 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20140329012739) do
 
+ActiveRecord::Schema.define(:version => 20140329012738) do
+
+
   create_table "links", :force => true do |t|
+    t.integer  "repo_id"
     t.string   "actual_link"
     t.string   "tags"
     t.text     "description"
@@ -22,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20140329012739) do
   end
 
   create_table "repos", :force => true do |t|
+    t.integer  "user_id"
     t.string   "name"
     t.string   "tags"
     t.datetime "created_at", :null => false

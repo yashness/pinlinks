@@ -1,0 +1,51 @@
+<div class="links new">
+  <h2>Drop your links Here</h2>
+  <%= form_tag("/create_links", :method=>'get', :multipart => true) do %>
+  <table >
+      <%= hidden_field_tag "repo_name", @repo.name  %>
+    <tr>
+      <th>Links</th>
+      <td><%= text_area_tag "all_links" %></td>
+    </tr>
+    <tr>
+      <th></th>
+      <td>
+        <%= submit_tag "Drop Links" , class: "btn btn-info"%>
+      </td>
+    </tr>
+  </table >
+  <%end%>
+</div>
+
+<!-- show list of links in this repo -->
+<div class="list_of_links"> 
+            <table class="table">
+              <thead>
+                Links in this Repo:
+              </thead>
+              <tbody>
+                <% @links.each do |link| %>
+                    <%tags = link.tags%>
+                    <%if not tags.nil? %>
+                        <%tags.chomp.split(",") %>
+                    <%end%>
+                    <tr class="<%= cycle('odd','even') %>">                   
+                          <td> 
+                            <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :post) %>
+                          </td>
+                          <td> 
+                               <%if not tags.nil? %>
+                                    <% tags.each do |tag| %>
+                                        <% "  #{tag}  " %>
+                                    <%end%>
+                                    <%= link_to( "Add Tag " , "#" ) %>
+                                <%end%>
+                          </td>
+                          <td><%= link_to("Delete " , "/#{@repo.name}/delete_link/#{link.id}") %>
+                         </td>
+                         </td>
+                  </tr>
+                  <%end%> 
+              </tbody>
+            </table>
+</div>
