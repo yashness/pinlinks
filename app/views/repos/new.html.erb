@@ -1,0 +1,24 @@
+
+<div class="repo new">
+  <h2>Create repo</h2>
+
+  <%= form_for(:repo, :url => {:action => 'create'}) do |f| %>
+
+	<table >
+	  <%= f.hidden_field :user_id, :value => current_user.id%>
+	  <tr>
+	    <th><%= f.label(:name) %></th>
+	    <td><%= f.text_field :name %></td>
+	  </tr>
+	  <tr>
+	    <th><%= f.label(:tags) %></th>
+	    <td><%= f.text_field(:tags) %></td>
+	  </tr>
+	</table>
+    
+    <div class="form-buttons">
+      <%= submit_tag "Create Folder" , class: "btn btn-info"%>
+    </div>
+    
+  <% end %>
+</div>
