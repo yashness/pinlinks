@@ -55,7 +55,8 @@
 
               </thead>
               <tbody>
-                <% @repos.each do |repo| %>
+                <% if not @repos.nil? %>
+                  <% @repos.each do |repo| %>
                     <tr class="<%= cycle('odd','even') %>">                   
                           <td><%= link_to( "#{repo.name}" , "/#{@user.profile_name}/#{repo.name}") %>
                           </td>
@@ -63,8 +64,9 @@
                           </td>
                           <td><%= link_to("Delete Folder" , "/delete_repo/#{repo.id}" , { confirm: "Are you sure, you want to delete this folder?"}) %>
                          </td>
-                  </tr>
-                  <%end%> 
+                    </tr>
+                  <%end%>
+                <% end %> 
               </tbody>
             </table>
 </div>

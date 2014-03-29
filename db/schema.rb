@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
 ActiveRecord::Schema.define(:version => 20140329012739) do
-
-ActiveRecord::Schema.define(:version => 20140329012738) do
-
 
   create_table "links", :force => true do |t|
     t.integer  "repo_id"
