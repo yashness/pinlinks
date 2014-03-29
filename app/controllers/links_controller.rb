@@ -1,4 +1,5 @@
 class LinksController < ApplicationController
+  before_filter :authenticate_user!, only: [:new, :create, :destroy]
   def index
   end
 

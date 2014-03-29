@@ -1,5 +1,6 @@
 # put before filter here
 class ReposController < ApplicationController
+  before_filter :authenticate_user!, only: [:create, :destroy]
 
   def index
     list
