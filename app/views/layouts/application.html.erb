@@ -8,6 +8,13 @@
 </head>
 <body>
 	
+<% if not notice.nil? %>	
+	<p class="notice"><%= notice %><p>
+<% end%>
+<% if not alert.nil? %>
+	<p class="alert"><%= alert %><p>
+<% end%>
+
 <% if user_signed_in? %>
 	<p> Welcome, <%= current_user.profile_name %><p>
 	<%= link_to "Log Out", logout_path %>

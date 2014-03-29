@@ -21,6 +21,11 @@ class LinksController < ApplicationController
 			  	@link.repo_id = repo_id
 			  	@link.save
 		  	end
+		  	if all_links.empty?
+				flash[:alert] = "Please enter atlest one link!"
+			else
+				flash[:alert] = "Links added to existing repository!"
+			end
 		else
 			#make a new repo with repo_name and add all_links in it
 			@repo = Repo.new
@@ -32,10 +37,12 @@ class LinksController < ApplicationController
 			  	@link.actual_link = link
 			  	@repo.links << @link
 		  	end
+			flash[:alert] = "New Repo sucessfully created!"
 		end
 	  		redirect_to("/#{current_user.profile_name}/#{repo_name}")
 	else
 			#flash message that reponame cant be blank
+			flash[:alert] = "Repo-name cannot be blank!"
 	  		redirect_to("/#{current_user.profile_name}/#{repo_name}")
 	end
   end
@@ -46,6 +53,7 @@ class LinksController < ApplicationController
 	link = Link.find_by_id(link_id)
 	if not link.nil?
 		link.delete
+		flash[:alert] = "Link successfully deleted!"
  		redirect_to("/#{current_user.profile_name}/#{repo_name}")
 	else
   		redirect_to("/#{current_user.profile_name}/#{repo_name}")

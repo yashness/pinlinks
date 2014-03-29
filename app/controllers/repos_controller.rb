@@ -2,15 +2,17 @@
 class ReposController < ApplicationController
 
   def index
-  	list
+    list
   	render('list')
   end
+
   def list
     if current_user.nil?
        user_name = params[:user_name]
        if user_name.nil?
           #SHOW FLASH ERROR (Wrong Request..PAGE DOESNT EXIST.)
-          redirect_to "/error_page"
+          flash[:alert] = "Page Doesn't Exist."
+          redirect_to root_path
        else
             @user = User.find_by_profile_name(user_name)
             if not @user.nil?
@@ -18,6 +20,7 @@ class ReposController < ApplicationController
                 @repo = Repo.new
             else
               #SHOW FLASH ERROR (Wrong Request..PAGE DOESNT EXIST.)
+              flash[:alert] = "Page Doesn't Exist."
               redirect_to "/error_page"
             end
        end
