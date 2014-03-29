@@ -50,12 +50,17 @@
 <!-- Secure portion ends ( show only if current user is present) -->
 
 <div class="list_of_repos">	
+            <% if current_user == @user %>
+              <p>Your repositories:</p>
+            <%else%>
+              <p><%=@user.profile_name %>'s repositories:</p>
+            <%end%>
             <table class="table">
               <thead>
 
               </thead>
               <tbody>
-                <% if not @repos.nil? %>
+                <% if not @repos.empty? %>
                   <% @repos.each do |repo| %>
                     <tr class="<%= cycle('odd','even') %>">                   
                           <td><%= link_to( "#{repo.name}" , "/#{@user.profile_name}/#{repo.name}") %>
@@ -66,7 +71,9 @@
                          </td>
                     </tr>
                   <%end%>
-                <% end %> 
+                <%else%>
+                  <p>Don't have any!</p>
+                <% end %>
               </tbody>
             </table>
 </div>
