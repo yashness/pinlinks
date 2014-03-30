@@ -71,4 +71,26 @@ class LinksController < ApplicationController
 			redirect_to :back
   end
 
+  def add_tag
+    @tag = params[:tag]
+    link_id = params[:link_id]
+    @link = Link.find_by_id(link_id)
+    if @link.tags.nil? || @link.tags.empty?
+    	@link.tags = @tag
+  	else
+    @link.tags += "," + @tag
+    end
+    @link.save
+    redirect_to :back    
+  end
+
+  def add_description
+    @desription = params[:description]
+    link_id = params[:link_id]
+    @link = Link.find_by_id(link_id)
+    @link.description = @desription 
+    @link.save
+    redirect_to :back    
+  end
+
 end

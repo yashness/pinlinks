@@ -31,21 +31,48 @@
                         <%tags.chomp.split(",") %>
                     <%end%>
                     <tr class="<%= cycle('odd','even') %>">                   
-                          <td> 
-                            <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
-                          </td>
-                          <td> 
-                               <%if not tags.nil? %>
-                                    <% tags.each do |tag| %>
-                                        <% "  #{tag}  " %>
-                                    <%end%>
-                                    <%= link_to( "Add Tag " , "#" ) %>
-                                <%end%>
-                          </td>
-                          <% if owner %>
-                            <td><%= link_to("Delete " , "/#{@repo.name}/delete_link/#{link.id}") %></td>
-                         <% end %>
-                         </td>
+                      <td> 
+                        <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
+                      </td>
+                      <td>
+                        <%if not link.tags.nil? %>
+                            <%= link.tags%>
+                        <%end%>
+                      </td>
+                      <td>
+                        <%if not link.description.nil? %>
+                            <%= link.description %>
+                        <%end%>
+                      </td>
+                      <% if owner %>
+                      <td> 
+                        <div>
+                        <form action="/add_link_tag">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="add tag" name="tag">
+                            <span class="input-group-btn">
+                              <input type="hidden" name="link_id" value="<%=link.id%>">
+                              <button class="btn btn-success" style="display: none;" type="submit">Go!</button>
+                            </span>
+                          </div>
+                        </form>
+                        </div>
+                      </td>
+                      <td> 
+                        <div>
+                        <form action="/add_link_description">
+                          <div class="input-group">
+                            <input type="text" class="form-control" placeholder="describe" name="description">
+                            <span class="input-group-btn">
+                              <input type="hidden" name="link_id" value="<%=link.id%>">
+                              <button class="btn btn-success" style="display: none;" type="submit">Go!</button>
+                            </span>
+                          </div>
+                        </form>
+                        </div>
+                      </td>
+                        <td><%= link_to("Delete " , "/#{@repo.name}/delete_link/#{link.id}") %></td>
+                      <% end %>
                   </tr>
                   <%end%> 
               </tbody>
