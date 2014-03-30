@@ -10,7 +10,7 @@ class ReposController < ApplicationController
   def list
     user_name = params[:user_name]
     if user_name.nil? && current_user.nil?
-      redirect_to root_path
+      return
     elsif not user_name.nil?
       @user = User.find_by_profile_name(user_name)
       if not @user.nil?
