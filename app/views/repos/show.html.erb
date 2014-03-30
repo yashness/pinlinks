@@ -31,7 +31,7 @@
                     <%end%>
                     <tr class="<%= cycle('odd','even') %>">                   
                           <td> 
-                            <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :post) %>
+                            <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
                           </td>
                           <td> 
                                <%if not tags.nil? %>
