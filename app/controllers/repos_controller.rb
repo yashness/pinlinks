@@ -1,6 +1,6 @@
 # put before filter here
 class ReposController < ApplicationController
-  before_filter :authenticate_user!, only: [:create, :destroy]
+  before_filter :authenticate_user!, only: [:create, :destroy, :add_tag]
 
   def index
     list
@@ -72,5 +72,17 @@ class ReposController < ApplicationController
     end
   end
 
+  def add_tag
+    @tag = params[:tag]
+    repo_id = params[:repo_id]
+    @repo = Repo.find_by_id(repo_id)
+    if @repo.tags.nil? || @repo.tags.empty?
+      @repo.tags = @tag
+    else
+    @repo.tags += "," + @tag
+    end
+    @repo.save
+    redirect_to :back    
+  end
 end
 

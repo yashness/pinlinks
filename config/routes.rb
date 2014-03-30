@@ -64,6 +64,7 @@ Pinlinks::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 
+  get '/add_repo_tag', to: 'repos#add_tag', as: :add_repo_tag_path
   get '/add_link_tag', to: 'links#add_tag', as: :add_link_tag_path
   get '/add_link_description', to: 'links#add_description', as: :add_link_description_path
   get '/delete_repo/:repo_id', to: 'repos#destroy'  
