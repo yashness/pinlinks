@@ -22,6 +22,10 @@ class ReposController < ApplicationController
     else
       @user = current_user
       @repos = current_user.repos
+      logger.info("HEE__________+++++++++++++++++++++++++")
+      logger.info(@repos)
+      logger.info(@repos.nil?)
+      logger.info(@repos.empty?)
     end
   end
 

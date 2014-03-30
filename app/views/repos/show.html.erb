@@ -24,6 +24,7 @@
                 Links in this Repo:
               </thead>
               <tbody>
+              <% owner = current_user==@repo.user %>
                 <% @links.each do |link| %>
                     <%tags = link.tags%>
                     <%if not tags.nil? %>
@@ -41,8 +42,9 @@
                                     <%= link_to( "Add Tag " , "#" ) %>
                                 <%end%>
                           </td>
-                          <td><%= link_to("Delete " , "/#{@repo.name}/delete_link/#{link.id}") %>
-                         </td>
+                          <% if owner %>
+                            <td><%= link_to("Delete " , "/#{@repo.name}/delete_link/#{link.id}") %></td>
+                         <% end %>
                          </td>
                   </tr>
                   <%end%> 

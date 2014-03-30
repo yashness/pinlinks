@@ -50,19 +50,25 @@ class LinksController < ApplicationController
 
   def destroy
   	repo_name = params[:repo_name]
-	link_id = params[:link_id]
-	link = Link.find_by_id(link_id)
-	if not link.nil?
-		link.delete
-		flash[:alert] = "Link successfully deleted!"
- 		redirect_to("/#{current_user.profile_name}/#{repo_name}")
-	else
-  		redirect_to("/#{current_user.profile_name}/#{repo_name}")
-	end
-
+  	repo = Repo.find_by_name(repo_name)
+  	if not repo.nil?
+	  	if current_user == repo.user
+				link_id = params[:link_id]
+				link = Link.find_by_id(link_id)
+				if not link.nil?
+					link.delete
+					flash[:alert] = "Link successfully deleted!"
+			 		redirect_to("/#{current_user.profile_name}/#{repo_name}")
+				else
+			  		redirect_to("/#{current_user.profile_name}/#{repo_name}")
+				end
+			else
+				flash[:alert] = "You cannot delete others link!"
+			end
+		else
+			flash[:alert] = "Invalid Request!"
+		end
+			redirect_to :back
   end
-
-
-
 
 end

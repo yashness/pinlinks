@@ -61,7 +61,11 @@
               </thead>
               <tbody>
                 <% if not @repos.nil? %>
-                  <% owner = current_user==@repos.first.user %>
+                  <% if not @repos.empty? %>
+                    <% owner = current_user==@repos.first.user %>
+                  <%else%>
+                    <% owner = true %>
+                  <%end%>
                   <% @repos.each do |repo| %>
                     <tr class="<%= cycle('odd','even') %>">                   
                           <td><%= link_to( "#{repo.name}" , "/#{@user.profile_name}/#{repo.name}") %>
