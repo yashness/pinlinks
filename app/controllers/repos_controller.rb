@@ -56,16 +56,20 @@ class ReposController < ApplicationController
   def destroy
 	repo_id = params[:repo_id]
 	repo = Repo.find_by_id(repo_id)
-	if not repo.nil?
-		links_ids = repo.links.pluck(:id)
-		repo.delete
-		Link.delete_all(:id => links_ids)
- 		redirect_to("/")
-	else
-		#not a valid request
-  		redirect_to("/")
-	end
-
+    if current_user == repo.user
+    	if not repo.nil?
+    		links_ids = repo.links.pluck(:id)
+    		repo.delete
+    		Link.delete_all(:id => links_ids)
+     		redirect_to("/")
+    	else
+    		#not a valid request
+      		redirect_to("/")
+    	end
+    else
+      flash[:alert] = "You cannot delete other's repo!"
+      redirect_to :back
+    end
   end
 
 end
