@@ -36,8 +36,18 @@ class ReposController < ApplicationController
     	# redirect to error page
       render file: 'public/404', status: 404, formats: [:html]
     end
-
+    @is_user_same = false
+    if current_user == @user 
+      @is_user_same = true
+    end
+    @has_forked_this_repo = false
+    user_forked = UserFork.where( :user_id => current_user.id , :repo_id => @repo.id)
+    if not user_forked.empty?
+      @has_forked_this_repo = true
+    end
   end
+
+
   def new
  	@repo = Repo.new
   end
@@ -48,6 +58,7 @@ class ReposController < ApplicationController
     repo_name = repo_name.chomp.split(" ")
     repo_name = repo_name.join("_")  
     @repo.name = repo_name
+  
     if @repo.save
       # display flash message with content (YOUR REPO has been created).
   		redirect_to("/")
@@ -114,20 +125,36 @@ class ReposController < ApplicationController
     else
       repo = Repo.find_by_id(params[:repo_id].to_i)
       user = User.find_by_id(params[:user_id].to_i)
-
+      successful_fork = true
       if user != nil? && repo != nil?
           forked_repo = Repo.new
-          forked_repo.links = repo.links
+          links = repo.links
           forked_repo.name = repo.name
           forked_repo.tags = repo.tags
           forked_repo.user_id = current_user.id
-          if forked_repo.save
-            flash[:alert] = "Successfully forked!"         
-            redirect_to("/#{user.profile_name}/#{repo.name}")
-          else
-            flash[:alert] = "Fork failed! }"         
-            redirect_to("/#{user.profile_name}/#{repo.name}")
+          if not forked_repo.save
+            successful_fork = false
           end
+          for link in links
+            new_link = Link.new
+            new_link.tags = link.tags
+            new_link.actual_link = link.actual_link
+            new_link.description = link.description
+            new_link.repo_id = forked_repo.id
+            if not new_link.save
+              successful_fork = false
+            end
+          end
+          if successful_fork
+            flash[:alert] = "Successfully forked!"         
+            user_fork = UserFork.new
+            user_fork.user_id = current_user.id
+            user_fork.repo_id = repo.id
+            user_fork.save 
+          else
+            flash[:alert] = "Un Successfull fork!"         
+          end
+          redirect_to("/#{user.profile_name}/#{repo.name}")
       else
             flash[:alert] = "Bad fork request! }"         
             redirect_to("/#{user.profile_name}/#{repo.name}")

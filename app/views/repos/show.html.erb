@@ -13,7 +13,7 @@
   </table >
   <%end%>
 </div>
-<% if current_user != @user %>
+<%if  !@has_forked_this_repo && !@is_user_same %>
   <%= link_to "Fork ", "/fork_repo/#{@user.id}/#{@repo.id}"  %>
 <%end%>
 <!-- show list of links in this repo -->
