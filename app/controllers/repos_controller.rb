@@ -150,7 +150,9 @@ class ReposController < ApplicationController
             user_fork = UserFork.new
             user_fork.user_id = current_user.id
             user_fork.repo_id = repo.id
-            user_fork.save 
+            user_fork.save
+            repo.fork_counts += 1
+            repo.save 
           else
             flash[:alert] = "Un Successfull fork!"         
           end
