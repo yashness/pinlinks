@@ -76,6 +76,7 @@ Pinlinks::Application.routes.draw do
   get '/create_links', to: 'links#create'  
   get '/new_repo', to: 'repos#new'  
   get '/:user_name', to: 'repos#list'
+  get '/fork_repo/:user_id/:repo_id', to: 'repos#fork'
   root :to => 'repos#index'
 
   match ':controller(/:action(/:id))(.:format)'

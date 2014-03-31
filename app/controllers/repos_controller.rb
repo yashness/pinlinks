@@ -28,8 +28,8 @@ class ReposController < ApplicationController
   def show
 	user_name = params[:user_name]
 	repo_name = params[:repo_name]
-	user = User.find_by_profile_name(user_name)
-  	@repo = Repo.where( :name => repo_name , :user_id => user.id).first
+	@user = User.find_by_profile_name(user_name)
+  	@repo = Repo.where( :name => repo_name , :user_id => @user.id).first
   	if not @repo.nil?
 	  	@links = @repo.links
     else
@@ -106,6 +106,35 @@ class ReposController < ApplicationController
     end
     redirect_to :back    
   end
+
+  def fork
+    if current_user.nil?
+       flash[:alert] = "You need to be logged in, for forking!"         
+       redirect_to "/"
+    else
+      repo = Repo.find_by_id(params[:repo_id].to_i)
+      user = User.find_by_id(params[:user_id].to_i)
+
+      if user != nil? && repo != nil?
+          forked_repo = Repo.new
+          forked_repo.links = repo.links
+          forked_repo.name = repo.name
+          forked_repo.tags = repo.tags
+          forked_repo.user_id = current_user.id
+          if forked_repo.save
+            flash[:alert] = "Successfully forked!"         
+            redirect_to("/#{user.profile_name}/#{repo.name}")
+          else
+            flash[:alert] = "Fork failed! }"         
+            redirect_to("/#{user.profile_name}/#{repo.name}")
+          end
+      else
+            flash[:alert] = "Bad fork request! }"         
+            redirect_to("/#{user.profile_name}/#{repo.name}")
+      end
+    end
+  end
+
 
 end
 
