@@ -6,4 +6,10 @@ class Repo < ActiveRecord::Base
   validates :user_id, presence: true
   validates :name, presence: true
   validates_uniqueness_of :name, :scope => :user_id
+
+  searchable do
+    text :name, :tags
+    integer :user_id
+  end
+
 end

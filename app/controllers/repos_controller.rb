@@ -195,5 +195,36 @@ class ReposController < ApplicationController
   end
 
 
+
+  def repo_search_results
+    user_name = params[:user_name]
+    if user_name.nil? && current_user.nil?
+      return
+    elsif not user_name.nil?
+      @user = User.find_by_profile_name(user_name)
+      if not @user.nil?
+          logger.info @user.inspect
+          user_id = @user.id
+          @search = Repo.search do
+            fulltext params[:search]
+            with :user_id, user_id  
+          end
+          @repos = @search.results
+      else
+        flash[:alert] = "Page Doesn't Exist."
+        render file: 'public/404', status: 404, formats: [:html]
+      end
+    else
+      @user = current_user
+      user_id = @user.id
+      @search = Repo.search do
+        fulltext params[:search]
+        with :user_id, user_id 
+      end
+      @repos = @search.results
+    end
+    render('list')
+  end
+
 end
 
