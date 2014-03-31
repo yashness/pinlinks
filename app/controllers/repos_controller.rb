@@ -60,10 +60,12 @@ class ReposController < ApplicationController
     @repo.name = repo_name
   
     if @repo.save
-      # display flash message with content (YOUR REPO has been created).
+      flash[:alert] = "Repo created Successfully!"
   		redirect_to("/")
   	else
-      # display flash message with content (@repo.error_messages).
+      error_messages = @repo.errors.full_messages
+      error_messages = error_messages.join("\n")
+      flash[:alert] = "Repo couldn't be created because: \n #{error_messages}"
       redirect_to("/")
   	end
   end
