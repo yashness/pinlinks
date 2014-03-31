@@ -10,7 +10,8 @@ class LinksController < ApplicationController
   def create
   	all_links = params[:all_links]
   	repo_name = params[:repo_name]
-
+    repo_name = repo_name.chomp.split(" ")
+    repo_name = repo_name.join("_")  
   	if not repo_name.blank?
 	  	all_links = all_links.chomp.split("\n")
 		@repo = Repo.where( :name => repo_name , :user_id => current_user.id).first

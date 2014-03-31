@@ -44,7 +44,11 @@ class ReposController < ApplicationController
 
   def create
   	@repo = Repo.new(params[:repo])
-  	if @repo.save
+  	repo_name = @repo.name 
+    repo_name = repo_name.chomp.split(" ")
+    repo_name = repo_name.join("_")  
+    @repo.name = repo_name
+    if @repo.save
       # display flash message with content (YOUR REPO has been created).
   		redirect_to("/")
   	else
