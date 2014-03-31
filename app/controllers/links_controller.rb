@@ -72,7 +72,7 @@ class LinksController < ApplicationController
 			redirect_to :back
   end
 
-  def add_tag
+  def add_tags
     @tags = params[:tags]
     link_id = params[:link_id]
     @link = Link.find_by_id(link_id)

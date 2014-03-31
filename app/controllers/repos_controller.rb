@@ -76,7 +76,7 @@ class ReposController < ApplicationController
     end
   end
 
-  def add_tag
+  def add_tags
     @tags = params[:tags]
     repo_id = params[:repo_id]
     @repo = Repo.find_by_id(repo_id)
