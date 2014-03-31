@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140331132213) do
+ActiveRecord::Schema.define(:version => 20140331213257) do
 
   create_table "links", :force => true do |t|
     t.integer  "repo_id"
@@ -30,9 +30,10 @@ ActiveRecord::Schema.define(:version => 20140331132213) do
     t.integer  "user_id"
     t.string   "name"
     t.string   "tags"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "fork_counts", :default => 0
+    t.boolean  "is_private",  :default => false
   end
 
   add_index "repos", ["id"], :name => "index_repos_on_id"

@@ -1,5 +1,5 @@
 class Repo < ActiveRecord::Base
-  attr_accessible :name , :tags , :user_id
+  attr_accessible :name , :tags , :user_id , :is_private
 
   belongs_to :user
   has_many :links
