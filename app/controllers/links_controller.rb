@@ -54,22 +54,23 @@ class LinksController < ApplicationController
   	repo = Repo.find_by_name(repo_name)
   	if not repo.nil?
 	  	if current_user == repo.user
-				link_id = params[:link_id]
-				link = Link.find_by_id(link_id)
-				if not link.nil?
-					link.delete
-					flash[:alert] = "Link successfully deleted!"
-			 		redirect_to("/#{current_user.profile_name}/#{repo_name}")
-				else
-			  		redirect_to("/#{current_user.profile_name}/#{repo_name}")
-				end
+			link_id = params[:link_id]
+			link = Link.find_by_id(link_id)
+			if not link.nil?
+				link.delete
+				flash[:alert] = "Link successfully deleted!"
+				redirect_to("/#{current_user.profile_name}/#{repo_name}")
 			else
-				flash[:alert] = "You cannot delete others link!"
+				redirect_to("/#{current_user.profile_name}/#{repo_name}")
 			end
 		else
-			flash[:alert] = "Invalid Request!"
-		end
+			flash[:alert] = "You cannot delete others link!"
 			redirect_to :back
+		end
+	else 
+		flash[:alert] = "Invalid Request!"
+		redirect_to :back
+	end
   end
 
   def add_tags
