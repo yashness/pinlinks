@@ -13,6 +13,9 @@
             <td><%= text_area_tag "all_links" , nil , placeholder: 'Drop all links here'%></td>
           </tr>
           <tr>
+            <td>private:<%= check_box_tag(:is_private) %></td>
+          </tr>
+          <tr>
             <td>
               <%= submit_tag "Drop Links" , class: "btn btn-info"%>
             </td>
@@ -32,6 +35,9 @@
           </tr>
           <tr>
             <td><%= f.text_field :tags , :placeholder=>"Enter space-seperated Tags" %></td>
+          </tr>
+          <tr>
+            <td>private:<%= f.check_box(:is_private) %></td>
           </tr>
         </table>
           
@@ -62,25 +68,27 @@
                     <% owner = true %>
                   <%end%>
                   <% @repos.each do |repo| %>
-                    <tr class="<%= cycle('odd','even') %>">                   
-                      <td><%= link_to( "#{repo.name}" , "/#{@user.profile_name}/#{repo.name}") %>
-                      </td>
-                      <td><%= "created " + time_ago_in_words(repo.created_at) + " ago" %>
-                      </td>
-                      <td>
-                        <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
-                      </td>
-                      <% if owner %>
-                        <td><%= link_to("Delete Folder" , "/delete_repo/#{repo.id}" , { confirm: "Are you sure, you want to delete this folder?"}) %>
+                    <%if not (repo.is_private && !owner)%>
+                      <tr class="<%= cycle('odd','even') %>">                   
+                        <td><%= link_to( "#{repo.name}" , "/#{@user.profile_name}/#{repo.name}") %>
                         </td>
-                        <td> 
-                            <%= render(:partial => 'shared/add_repo_tags', :locals => {:repo => repo})%>
+                        <td><%= "created " + time_ago_in_words(repo.created_at) + " ago" %>
                         </td>
-                        <td> 
-                            <%= render(:partial => 'shared/update_repo_name', :locals => {:repo => repo})%>
+                        <td>
+                          <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
                         </td>
-                      <%end%>
-                    </tr>
+                        <% if owner %>
+                          <td><%= link_to("Delete Folder" , "/delete_repo/#{repo.id}" , { confirm: "Are you sure, you want to delete this folder?"}) %>
+                          </td>
+                          <td> 
+                              <%= render(:partial => 'shared/add_repo_tags', :locals => {:repo => repo})%>
+                          </td>
+                          <td> 
+                              <%= render(:partial => 'shared/update_repo_name', :locals => {:repo => repo})%>
+                          </td>
+                        <%end%>
+                      </tr>
+                    <%end%>
                   <%end%>
                   <% if @repos.empty? %>
                     <p>Don't have any!</p>

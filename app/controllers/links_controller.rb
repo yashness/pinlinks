@@ -9,6 +9,7 @@ class LinksController < ApplicationController
 
   def create
   	all_links = params[:all_links]
+  	is_private = params[:is_private]
   	repo_name = params[:repo_name]
     repo_name = repo_name.chomp.split(" ")
     repo_name = repo_name.join("_")  
@@ -33,6 +34,9 @@ class LinksController < ApplicationController
 			@repo = Repo.new
 			@repo.name = repo_name
 			@repo.user_id = current_user.id
+			if is_private == "1"
+				@repo.is_private = true
+			end
 			@repo.save
 		  	for link in all_links
 			  	@link = Link.new()
