@@ -94,6 +94,19 @@
                           </form>
                           </div>
                         </td>
+                        <td> 
+                          <div>
+                          <form action="/update_repo_name">
+                            <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Rename Folder" name="new_name">
+                              <span class="input-group-btn">
+                                <input type="hidden" name="repo_id" value="<%=repo.id%>">
+                                <button class="btn btn-success" style="display: none;" type="submit">Go!</button>
+                              </span>
+                            </div>
+                          </form>
+                          </div>
+                        </td>
                       <%end%>
                     </tr>
                   <%end%>

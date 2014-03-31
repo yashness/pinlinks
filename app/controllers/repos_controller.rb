@@ -120,6 +120,25 @@ class ReposController < ApplicationController
     redirect_to :back    
   end
 
+  def update_repo_name
+    repo = Repo.find_by_id(params[:repo_id])
+    new_name= params[:new_name]
+    if not repo.nil?
+      repo.name = new_name     
+      if repo.save
+        flash[:alert] = "Successfully updated your repo name."
+      else
+        error_messages = repo.errors.full_messages
+        error_messages = error_messages.join("\n")
+        flash[:alert] = "Repo Name couldn't updated because: \n #{error_messages}"
+      end
+      redirect_to :back    
+    else
+      flash[:alert] = "Faulty request."
+      redirect_to :back    
+    end
+  end
+
   def fork
     if current_user.nil?
        flash[:alert] = "You need to be logged in, for forking!"         
