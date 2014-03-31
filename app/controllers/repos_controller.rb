@@ -77,13 +77,13 @@ class ReposController < ApplicationController
   end
 
   def add_tag
-    @tag = params[:tag]
+    @tags = params[:tags]
     repo_id = params[:repo_id]
     @repo = Repo.find_by_id(repo_id)
     if @repo.tags.nil? || @repo.tags.empty?
-      @repo.tags = @tag
+      @repo.tags = @tags
     else
-    @repo.tags += "," + @tag
+      @repo.tags += " " + @tags
     end
     @repo.save
     redirect_to :back    

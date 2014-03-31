@@ -73,13 +73,13 @@ class LinksController < ApplicationController
   end
 
   def add_tag
-    @tag = params[:tag]
+    @tags = params[:tags]
     link_id = params[:link_id]
     @link = Link.find_by_id(link_id)
     if @link.tags.nil? || @link.tags.empty?
-    	@link.tags = @tag
+    	@link.tags = @tags
   	else
-    @link.tags += "," + @tag
+    	@link.tags += " " + @tags
     end
     @link.save
     redirect_to :back    
