@@ -33,7 +33,7 @@
                             <%tags = tags.chomp.split(" ")%>
                             <% if not tags.empty?%>
                                 <% for tag in tags%>
-                                  <%= tag %>
+                                  <%=link_to(tag, "/remove_link_tag/#{link.id}/#{tag}" , :class => "link tag")%>
                                 <%end%>
                             <%end%>
                         <%end%>

@@ -66,6 +66,8 @@ Pinlinks::Application.routes.draw do
 
   get '/add_repo_tags', to: 'repos#add_tags', as: :add_repo_tag_path
   get '/add_link_tags', to: 'links#add_tags', as: :add_link_tag_path
+  get '/remove_repo_tag/:repo_id/:tag', to: 'repos#remove_tag', as: :remove_repo_tag_path
+  get '/remove_link_tag/:link_id/:tag', to: 'links#remove_tag', as: :remove_link_tag_path
   get '/add_link_description', to: 'links#add_description', as: :add_link_description_path
   get '/delete_repo/:repo_id', to: 'repos#destroy'  
   get '/:repo_name/delete_link/:link_id', to: 'links#destroy'  

@@ -94,4 +94,22 @@ class LinksController < ApplicationController
     redirect_to :back    
   end
 
+  def remove_tag
+    tag_to_be_deleted = params[:tag]
+    link_id = params[:link_id]
+    @link = Link.find_by_id(link_id)
+    if not @link.nil?
+	    tags = @link.tags
+	    tags = tags.chomp.split(" ")
+
+	    if tags.include?(tag_to_be_deleted)
+	      tags.delete(tag_to_be_deleted)
+	      tags = tags.join(" ")
+	      @link.tags = tags
+	      @link.save
+	    end
+	end
+    redirect_to :back    
+  end
+
 end

@@ -88,5 +88,24 @@ class ReposController < ApplicationController
     @repo.save
     redirect_to :back    
   end
+
+  def remove_tag
+    tag_to_be_deleted = params[:tag]
+    repo_id = params[:repo_id]
+    @repo = Repo.find_by_id(repo_id)
+    if not @repo.nil?
+      tags = @repo.tags
+      tags = tags.chomp.split(" ")
+
+      if tags.include?(tag_to_be_deleted)
+        tags.delete(tag_to_be_deleted)
+        tags = tags.join(" ")
+        @repo.tags = tags
+        @repo.save
+      end
+    end
+    redirect_to :back    
+  end
+
 end
 
