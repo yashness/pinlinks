@@ -30,15 +30,7 @@
                         <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
                       </td>
                       <td>
-                        <%if not link.tags.nil? %>
-                            <%tags = link.tags%>
-                            <%tags = tags.chomp.split(" ")%>
-                            <% if not tags.empty?%>
-                                <% for tag in tags%>
-                                  <%=link_to(tag, "/remove_link_tag/#{link.id}/#{tag}" , :class => "link tag")%>
-                                <%end%>
-                            <%end%>
-                        <%end%>
+                        <%= render(:partial => 'shared/show_link_tags', :locals => {:link => link})%>
                       </td>
                       <td>
                         <%if not link.description.nil? %>
@@ -47,30 +39,10 @@
                       </td>
                       <% if owner %>
                       <td> 
-                        <div>
-                        <form action="/add_link_tags">
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="add tags" name="tags">
-                            <span class="input-group-btn">
-                              <input type="hidden" name="link_id" value="<%=link.id%>">
-                              <button class="btn btn-success" style="display: none;" type="submit">Go!</button>
-                            </span>
-                          </div>
-                        </form>
-                        </div>
+                        <%= render(:partial => 'shared/add_link_tags', :locals => {:link => link})%>
                       </td>
                       <td> 
-                        <div>
-                        <form action="/add_link_description">
-                          <div class="input-group">
-                            <input type="text" class="form-control" placeholder="describe" name="description">
-                            <span class="input-group-btn">
-                              <input type="hidden" name="link_id" value="<%=link.id%>">
-                              <button class="btn btn-success" style="display: none;" type="submit">Go!</button>
-                            </span>
-                          </div>
-                        </form>
-                        </div>
+                        <%= render(:partial => 'shared/add_link_description', :locals => {:link => link})%>
                       </td>
                         <td><%= link_to("Delete " , "/#{@repo.name}/delete_link/#{link.id}") %></td>
                       <% end %>

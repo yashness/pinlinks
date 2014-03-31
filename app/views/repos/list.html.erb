@@ -68,44 +68,16 @@
                       <td><%= "created " + time_ago_in_words(repo.created_at) + " ago" %>
                       </td>
                       <td>
-                        <%if not repo.tags.nil? %>
-                            <%tags = repo.tags%>
-                            <%tags = tags.chomp.split(" ")%>
-                            <% if not tags.empty?%>
-                                <% for tag in tags%>
-                                  <%=link_to(tag, "/remove_repo_tag/#{repo.id}/#{tag}" , :class => "link tag")%>
-                                <%end%>
-                            <%end%>
-                        <%end%>
+                        <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
                       </td>
                       <% if owner %>
                         <td><%= link_to("Delete Folder" , "/delete_repo/#{repo.id}" , { confirm: "Are you sure, you want to delete this folder?"}) %>
                         </td>
                         <td> 
-                          <div>
-                          <form action="/add_repo_tags">
-                            <div class="input-group">
-                              <input type="text" class="form-control" placeholder="add tags" name="tags">
-                              <span class="input-group-btn">
-                                <input type="hidden" name="repo_id" value="<%=repo.id%>">
-                                <button class="btn btn-success" style="display: none;" type="submit">Go!</button>
-                              </span>
-                            </div>
-                          </form>
-                          </div>
+                            <%= render(:partial => 'shared/add_repo_tags', :locals => {:repo => repo})%>
                         </td>
                         <td> 
-                          <div>
-                          <form action="/update_repo_name">
-                            <div class="input-group">
-                              <input type="text" class="form-control" placeholder="Rename Folder" name="new_name">
-                              <span class="input-group-btn">
-                                <input type="hidden" name="repo_id" value="<%=repo.id%>">
-                                <button class="btn btn-success" style="display: none;" type="submit">Go!</button>
-                              </span>
-                            </div>
-                          </form>
-                          </div>
+                            <%= render(:partial => 'shared/update_repo_name', :locals => {:repo => repo})%>
                         </td>
                       <%end%>
                     </tr>
