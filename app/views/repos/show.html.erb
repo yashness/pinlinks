@@ -1,14 +1,11 @@
 <div class="links new">
-  <h2>Drop your links Here</h2>
   <%= form_tag("/create_links", :method=>'get', :multipart => true) do %>
   <table >
       <%= hidden_field_tag "repo_name", @repo.name  %>
     <tr>
-      <th>Links</th>
-      <td><%= text_area_tag "all_links" %></td>
+      <td><%= text_area_tag "all_links" , nil , placeholder: 'Drop all links here'%></td>
     </tr>
     <tr>
-      <th></th>
       <td>
         <%= submit_tag "Drop Links" , class: "btn btn-info"%>
       </td>

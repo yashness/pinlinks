@@ -7,15 +7,12 @@
         <%= form_tag("/create_links", :method=>'get', :multipart => true) do %>
         <table >
           <tr>
-            <th>Repo Name</th>
-            <td><%= text_field_tag "repo_name" %></td>
+            <td><%= text_field_tag "repo_name" , nil, placeholder: 'Enter folder name'%></td>
           </tr>
           <tr>
-            <th>Links</th>
-            <td><%= text_area_tag "all_links" %></td>
+            <td><%= text_area_tag "all_links" , nil , placeholder: 'Drop all links here'%></td>
           </tr>
           <tr>
-            <th></th>
             <td>
               <%= submit_tag "Drop Links" , class: "btn btn-info"%>
             </td>
@@ -31,12 +28,10 @@
         <table >
           <%= f.hidden_field :user_id, :value => current_user.id%>
           <tr>
-            <th><%= f.label(:name) %></th>
-            <td><%= f.text_field :name %></td>
+            <td><%= f.text_field :name , :placeholder=>"Folder Name"%></td>
           </tr>
           <tr>
-            <th><%= f.label(:tags) %></th>
-            <td><%= f.text_field(:tags) %></td>
+            <td><%= f.text_field :tags , :placeholder=>"Enter space-seperated Tags" %></td>
           </tr>
         </table>
           
