@@ -8,8 +8,16 @@ class Repo < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :user_id
 
   searchable do
-    text :name, :tags
+    text :name, :boost => 3
+    text :tags
     integer :user_id
+	text :links do
+      links.map { |link| link.tags }
+    end
+	text :links do
+      links.map { |link| link.actual_link }
+    end
   end
 
 end
+#use rake sunspot:reindex to reindex everytime you change searchable block
