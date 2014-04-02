@@ -129,6 +129,8 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    zeroclipboard-rails (0.0.12)
+      railties (>= 3.1)
 
 PLATFORMS
   ruby
@@ -144,3 +146,4 @@ DEPENDENCIES
   sunspot_rails
   sunspot_solr
   uglifier (>= 1.0.3)
+  zeroclipboard-rails
