@@ -1,0 +1,15 @@
+<div class='demo-area'>
+  <button class='my_clip_button' data-clipboard-target= <%= "catch_link_#{link.id}"%> data-clipboard-text='Default clipboard text from attribute' id= <%= "d_clip_button_#{link.id}"%> title='Catch Link in your Clipboard'>
+    <b>CatchLink</b>
+  </button>
+  <textarea id=<%= "catch_link_#{link.id}"%> style="display:none;" >
+    <%= link.actual_link.strip %>
+  </textarea>
+</div>
+
+<script>
+  $(document).ready(function() {
+    var str = <%= link.id%>
+    var clip = new ZeroClipboard($("#d_clip_button_" + str))
+  });
+</script>

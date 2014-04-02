@@ -85,6 +85,9 @@
                           <td> 
                               <%= render(:partial => 'shared/update_repo_name', :locals => {:repo => repo})%>
                           </td>
+                          <td> 
+                              <%= render(:partial => 'shared/catch_all_links', :locals => {:links => repo.links})%>
+                          </td>
                         <%end%>
                       </tr>
                     <%end%>

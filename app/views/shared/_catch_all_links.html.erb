@@ -1,0 +1,15 @@
+<% all_links = links.pluck(:actual_link).join("\n")%>
+<div class='demo-area'>
+  <button class='my_clip_button' data-clipboard-target= <%= "catch_all_links"%> data-clipboard-text='Default clipboard text from attribute' id= <%= "d_clip_button"%> title='Catch All Links in this Folder'>
+    <b>Catch_All_Links</b>
+  </button>
+  <textarea id=<%= "catch_all_links"%> style="display:none;" >
+    <%= all_links %>
+  </textarea>
+</div>
+
+<script>
+  $(document).ready(function() {
+    var clip = new ZeroClipboard($("#d_clip_button"))
+  });
+</script>
