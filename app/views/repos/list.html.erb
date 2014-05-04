@@ -1,4 +1,6 @@
-
+<% if not @user.nil?%>
+  <%= render(:partial => 'shared/search_form', :locals => {:user => @user})%>
+<%end%>
 <!-- Secure portion starts (show only if current user is present) -->
 <% if not current_user.nil? %>
       <div class="links new">
@@ -72,6 +74,8 @@
                         <td><%= link_to( "#{repo.name}" , "/#{@user.profile_name}/#{repo.name}") %>
                         </td>
                         <td><%= "created " + time_ago_in_words(repo.created_at) + " ago" %>
+                        </td>
+                        <td><%= pluralize(repo.fork_counts, " fork") %>
                         </td>
                         <td>
                           <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>

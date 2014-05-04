@@ -74,6 +74,8 @@
                         </td>
                         <td><%= "created " + time_ago_in_words(repo.created_at) + " ago" %>
                         </td>
+                        <td><%= pluralize(repo.fork_counts, " fork") %>
+                        </td>
                         <td>
                           <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
                         </td>
