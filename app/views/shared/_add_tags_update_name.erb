@@ -1,0 +1,6 @@
+<%= form_tag("/add_tags_update_name", method: "get") do %>
+	<%= text_field_tag :new_name, nil, placeholder: "Rename Folder" %>
+	<%= text_field_tag :tags, nil, placeholder: "Rename Folder" %>
+	<%= hidden_field_tag :repo_id, "#{repo.id}" %>
+  	<%= submit_tag "Submit" , style: "visibility:hidden;" %>
+<% end %>
