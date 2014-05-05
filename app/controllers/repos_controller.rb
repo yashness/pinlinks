@@ -132,20 +132,25 @@ class ReposController < ApplicationController
 
   def remove_tag
     tag_to_be_deleted = params[:tag]
-    repo_id = params[:repo_id]
-    @repo = Repo.find_by_id(repo_id)
+    @repo_id = params[:repo_id]
+    @repo = Repo.find_by_id(@repo_id)
     if not @repo.nil?
       tags = @repo.tags
       tags = tags.chomp.split(" ")
-
       if tags.include?(tag_to_be_deleted)
         tags.delete(tag_to_be_deleted)
         tags = tags.join(" ")
         @repo.tags = tags
         @repo.save
       end
+      respond_to do |format|
+          format.js
+      end
+    else
+      # check how to show Flash messages in this case.
+      redirect_to :back      
     end
-    redirect_to :back    
+
   end
 
 

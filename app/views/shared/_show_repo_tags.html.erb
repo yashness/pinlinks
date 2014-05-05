@@ -3,7 +3,7 @@
     <%tags = tags.chomp.split(" ")%>
     <% if not tags.empty?%>
 	    <% for tag in tags%>
-	    <%=link_to(tag, "/remove_repo_tag/#{repo.id}/#{tag}" , :class => "link tag")%>
+	    <%=link_to(tag, remove_repo_tag_path(:repo_id => repo.id , :tag => tag ) , :class => "link tag" , :method => :post , :remote => true)%>
 	    <%end%>
     <%end%>
 <%end%>
