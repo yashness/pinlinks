@@ -71,7 +71,7 @@ Pinlinks::Application.routes.draw do
   post '/remove_repo_tag', to: 'repos#remove_tag', as: :remove_repo_tag
   post '/remove_link_tag', to: 'links#remove_tag', as: :remove_link_tag
   post '/delete_repo', to: 'repos#destroy', as: :delete_repo
-  get '/:repo_name/delete_link/:link_id', to: 'links#destroy'  
+  post '/delete_link', to: 'links#destroy' , as: :delete_link  
   get '/:repo_name/new_links', to: 'links#new'  
   get '/:user_name/:repo_name', to: 'repos#show'  
   get '/create_links', to: 'links#create'  

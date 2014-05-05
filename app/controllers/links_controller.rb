@@ -61,9 +61,12 @@ class LinksController < ApplicationController
 			link_id = params[:link_id]
 			link = Link.find_by_id(link_id)
 			if not link.nil?
+				@link_id = link.id
 				link.delete
 				flash[:alert] = "Link successfully deleted!"
-				redirect_to("/#{current_user.profile_name}/#{repo_name}")
+				respond_to do |format|
+		          format.js
+		      end
 			else
 				redirect_to("/#{current_user.profile_name}/#{repo_name}")
 			end

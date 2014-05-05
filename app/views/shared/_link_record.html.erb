@@ -17,6 +17,6 @@
           <%= render(:partial => 'shared/catch_link', :locals => {:link => link})%>
       </td>
       <td>
-          <%= link_to("Delete " , "/#{link.repo.name}/delete_link/#{link.id}") %>
+         <%=link_to("Delete Link", delete_link_path(:repo_name => link.repo.name , :link_id => link.id) , :class => "link tag" , :method => :post , :remote => true)%>
       </td>
   <% end %>
