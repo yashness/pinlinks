@@ -77,8 +77,9 @@ class LinksController < ApplicationController
 	end
   end
 
-  def add_tags
+  def add_tags_and_describe
     @tags = params[:tags]
+    @desription = params[:description]
     link_id = params[:link_id]
     @link = Link.find_by_id(link_id)
     if @link.tags.nil? || @link.tags.empty?
@@ -86,14 +87,6 @@ class LinksController < ApplicationController
   	else
     	@link.tags += " " + @tags
     end
-    @link.save
-    redirect_to :back    
-  end
-
-  def add_description
-    @desription = params[:description]
-    link_id = params[:link_id]
-    @link = Link.find_by_id(link_id)
     @link.description = @desription 
     @link.save
     redirect_to :back    

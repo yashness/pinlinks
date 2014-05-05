@@ -65,12 +65,11 @@ Pinlinks::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 
   
-  get '/add_link_tags', to: 'links#add_tags', as: :add_link_tag_path
+  get '/add_tags_and_describe', to: 'links#add_tags_and_describe'
   get '/add_tags_update_name', to: 'repos#add_tags_update_name'
   get '/repo_search_results', to: 'repos#repo_search_results'
   get '/remove_repo_tag/:repo_id/:tag', to: 'repos#remove_tag', as: :remove_repo_tag_path
   get '/remove_link_tag/:link_id/:tag', to: 'links#remove_tag', as: :remove_link_tag_path
-  get '/add_link_description', to: 'links#add_description', as: :add_link_description_path
   get '/delete_repo/:repo_id', to: 'repos#destroy'  
   get '/:repo_name/delete_link/:link_id', to: 'links#destroy'  
   get '/:repo_name/new_links', to: 'links#new'  

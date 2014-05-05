@@ -1,0 +1,6 @@
+<%= form_tag("/add_tags_and_describe", method: "get") do %>
+	<%= text_field_tag :tags, nil, placeholder: "Add Tags" %>
+	<%= text_field_tag :description, nil, placeholder: "Describe" %>
+	<%= hidden_field_tag :link_id, "#{link.id}" %>
+  	<%= submit_tag "Submit" , style: "visibility:hidden;" %>
+<% end %>

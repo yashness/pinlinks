@@ -41,10 +41,7 @@
                       </td>
                       <% if owner %>
                       <td> 
-                        <%= render(:partial => 'shared/add_link_tags', :locals => {:link => link})%>
-                      </td>
-                      <td> 
-                        <%= render(:partial => 'shared/add_link_description', :locals => {:link => link})%>
+                        <%= render(:partial => 'shared/add_tags_and_describe', :locals => {:link => link})%>
                       </td>
                       <td> 
                         <%= render(:partial => 'shared/catch_link', :locals => {:link => link})%>
