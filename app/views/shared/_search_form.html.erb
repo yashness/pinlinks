@@ -1,9 +1,5 @@
-<form action="/repo_search_results">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search repos/links" name="search">
-      <span class="input-group-btn">
-        <input type="hidden" name="user_name" value="<%=user.profile_name%>">
-        <button class="btn btn-success" style="display: none;" type="submit">Go!</button>
-      </span>
-    </div>
-</form>
+<%= form_tag("/repo_search_results", method: "get") do %>
+	<%= text_field_tag :search, nil, placeholder: "Search repos/links" %>
+	<%= hidden_field_tag :user_name, "#{user.profile_name}" %>
+  	<%= submit_tag "Submit" , style: "visibility:hidden;" %>
+<% end %>
