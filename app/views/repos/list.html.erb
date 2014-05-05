@@ -70,26 +70,8 @@
                   <%end%>
                   <% @repos.each do |repo| %>
                     <%if not (repo.is_private && !owner)%>
-                      <tr class="<%= cycle('odd','even') %>">                   
-                        <td><%= link_to( "#{repo.name}" , "/#{@user.profile_name}/#{repo.name}") %>
-                        </td>
-                        <td><%= "created " + time_ago_in_words(repo.created_at) + " ago" %>
-                        </td>
-                        <td><%= pluralize(repo.fork_counts, " fork") %>
-                        </td>
-                        <td>
-                          <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
-                        </td>
-                        <% if owner %>
-                          <td><%= link_to("Delete Folder" , "/delete_repo/#{repo.id}" , { confirm: "Are you sure, you want to delete this folder?"}) %>
-                          </td>
-                          <td> 
-                              <%= render(:partial => 'shared/add_tags_update_name', :locals => {:repo => repo})%>
-                          </td>
-                          <td> 
-                              <%= render(:partial => 'shared/catch_all_links', :locals => {:links => repo.links})%>
-                          </td>
-                        <%end%>
+                      <tr class="<%= cycle('odd','even') %>" id= "<%= 'repo_record_' + repo.id.to_s %>" >                                             
+                        <%= render(:partial => 'shared/repo_record', :locals => {:repo => repo ,:links => repo.links , :user => @user ,:owner => owner} )%>
                       </tr>
                     <%end%>
                   <%end%>

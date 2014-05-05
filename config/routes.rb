@@ -66,7 +66,7 @@ Pinlinks::Application.routes.draw do
 
   
   get '/add_tags_and_describe', to: 'links#add_tags_and_describe'
-  get '/add_tags_update_name', to: 'repos#add_tags_update_name'
+  post '/add_tags_update_name', to: 'repos#add_tags_update_name'
   get '/repo_search_results', to: 'repos#repo_search_results'
   get '/remove_repo_tag/:repo_id/:tag', to: 'repos#remove_tag', as: :remove_repo_tag_path
   get '/remove_link_tag/:link_id/:tag', to: 'links#remove_tag', as: :remove_link_tag_path

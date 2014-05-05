@@ -104,27 +104,27 @@ class ReposController < ApplicationController
     new_name= params[:new_name]
     @repo = Repo.find_by_id(repo_id)
 
-    if @repo.tags.nil? || @repo.tags.empty?
-      @repo.tags = @tags
-    else
-      @repo.tags += " " + @tags
-    end
-    @repo.save
-
-
     if not @repo.nil?
-      @repo.name = new_name     
+      new_tags = @tags.chomp.split(" ") rescue []
+      repo_tags = @repo.tags.chomp.split(" ") rescue nil
+      final_tags = repo_tags | new_tags
+      @repo.tags = final_tags.join(" ") rescue ""
+      @repo.save
+      @repo.name = new_name
       if @repo.save
-        flash[:alert] = "Successfully updated your repo name."
+        # check how to show Flash messages in this case.
+        # Flash message would be : Your Repo has been updated.
+        respond_to do |format|
+                format.js
+        end
       else
-        error_messages = @repo.errors.full_messages
-        error_messages = error_messages.join("\n")
-        flash[:alert] = "Repo Name couldn't updated because: \n #{error_messages}"
+        # Handle this case later, (When repo name already exists)
+        # Ask whether, want to merge both repos or choos different name
+        # Do further steps accordingly.
       end
-      redirect_to :back    
     else
-      flash[:alert] = "Faulty request."
-      redirect_to :back    
+      # check how to show Flash messages in this case.
+      redirect_to :back
     end
 
   end
