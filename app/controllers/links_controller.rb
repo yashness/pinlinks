@@ -82,14 +82,19 @@ class LinksController < ApplicationController
     @desription = params[:description]
     link_id = params[:link_id]
     @link = Link.find_by_id(link_id)
-    if @link.tags.nil? || @link.tags.empty?
-    	@link.tags = @tags
-  	else
-    	@link.tags += " " + @tags
-    end
-    @link.description = @desription 
-    @link.save
-    redirect_to :back    
+
+    if not @link.nil?
+	    new_tags = @tags.chomp.split(" ") rescue []
+	    link_tags = @link.tags.chomp.split(" ") rescue nil
+	    final_tags = link_tags | new_tags
+	    @link.tags = final_tags.join(" ") rescue ""
+	    @link.description = @desription 
+	    @link.save
+        respond_to do |format|
+                format.js
+        end
+	end
+
   end
 
   def remove_tag
@@ -106,8 +111,13 @@ class LinksController < ApplicationController
 	      @link.tags = tags
 	      @link.save
 	    end
-	end
-    redirect_to :back    
+	    respond_to do |format|
+          format.js
+      end
+	else
+      # check how to show Flash messages in this case.
+      redirect_to :back      
+    end
   end
 
 end

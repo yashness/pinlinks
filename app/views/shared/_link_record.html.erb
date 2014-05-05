@@ -1,0 +1,22 @@
+  <td> 
+      <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
+  </td>
+  <td>
+      <%= render(:partial => 'shared/show_link_tags', :locals => {:link => link})%>
+  </td>
+  <td>
+          <%if not link.description.nil? %>
+                <%= link.description %>
+          <%end%>
+  </td>
+  <% if owner %>
+      <td> 
+          <%= render(:partial => 'shared/add_tags_and_describe', :locals => {:link => link})%>
+      </td>
+      <td> 
+          <%= render(:partial => 'shared/catch_link', :locals => {:link => link})%>
+      </td>
+      <td>
+          <%= link_to("Delete " , "/#{link.repo.name}/delete_link/#{link.id}") %>
+      </td>
+  <% end %>

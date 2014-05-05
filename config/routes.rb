@@ -65,7 +65,7 @@ Pinlinks::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
 
   
-  get '/add_tags_and_describe', to: 'links#add_tags_and_describe'
+  post '/add_tags_and_describe', to: 'links#add_tags_and_describe'
   post '/add_tags_update_name', to: 'repos#add_tags_update_name'
   get '/repo_search_results', to: 'repos#repo_search_results'
   post '/remove_repo_tag', to: 'repos#remove_tag', as: :remove_repo_tag

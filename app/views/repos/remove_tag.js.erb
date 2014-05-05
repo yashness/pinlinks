@@ -1,2 +1,2 @@
-var id = '<%= @repo_id %>';
+var id = '<%= @link.id %>';
 $('#' + 'repo_record_' + id).html("<%= escape_javascript(render(:partial => 'shared/repo_record', :locals => {:repo => @repo ,:links => @repo.links , :user => current_user, :owner => true} )) %>")
