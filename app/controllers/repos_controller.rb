@@ -67,14 +67,17 @@ class ReposController < ApplicationController
     repo_name = repo_name.chomp.split(" ")
     repo_name = repo_name.join("_")  
     @repo.name = repo_name
-  
+
+    logger.info "errors : #{@repo.errors.inspect}"  
     if @repo.save
-      flash[:alert] = "Repo created Successfully!"
-  		redirect_to("/")
+      #check how to show flash messages over here(in presence of ajax).
+      respond_to do |format|
+          format.js
+      end
   	else
-      error_messages = @repo.errors.full_messages
-      error_messages = error_messages.join("\n")
+      error_messages = @repo.errors.full_messages.join("\n")
       flash[:alert] = "Repo couldn't be created because: \n #{error_messages}"
+      #check how to show flash messages over here(in presence of ajax).
       redirect_to("/")
   	end
   end
