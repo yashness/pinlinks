@@ -5,7 +5,7 @@
 <% if not current_user.nil? %>
       <div class="links new">
         <h2>Drop your links Here</h2>
-        <%= form_tag("/create_links", :method=>'post', :remote => true) do %>
+        <%= form_tag create_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}  do %>
         <table >
           <tr>
             <td><%= text_field_tag "repo_name" , nil, placeholder: 'Enter folder name'%></td>

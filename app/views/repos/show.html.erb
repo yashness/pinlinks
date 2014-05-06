@@ -1,7 +1,7 @@
 <%= render(:partial => 'shared/catch_all_links', :locals => {:links => @links})%>
 
 <div class="links new">
-  <%= form_tag("/create_links", :method=>'get', :multipart => true) do %>
+  <%= form_tag( create_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>
   <table >
       <%= hidden_field_tag "repo_name", @repo.name  %>
     <tr>
@@ -24,10 +24,10 @@
               <thead>
                 Links in this Repo:
               </thead>
-              <tbody>
+              <tbody id="link_list">
               <% owner = current_user==@repo.user %>
                 <% @links.each do |link| %>
-                  <tr class="<%= cycle('odd','even') %>" id= "<%= 'link_record_' + link.id.to_s %>" >
+                  <tr id= "<%= 'link_record_' + link.id.to_s %>" >
                     <%= render(:partial => 'shared/link_record', :locals => {:repo => link.repo ,:link => link , :user => @user ,:owner => owner} )%>
                   </tr>
                   <%end%> 

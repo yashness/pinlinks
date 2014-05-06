@@ -1,0 +1,5 @@
+<% for link in links%>
+  <tr id= <%='link_record_' + link.id.to_s %> >
+  <%= render(:partial => 'shared/link_record', :locals => {:repo => link.repo ,:link => link , :user => current_user ,:owner => true} )%>
+  </tr>
+<%end%>

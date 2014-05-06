@@ -17,17 +17,23 @@ class LinksController < ApplicationController
 	  	all_links = all_links.chomp.split("\n")
 		@repo = Repo.where( :name => repo_name , :user_id => current_user.id).first
 		if not @repo.nil?
+		# Means the repo name already exists.
+		# Ask User through modal form, whether he want to merge links in existing folder.
+		# Or take a new name Or go ahead with auto suggested name
+		# Handle all these cases later...
 		  	repo_id = @repo.id
 		  	for link in all_links
 			  	@link = Link.new()
-			  	@link.actual_link = link
+			  	@link.actual_link = link.strip
 			  	@link.repo_id = repo_id
 			  	@link.save
 		  	end
 		  	if all_links.empty?
-				flash[:alert] = "Please enter atlest one link!"
+				#flash[:alert] = "Please enter atlest one link!"
+		  		# Check how to show flash message here
 			else
-				flash[:alert] = "Links added to existing repository!"
+				#flash[:alert] = "Links added to existing repository!"
+		  		# Check how to show flash message here
 			end
 		else
 			#make a new repo with repo_name and add all_links in it
@@ -43,12 +49,17 @@ class LinksController < ApplicationController
 			  	@link.actual_link = link
 			  	@repo.links << @link
 		  	end
-			flash[:alert] = "New Repo sucessfully created!"
+			#flash[:alert] = "New Repo sucessfully created!"
+	  		# Check how to show flash message here
 		end
-	  		redirect_to("/#{current_user.profile_name}/#{repo_name}")
+		@saved_links = @repo.links
+		respond_to do |format|
+        	format.js
+      	end
 	else
 			#flash message that reponame cant be blank
-			flash[:alert] = "Repo-name cannot be blank!"
+			#flash[:alert] = "Repo-name cannot be blank!"
+	  		# Check how to show flash message here
 	  		redirect_to("/#{current_user.profile_name}/#{repo_name}")
 	end
   end
