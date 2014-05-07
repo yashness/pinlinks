@@ -1,5 +1,5 @@
 <%= render(:partial => 'shared/catch_all_links', :locals => {:links => @links})%>
-
+<% if not current_user.nil? %>
 <div class="links new">
   <%= form_tag( create_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>
 
@@ -12,6 +12,7 @@
       <tr><td><%= submit_tag "Drop Links" , :class => "btn btn-info" , :id => "drop_links"%></td></tr>
   <%end%>
 </div>
+<% end %>
 <%if  !@has_forked_this_repo && !@is_user_same %>
   <%= link_to "Fork ", "/fork_repo/#{@user.id}/#{@repo.id}"  %>
 <%end%>

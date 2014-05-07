@@ -30,7 +30,7 @@ class ReposController < ApplicationController
 	repo_name = params[:repo_name]
 	@user = User.find_by_profile_name(user_name)
   @repo = Repo.where( :name => repo_name , :user_id => @user.id).first
-
+  @is_user_same
   if not @repo.nil?
    	@links = @repo.links
     # repo is private and user looking at it is not current_user then, dont allow him
@@ -38,21 +38,22 @@ class ReposController < ApplicationController
         #redirect to error page
         render file: 'public/404', status: 404, formats: [:html]    
     end
+    @is_user_same = false
+    if current_user == @user 
+       @is_user_same = true
+    end
+    @has_forked_this_repo = false     
+    repo_id = @repo.id if not @repo.nil? rescue 0
+    current_user_id = current_user.id if not current_user.nil? rescue 0
+    user_forked = UserFork.where( :user_id => current_user_id , :repo_id => repo_id)
+      if not user_forked.empty?
+         @has_forked_this_repo = true
+      end
   else
    	# redirect to error page
     render file: 'public/404', status: 404, formats: [:html]
   end
      
-  @is_user_same = false
-  if current_user == @user 
-     @is_user_same = true
-  end
-
-  @has_forked_this_repo = false     
-  user_forked = UserFork.where( :user_id => current_user.id , :repo_id => @repo.id)
-    if not user_forked.empty?
-       @has_forked_this_repo = true
-    end
 
   end
 
