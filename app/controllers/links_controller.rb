@@ -16,6 +16,7 @@ class LinksController < ApplicationController
   	if not repo_name.blank?
 	  	all_links = all_links.chomp.split("\n")
 		@repo = Repo.where( :name => repo_name , :user_id => current_user.id).first
+		@saved_links = []
 		if not @repo.nil?
 		# Means the repo name already exists.
 		# Ask User through modal form, whether he want to merge links in existing folder.
@@ -26,7 +27,7 @@ class LinksController < ApplicationController
 			  	@link = Link.new()
 			  	@link.actual_link = link.strip
 			  	@link.repo_id = repo_id
-			  	@link.save
+			  	@saved_links << @link if @link.save
 		  	end
 		  	if all_links.empty?
 				#flash[:alert] = "Please enter atlest one link!"
@@ -49,10 +50,10 @@ class LinksController < ApplicationController
 			  	@link.actual_link = link
 			  	@repo.links << @link
 		  	end
+			@saved_links = @repo.links
 			#flash[:alert] = "New Repo sucessfully created!"
 	  		# Check how to show flash message here
 		end
-		@saved_links = @repo.links
 		respond_to do |format|
         	format.js
       	end
