@@ -4,27 +4,17 @@
 <!-- Secure portion starts (show only if current user is present) -->
 <% if not current_user.nil? %>
       <div class="links new">
-        <h2>Drop your links Here</h2>
-        <%= form_tag create_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}  do %>
-        <table >
-          <tr>
-            <td><%= text_field_tag "repo_name" , nil, placeholder: 'Enter folder name'%></td>
-          </tr>
-          <tr>
-            <td><%= text_area_tag "all_links" , nil , placeholder: 'Drop all links here'%></td>
-          </tr>
-          <tr>
-            <td>private:<%= check_box_tag(:is_private) %></td>
-          </tr>
-          <tr>
-            <td>
-              <%= submit_tag "Drop Links" , class: "btn btn-info"%>
-            </td>
-          </tr>
-        </table >
+        <h2>Drop Your Links!</h2>
+        <%= form_tag( create_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>
+          <td><%= text_field_tag "repo_name" , nil, placeholder: 'Enter folder name'%></td>
+          <%= text_area_tag "all_links" , nil , style: "display:none;" %>
+          <div id = "text_box_records">
+            <tr><td><%= text_field_tag "text_0" , nil , placeholder: 'Drop Link' %></td></tr>
+          </div>
+            <tr><td><a href="#" id="add_this" class="btn btn-success">AddBox</a></td></tr>
+            <tr><td><%= submit_tag "Drop Links" , :class => "btn btn-info" , :id => "drop_links"%></td></tr>
         <%end%>
       </div>
-
 
       <div class="repo new">
         <h2>Create repo</h2>
@@ -82,3 +72,43 @@
               </tbody>
             </table>
 </div>
+
+<script type="text/javascript">
+jQuery(document).ready( function () {
+  var i = 0;
+  $("#add_this").click( function() {
+    $("#text_box_records").append("<tr><td><%= escape_javascript(text_field_tag '100' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'X_100' class='remove_it label label-default'> X</a></td></tr>");
+    i = i +1 ;
+    var str = i.toString().match(/[0-9]+/)[0]
+    $('#100').attr('id', "text_" + str);
+    $('#X_100').attr('id', "X_" + str);
+
+    console.log("Final : \n" +  $("#all_links").val() );
+    console.log($('#text_' + i.toString()));
+    $('#text_' + i.toString()).focus();
+    return false;
+  });
+  $('#text_box_records').on( 'click' , '.remove_it' , function() {
+     // console.log(this.id);
+    $(this).parent().parent().remove();
+    return false;
+  });
+
+  $("#drop_links_form").submit(function() {
+     console.log("Ok.. Now I am Submitted!!!!");
+     var all_links_to_submit = "";
+     var x = 0;
+     for(x=0; x<= i ; x++){
+       var add_link = $("#text_" + x.toString()).val()
+       if(add_link){
+        all_links_to_submit = all_links_to_submit + add_link + "\n"
+       }
+       console.log("Adding: " + add_link + "\n");
+     }
+    $('#' + 'all_links').val("")
+    $("#all_links").val( all_links_to_submit ) ;
+
+    return true;
+  });
+});
+</script> 
