@@ -75,6 +75,7 @@ Pinlinks::Application.routes.draw do
   get '/:repo_name/new_links', to: 'links#new'  
   get '/:user_name/:repo_name', to: 'repos#show'  
   post '/create_links', to: 'links#create'  , as: :create_links 
+  post '/create_nouser_links', to: 'links#create_without_user'  , as: :create_nouser_links 
   post '/create_repos', to: 'repos#create' , as: :create_repo  
   get '/new_repo', to: 'repos#new'  
   get '/:user_name', to: 'repos#list'

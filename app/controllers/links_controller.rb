@@ -65,6 +65,26 @@ class LinksController < ApplicationController
 	end
   end
 
+  def create_without_user
+  	all_links = params[:all_links]
+  	all_links = all_links.chomp.split("\n")
+  	repo_name = params[:repo_name]
+    repo_name = repo_name.chomp.split(" ")
+    repo_name = repo_name.join("_")  
+
+    if not repo_name.blank?
+    	@repo = Repo.new
+		@repo.name = repo_name
+		@repo.save
+		for link in all_links
+		  	@link = Link.new()
+		  	@link.actual_link = link
+		  	@repo.links << @link
+		end
+    end
+    render :nothing => true
+  end
+
   def destroy
   	repo_name = params[:repo_name]
   	repo = Repo.find_by_name(repo_name)

@@ -1,0 +1,101 @@
+<div class="links new">
+  <%= form_tag( create_nouser_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>
+
+    <%= hidden_field_tag "repo_name", random_string  %>
+    <%= text_area_tag "all_links" , nil , style: "display:none;" %>
+    <div id = "text_box_records">
+      <tr><td><%= text_field_tag "text_0" , nil , placeholder: 'Drop Link' %></td></tr>
+    </div>
+      <tr><td><a href="#" id="add_this" class="btn btn-success">AddBox</a></td></tr>
+      <tr><td><%= submit_tag "Drop Links" , :class => "btn btn-info" , :id => "drop_links"%></td></tr>
+      <br/>
+  <%end%>
+      <tr><div id="will_store_at"><td >Will Store at : www.pinlinks.com/<%= random_string %></td></div></tr>
+      <tr><td><a href="#" id="add_repo_name" >Add Folder Name Suffix?</a></td></tr>
+
+</div>
+
+
+<script type="text/javascript">
+var flag = 0;//Shows state whether the enter repo name text field is On or Off
+jQuery(document).ready( function () {
+  var i = 0;
+
+  $("#add_this").click( function() {
+    $("#text_box_records").append("<tr><td><%= escape_javascript(text_field_tag '100' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'X_100' class='remove_it label label-default'> X</a></td></tr>");
+    i = i +1 ;
+    var str = i.toString().match(/[0-9]+/)[0]
+    $('#100').attr('id', "text_" + str);
+    $('#X_100').attr('id', "X_" + str);
+    console.log($('#text_' + i.toString()));
+    $('#text_' + i.toString()).focus();
+    return false;
+  });
+  $('#text_box_records').on( 'click' , '.remove_it' , function() {
+     // console.log(this.id);
+    $(this).parent().parent().remove();
+    return false;
+  });
+
+  $("#drop_links_form").submit(function() {
+     console.log("Ok.. Now I am Submitted!!!!");
+     var all_links_to_submit = "";
+     var x = 0;
+     for(x=0; x<= i ; x++){
+       var add_link = $("#text_" + x.toString()).val()
+       if(add_link){
+        all_links_to_submit = all_links_to_submit + add_link + "\n"
+       }
+       console.log("Adding: " + add_link + "\n");
+     }
+    $('#' + 'all_links').val("")
+    $("#all_links").val( all_links_to_submit ) ;
+    console.log("Final : \n" +  $("#all_links").val() );
+
+	// setTimeout(function(){ 
+		window.location="http://localhost:3000/";
+    // }, 100);
+
+    return true;
+  });
+
+  $(document).on( 'click' , '#add_repo_name' , function() {
+     // console.log(this.id);
+    if(flag == 0){
+	    flag = flag + 1; 
+	    console.log("I am : " + flag.toString());
+	    $(this).parent().append("<div id='wrapper'><%= escape_javascript(text_field_tag 'name_repo' , nil , placeholder: 'Name Folder' )%>  <tr><td><a href='#' id = 'close_repo_name' class='label label-default'> X</a></td></tr></div>")
+	}
+    return false;
+  });
+
+	$(document).bind('input', function(){
+	  console.log('this actually works');
+	  var x = $("#name_repo").val();
+	  if(!(jQuery.type( x ) === "undefined")){
+	  var str = x.replace(/\s+/g," ").split(' ').join('_');
+		  if(str.length <= 20){
+			  console.log( "Entered Name :" + str);
+			  var random_string = '<%= random_string %>'
+			  console.log("random_string :" + random_string);
+			  $('#will_store_at').text("Will Store at : www.pinlinks.com/" + random_string + str); 
+			  $("#repo_name").val(random_string + str);
+		  }
+	  }
+	  return false;
+	});
+
+  $(document).on( 'click' , '#close_repo_name' , function() {
+    if(flag == 1){
+	  	flag = flag - 1;
+	    console.log("I am : " + flag.toString());
+	  	$("#name_repo").parent().remove();
+		var random_string = '<%= random_string %>'
+		$('#will_store_at').text("Will Store at : www.pinlinks.com/" + random_string ); 
+        $("#repo_name").val(random_string);
+  	}
+  });
+
+});
+
+</script> 

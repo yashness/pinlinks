@@ -41,6 +41,7 @@
 <%end%>
 <!-- Secure portion ends ( show only if current user is present) -->
 
+<% if not current_user.nil? %>
 <div class="list_of_repos">	
             <% if (current_user == @user and not current_user.nil?) or (@user.nil? and not current_user.nil?) %>
               <p>Your repositories:</p>
@@ -72,7 +73,6 @@
               </tbody>
             </table>
 </div>
-
 <script type="text/javascript">
 jQuery(document).ready( function () {
   var i = 0;
@@ -112,3 +112,8 @@ jQuery(document).ready( function () {
   });
 });
 </script> 
+
+<% else %>
+  <%= render(:partial => 'shared/home', :locals => {:random_string => @random_string})%>
+<% end %>
+

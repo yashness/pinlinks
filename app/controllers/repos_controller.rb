@@ -1,9 +1,11 @@
 # put before filter here
+require 'securerandom'
 class ReposController < ApplicationController
   before_filter :authenticate_user!, only: [:create, :destroy, :add_tag]
 
   def index
     list
+    @random_string = SecureRandom.hex(5)
   	render('list')
   end
 
