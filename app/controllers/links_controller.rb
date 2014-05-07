@@ -81,6 +81,13 @@ class LinksController < ApplicationController
 		  	@link.actual_link = link
 		  	@repo.links << @link
 		end
+
+        session[:repo_names] ||= ""
+        session_repos = session[:repo_names].split(",")
+        session_repos << repo_name
+        session[:repo_names] = session_repos.join(",")
+		logger.info "Session Set and is:"
+		logger.info session[:repo_names].inspect
     end
     render :nothing => true
   end
