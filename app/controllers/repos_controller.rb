@@ -106,8 +106,8 @@ class ReposController < ApplicationController
     @repo = Repo.find_by_id(repo_id)
 
     if not @repo.nil?
+      new_tags = @tags.chomp.split(" ") rescue []
       if !new_tags.nil? && !new_tags.empty? 
-        new_tags = @tags.chomp.split(" ") rescue []
         repo_tags = @repo.tags.chomp.split(" ") rescue nil
         final_tags = repo_tags | new_tags
         @repo.tags = final_tags.join(" ") rescue ""
