@@ -3,7 +3,7 @@ class Repo < ActiveRecord::Base
 
   belongs_to :user
   has_many :links
-  validates :user_id, presence: true
+  # validates :user_id, presence: true
   validates :name, presence: true
   validates_uniqueness_of :name, :scope => :user_id
 
