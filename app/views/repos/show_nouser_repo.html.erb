@@ -1,0 +1,15 @@
+<!-- show list of links in this repo -->
+<div class="list_of_links"> 
+            <table class="table">
+              <thead>
+                Links in this Repo:
+              </thead>
+              <tbody id="link_list">
+                <% @links.each do |link| %>
+                  <tr id= "<%= 'link_record_' + link.id.to_s %>" >
+                    <%= render(:partial => 'shared/link_record', :locals => {:repo => @repo ,:link => link ,:owner => false} )%>
+                  </tr>
+                  <%end%> 
+              </tbody>
+            </table>
+</div>

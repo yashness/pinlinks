@@ -59,6 +59,19 @@ class ReposController < ApplicationController
 
   end
 
+  def show_nouser_repo
+      repo_name = params[:repo_name]
+      @repo = Repo.where( :name => repo_name ).first
+      if not @repo.nil?
+          @links = @repo.links
+          # render(:partial => 'shared/show_nouser_repo', :locals => { :repo => @repo , :links => @links})
+      else
+          render file: 'public/404', status: 404, formats: [:html]
+      end
+
+  end
+
+
 
   def new
  	@repo = Repo.new
