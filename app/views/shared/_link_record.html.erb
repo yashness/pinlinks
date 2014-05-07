@@ -1,16 +1,18 @@
   <td> 
       <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
   </td>
-  <td>
+
+
+  <td id=   "<%= 'link_tags_' + link.id.to_s %>" >
       <%= render(:partial => 'shared/show_link_tags', :locals => {:link => link})%>
   </td>
-  <td>
-          <%if not link.description.nil? %>
-                <%= link.description %>
-          <%end%>
+  <td id= "<%= 'link_description_' + link.id.to_s %>" >
+        <%= link.description if not link.description.nil?%>
   </td>
+
+
   <% if owner %>
-      <td> 
+      <td  > 
           <%= render(:partial => 'shared/add_tags_and_describe', :locals => {:link => link})%>
       </td>
       <td> 

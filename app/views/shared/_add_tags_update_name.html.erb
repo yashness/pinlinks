@@ -1,4 +1,4 @@
-<%= form_tag("/add_tags_update_name", remote: true) do %>
+<%= form_tag("/add_tags_update_name", remote: true , :id => "add_tags_update_name_#{repo.id.to_s}") do %>
 	<%= text_field_tag :new_name, nil, placeholder: "Rename Folder" %>
 	<%= text_field_tag :tags, nil, placeholder: "Add Tags" %>
 	<%= hidden_field_tag :repo_id, "#{repo.id}" %>

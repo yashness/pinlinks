@@ -1,2 +1,7 @@
 var id = '<%= @repo.id %>';
-$('#' + 'repo_record_' + id).html("<%= escape_javascript(render(:partial => 'shared/repo_record', :locals => {:repo => @repo ,:links => @repo.links , :user => current_user, :owner => true} )) %>")
+// console.log("I got:")
+// console.log($('#' + 'repo_name_' + id))
+// console.log($('#' + 'repo_tags_' + id))
+$('#' + 'repo_tags_' + id).html("<%= escape_javascript(render(:partial => 'shared/show_repo_tags', :locals => {:repo => @repo})) %>")
+$($('#' + 'repo_name_' + id).children()[0]).text('<%= @repo.name %>')
+$('#' + 'add_tags_update_name_' + id)[0].reset();
