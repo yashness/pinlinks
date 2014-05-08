@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <table class="table">
+        <thead>
+            <h1>Hello , Someone you know has sent you some links using pinlinks.com</h1>
+                  <tr>
+                    <td>Link</td>
+                    <td>Tags</td>
+                    <td>Description</td>
+                  </tr>
+        </thead>
+        <tbody id="links">
+             <% @links.each do |link| %>
+                  <tr>
+                    <td> 
+                        <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
+                    </td>
+                    <td>
+                        <%= render(:partial => 'shared/show_link_tags', :locals => {:link => link})%>
+                    </td>
+                    <td>
+                        <%= link.description if not link.description.nil?%>
+                    </td>
+                  </tr>
+             <%end%> 
+        </tbody>
+      </table>
+    <p>
+      To share and send links in realtime visit <a href="www.pinlinks.com">pinlinks</a>
+    </p>
+    <p>PinLinks Team</p>
+  </body>
+</html>
