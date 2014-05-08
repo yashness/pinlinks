@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :create, :destroy, :add_tag, :add_description]
+  before_filter :authenticate_user!, only: [:new, :create]
   def index
   end
 
@@ -113,8 +113,11 @@ class LinksController < ApplicationController
   def destroy
   	repo_name = params[:repo_name]
   	repo = Repo.find_by_name(repo_name)
+  	session_repo_names = session[:repo_names] rescue ""
   	if not repo.nil?
-	  	if current_user == repo.user
+  		# check if repo belongs to current_user or the non-platform user has just created
+  		# it (ie. it would be in his session , hence he should be allowed to destroy link.)
+	  	if (current_user == repo.user ) || (session[:repo_names].include?(repo_name))
 			link_id = params[:link_id]
 			link = Link.find_by_id(link_id)
 			if not link.nil?
@@ -125,15 +128,17 @@ class LinksController < ApplicationController
 		          format.js
 		      end
 			else
-				redirect_to("/#{current_user.profile_name}/#{repo_name}")
+				#flash[:alert] = "Link doesn't exit. Bad Request."
+				render :nothing => true
 			end
 		else
-			flash[:alert] = "You cannot delete others link!"
-			redirect_to :back
+			#flash[:alert] = "You cannot delete others link!"
+			render :nothing => true
 		end
 	else 
-		flash[:alert] = "Invalid Request!"
-		redirect_to :back
+		# check how to show these flash messages, cuz its an ajax request.
+		# flash[:alert] = "Invalid Request!"
+		render :nothing => true
 	end
   end
 
@@ -142,17 +147,27 @@ class LinksController < ApplicationController
     @desription = params[:description]
     link_id = params[:link_id]
     @link = Link.find_by_id(link_id)
-
+    repo = @link.repo rescue nil
+    owner_user = repo.user rescue nil
+    session_repo_names = session[:repo_names] rescue ""
     if not @link.nil?
-	    new_tags = @tags.chomp.split(" ") rescue []
-	    link_tags = @link.tags.chomp.split(" ") rescue nil
-	    final_tags = link_tags | new_tags
-	    @link.tags = final_tags.join(" ") rescue ""
-	    @link.description = @desription 
-	    @link.save
-        respond_to do |format|
-                format.js
-        end
+    	#check if owner of the link is same as current user... (Not owner can be nil if its as no-user repo's link)
+    	# Or session contains the repo_name (ie its a non-user link and user on browser has created it.)
+	    if (((current_user == owner_user) && (not owner_user.nil?)) || (session_repo_names.include?(repo.name)) )
+		    new_tags = @tags.chomp.split(" ") rescue []
+		    link_tags = @link.tags.chomp.split(" ") rescue []
+		    final_tags = link_tags | new_tags
+		    @link.tags = final_tags.join(" ") rescue ""
+		    @link.description = @desription 
+		    @link.save
+	        respond_to do |format|
+	                format.js
+	        end
+	    else
+			render :nothing => true
+	    end
+	else
+		render :nothing => true
 	end
 
   end
@@ -161,23 +176,30 @@ class LinksController < ApplicationController
     tag_to_be_deleted = params[:tag]
     link_id = params[:link_id]
     @link = Link.find_by_id(link_id)
+    repo = @link.repo rescue nil
+    owner_user = repo.user rescue nil
+    session[:repo_names] ||= ""
+    session_repo_names = session[:repo_names]
     if not @link.nil?
-	    tags = @link.tags
-	    tags = tags.chomp.split(" ")
-
-	    if tags.include?(tag_to_be_deleted)
-	      tags.delete(tag_to_be_deleted)
-	      tags = tags.join(" ")
-	      @link.tags = tags
-	      @link.save
-	    end
-	    respond_to do |format|
-          format.js
-      end
+	    if (((current_user == owner_user) && (not owner_user.nil?)) || (session_repo_names.include?(repo.name)) )
+			    tags = @link.tags
+			    tags = tags.chomp.split(" ")
+			    if tags.include?(tag_to_be_deleted)
+			      tags.delete(tag_to_be_deleted)
+			      tags = tags.join(" ")
+			      @link.tags = tags
+			      @link.save
+			    end
+			    respond_to do |format|
+		          format.js
+		        end
+		else
+			render :nothing => true
+		end
 	else
-      # check how to show Flash messages in this case.
-      redirect_to :back      
+		render :nothing => true
     end
+
   end
 
 end
