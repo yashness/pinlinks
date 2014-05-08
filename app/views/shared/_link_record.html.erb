@@ -1,24 +1,23 @@
-  <td> 
+  <td class="show_link_details"> 
       <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
   </td>
 
-
-  <td id=   "<%= 'link_tags_' + link.id.to_s %>" >
+  <td id=   "<%= 'link_tags_' + link.id.to_s %>" class="show_link_details">
       <%= render(:partial => 'shared/show_link_tags', :locals => {:link => link})%>
   </td>
-  <td id= "<%= 'link_description_' + link.id.to_s %>" >
-        <%= link.description if not link.description.nil?%>
+  <td id= "<%= 'link_description_' + link.id.to_s %>" class="show_link_details">
+      <%= link.description if not link.description.nil?%>
+  </td>
+  <td class="show_link_details"> 
+      <%= render(:partial => 'shared/catch_link', :locals => {:link => link})%>
   </td>
 
-
+  <% owner = true if session[:repo_names].include?(link.repo.name) %>
   <% if owner %>
-      <td  > 
+      <td class="update_link_details"> 
           <%= render(:partial => 'shared/add_tags_and_describe', :locals => {:link => link})%>
       </td>
-      <td> 
-          <%= render(:partial => 'shared/catch_link', :locals => {:link => link})%>
-      </td>
-      <td>
+      <td class="update_link_details">
          <%=link_to("Delete Link", delete_link_path(:repo_name => link.repo.name , :link_id => link.id) , :class => "link tag" , :method => :post , :remote => true)%>
       </td>
   <% end %>

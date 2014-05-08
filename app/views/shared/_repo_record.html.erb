@@ -1,21 +1,23 @@
 
-  <td id=   "<%= 'repo_name_' + repo.id.to_s %>"  >
-      <%= link_to( "#{repo.name}" , "/#{user.profile_name}/#{repo.name}") %>
-  </td>
-  <td><%= "created " + time_ago_in_words(repo.created_at) + " ago" %>
-  </td>
-  <td><%= pluralize(repo.fork_counts, " fork") %>
-  </td>
-  <td id=   "<%= 'repo_tags_' + repo.id.to_s %>" >
-      <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
-  </td>
-  <% if owner %>
-    <td><%=link_to("Delete Folder", delete_repo_path(:repo_id => repo.id) , :class => "link tag" , :method => :post , :remote => true , confirm: "Are you sure, you want to delete this folder?")%>
+    <td class="show_repo_details"  id=   "<%= 'repo_name_' + repo.id.to_s %>"  >
+        <%= link_to( "#{repo.name}" , "/#{user.profile_name}/#{repo.name}") %>
     </td>
-    <td id=   "<%= 'tags_and_name_' + repo.id.to_s %>"> 
-      <%= render(:partial => 'shared/add_tags_update_name', :locals => {:repo => repo})%>
+    <td class="show_repo_details">
+        <%= "created " + time_ago_in_words(repo.created_at) + " ago" %>
     </td>
-    <td> 
-      <%= render(:partial => 'shared/catch_all_links', :locals => {:links => repo.links})%>
+    <td class="show_repo_details"><%= pluralize(repo.fork_counts, " fork") %>
     </td>
-  <%end%>
+    <td class="show_repo_details" id=   "<%= 'repo_tags_' + repo.id.to_s %>" >
+        <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
+    </td>
+    <td class="show_repo_details" > 
+        <%= render(:partial => 'shared/catch_all_links', :locals => {:links => repo.links})%>
+    </td>
+    <% if owner %>
+        <td class="update_link_details">
+            <%=link_to("Delete Folder", delete_repo_path(:repo_id => repo.id) , :class => "link tag" , :method => :post , :remote => true , confirm: "Are you sure, you want to delete this folder?")%>
+        </td>
+        <td class="update_repo_details" id=   "<%= 'tags_and_name_' + repo.id.to_s %>"> 
+          <%= render(:partial => 'shared/add_tags_update_name', :locals => {:repo => repo})%>
+        </td>
+    <%end%>
