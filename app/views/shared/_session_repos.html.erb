@@ -1,7 +1,7 @@
 <% session_repos = session[:repo_names].split(",").uniq rescue []%>
   <table class="table">
     <thead>
-          <%= (session_repos.length > 0 rescue false) ? "Repos created in this Session:" : "No Repo yet created in this session!"%>
+          <%= (not session_repos.blank?) ? "Repos created in this Session:" : "No Repo yet created in this session!"%>
     </thead>
     <tbody id="repos_in_session">
       <% session_repos.each do |repo| %>

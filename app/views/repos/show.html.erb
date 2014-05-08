@@ -23,7 +23,7 @@
 <div class="list_of_links"> 
             <table class="table">
               <thead>
-                <%= (@links.length > 0 rescue false) ? "Links in this Repo:" : "No link yet dropped here!"%>
+                <%= (not @links.blank?) ? "Links in this Repo:" : "No link yet dropped here!"%>
               </thead>
               <tbody id="link_list">
               <% owner = current_user==@repo.user %>

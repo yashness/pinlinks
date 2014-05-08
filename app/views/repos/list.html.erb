@@ -45,7 +45,7 @@
 <div class="list_of_repos">	
             <table class="table">
               <thead>
-                  <%if @repos.length > 0 rescue false%>
+                  <%if not @repos.blank?%>
                     <% if (current_user == @user and not current_user.nil?) or (@user.nil? and not current_user.nil?) %>
                       <p>Your repositories:</p>
                     <%elsif not @user.nil? %>

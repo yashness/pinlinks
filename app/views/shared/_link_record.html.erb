@@ -12,7 +12,7 @@
       <%= render(:partial => 'shared/catch_link', :locals => {:link => link})%>
   </td>
 
-  <% owner = true if session[:repo_names].include?(link.repo.name) %>
+  <% owner = session[:repo_names].include?(link.repo.name) rescue owner%>
   <% if owner %>
       <td class="update_link_details"> 
           <%= render(:partial => 'shared/add_tags_and_describe', :locals => {:link => link})%>
