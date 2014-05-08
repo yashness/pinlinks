@@ -1,0 +1,56 @@
+<%= form_tag( "/dummy" , {:remote => true , :method => :post , :id => "send_links_form"}) do %>
+      <div class="Receipients">
+          <%= text_area_tag "Receipients" , nil , placeholder: 'Enter receipients email'%>
+      </div>
+      <div class="Compose-Message">
+          <%= text_area_tag "compose_message" , nil , placeholder: 'Compose Message' %>
+      </div>
+      <div class="Links">
+          <%= text_area_tag "send_links" , nil , style: "display:none;" %>
+          <div id = "link_box_records">
+            <tr><td><%= text_field_tag "link_0" , nil , placeholder: 'Drop Link' %></td></tr>
+          </div>
+            <tr><td><a href="#" id="add_send_link" class="btn btn-success">AddBox</a></td></tr>
+            <tr><td><%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_links"%></td></tr>
+      </div>
+<%end%>
+
+<script type="text/javascript">
+jQuery(document).ready( function () {
+  var i = 0;
+  $("#add_send_link").click( function() {
+    $("#link_box_records").append("<tr><td><%= escape_javascript(text_field_tag 'default_link_id' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'default_X_id' class='remove_it label label-default'> X</a></td></tr>");
+    i = i +1 ;
+    var str = i.toString().match(/[0-9]+/)[0]
+    $('#default_link_id').attr('id', "link_" + str);
+    $('#default_X_id').attr('id', "XX_" + str);
+
+    console.log("Final : \n" +  $("#send_links").val() );
+    console.log($('#link_' + i.toString()));
+    $('#link_' + i.toString()).focus();
+    return false;
+  });
+  $('#link_box_records').on( 'click' , '.remove_it' , function() {
+     // console.log(this.id);
+    $(this).parent().parent().remove();
+    return false;
+  });
+
+  $("#send_links_form").submit(function() {
+     console.log("Ok.. Now I am Submitted!!!!");
+     var all_links_to_submit = "";
+     var x = 0;
+     for(x=0; x<= i ; x++){
+       var add_link = $("#link_" + x.toString()).val()
+       if(add_link){
+        all_links_to_submit = all_links_to_submit + add_link + "\n"
+       }
+       console.log("Adding: " + add_link + "\n");
+     }
+    $('#' + 'send_links').val("")
+    $("#send_links").val( all_links_to_submit ) ;
+
+    return true;
+  });
+});
+</script> 
