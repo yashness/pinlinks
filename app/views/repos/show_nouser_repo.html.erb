@@ -6,6 +6,7 @@
   <%= render(:partial => 'shared/session_repos')%>
 </div>
 <div class="links new">
+  <%if not session[:repo_names].blank? %>
   <%= form_tag( create_nouser_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>
 
     <%= hidden_field_tag "repo_name", @repo.name  %>
@@ -17,6 +18,7 @@
       <tr><td><%= submit_tag "Drop Links" , :class => "btn btn-info" , :id => "drop_links"%></td></tr>
       <br/>
   <%end%>
+  <%end%>  
 </div>
 
 
