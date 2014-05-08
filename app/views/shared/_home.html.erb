@@ -1,4 +1,6 @@
-<%= render(:partial => 'shared/session_repos')%>
+<div id="session_repos"> 
+  <%= render(:partial => 'shared/session_repos')%>
+</div>
 <div class="links new">
   <%= form_tag( create_nouser_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>
 
@@ -52,11 +54,6 @@ jQuery(document).ready( function () {
     $('#' + 'all_links').val("")
     $("#all_links").val( all_links_to_submit ) ;
     console.log("Final : \n" +  $("#all_links").val() );
-
-	setTimeout(function(){ 
-		window.location="http://localhost:3000/";
-    }, 1000);
-
     return true;
   });
 

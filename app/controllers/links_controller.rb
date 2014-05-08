@@ -72,25 +72,43 @@ class LinksController < ApplicationController
     repo_name = repo_name.chomp.split(" ")
     repo_name = repo_name.join("_")  
 
-    if not repo_name.blank?
-    	@repo = Repo.new
+    @saved_links = []
+    @repo = Repo.where( :name => repo_name).first
+
+    if @repo.nil?
+	   	@repo = Repo.new
 		@repo.name = repo_name
 		@repo.save
 		for link in all_links
 		  	@link = Link.new()
-		  	@link.actual_link = link
-		  	@repo.links << @link
+		  	@link.actual_link = link.strip
+		  	@link.repo_id = @repo.id rescue nil
+		  	@saved_links << @link if @link.save
 		end
 
         session[:repo_names] ||= ""
         session_repos = session[:repo_names].split(",")
         session_repos << repo_name
-        session[:repo_names] = session_repos.join(",")
-		logger.info "Session Set and is:"
-		logger.info session[:repo_names].inspect
+        session[:repo_names] = session_repos.uniq.join(",")
+	else
+		for link in all_links
+		  	@link = Link.new()
+		  	@link.actual_link = link.strip
+		  	@link.repo_id = @repo.id 
+		  	@saved_links << @link if @link.save
+		end
     end
-    render :nothing => true
+	respond_to do |format|
+       	format.js
+    end
   end
+
+  def forget_session_repos
+      session[:repo_names] = ""
+      redirect_to :back 
+  end
+
+
 
   def destroy
   	repo_name = params[:repo_name]

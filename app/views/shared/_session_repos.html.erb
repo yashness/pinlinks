@@ -1,14 +1,13 @@
-<% session_repos = session[:repo_names].split(",")%>
-<div class="session_repos"> 
-            <table class="table">
-              <thead>
-                Repos created in this Session:
-              </thead>
-              <tbody id="repos_in_session">
-                <% session_repos.each do |repo| %>
-                  <br/>
-                  <tr> <%=link_to(repo, no_user_repo_path(:repo_name => repo ) , :class => "link tag" , :method => :get)%> </tr>
-                <%end%> 
-              </tbody>
-            </table>
-</div>
+<% session_repos = session[:repo_names].split(",").uniq%>
+  <table class="table">
+    <thead>
+      Repos created in this Session:
+    </thead>
+    <tbody id="repos_in_session">
+      <% session_repos.each do |repo| %>
+        <br/>
+        <tr> <%=link_to(repo, no_user_repo_path(:repo_name => repo ) , :class => "link tag" , :method => :get)%> </tr>
+      <%end%> 
+    </tbody>
+  </table>
+

@@ -1,0 +1,12 @@
+
+$('#session_repos').html("<%= escape_javascript( render(:partial => 'shared/session_repos' ) )%>")
+$('#link_list').append("<%= escape_javascript( render(:partial => 'shared/multiple_link_records', :locals => {:repo => @repo ,:links => @saved_links , :owner => false} ) ) %>");
+$('#' + 'drop_links_form')[0].reset()
+
+var random_string = Math.random().toString(36).slice(-10);
+
+$("#close_repo_name").click();
+$(".remove_it").click();
+$('#' + 'all_links').val("");
+$('#will_store_at').text("Will Store at : www.pinlinks.com/" + random_string ); 
+$("#repo_name").val(random_string );
