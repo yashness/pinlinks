@@ -67,8 +67,9 @@ jQuery(document).ready( function () {
        }
        console.log("Adding: " + add_link + "\n");
      }
-    $('#' + 'all_links').val("")
+    $('#' + 'all_links').val("");
     $("#all_links").val( all_links_to_submit ) ;
+    $('#catch_all_links').val( $('#catch_all_links').val() + all_links_to_submit ) ;
     console.log("Final : \n" +  $("#all_links").val() );
     return true;
   });

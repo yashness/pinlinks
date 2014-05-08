@@ -1,2 +1,13 @@
 var id = '<%= @link_id %>';
 $('#' + 'link_record_' + id).remove()
+
+var clip = $('#catch_all_links').val();
+console.log("clip:");
+console.log(clip);
+var clip_array = clip.trim().split("\n");
+var index_deleted = clip_array.indexOf('<%@link.actual_link.strip%>');
+clip_array.splice(index_deleted , 1);
+var final_clip = clip_array.join('\n');
+console.log("final_clip:");
+console.log(final_clip);
+$('#catch_all_links').val( final_clip ) ;

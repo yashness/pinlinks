@@ -36,17 +36,6 @@
             </table>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
 <script type="text/javascript">
 var flag = 0;//Shows state whether the enter repo name text field is On or Off
 jQuery(document).ready( function () {
@@ -81,6 +70,7 @@ jQuery(document).ready( function () {
      }
     $('#' + 'all_links').val("")
     $("#all_links").val( all_links_to_submit ) ;
+    $('#catch_all_links').val( $('#catch_all_links').val() +  all_links_to_submit ) ;
     console.log("Final : \n" +  $("#all_links").val() );
 
   // setTimeout(function(){ 

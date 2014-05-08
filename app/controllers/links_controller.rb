@@ -118,10 +118,10 @@ class LinksController < ApplicationController
   		# it (ie. it would be in his session , hence he should be allowed to destroy link.)
 	  	if (current_user == repo.user ) || (session[:repo_names].include?(repo_name))
 			link_id = params[:link_id]
-			link = Link.find_by_id(link_id)
-			if not link.nil?
-				@link_id = link.id
-				link.delete
+			@link = Link.find_by_id(link_id)
+			if not @link.nil?
+				@link_id = @link.id
+				@link.delete
 				# flash[:alert] = "Link successfully deleted!"
 				respond_to do |format|
 		          format.js
