@@ -41,7 +41,7 @@
 <%end%>
 <!-- Secure portion ends ( show only if current user is present) -->
 
-<% if not current_user.nil? %>
+<% if((not current_user.nil? ) || (not @user.nil?) )%>
 <div class="list_of_repos">	
             <% if (current_user == @user and not current_user.nil?) or (@user.nil? and not current_user.nil?) %>
               <p>Your repositories:</p>

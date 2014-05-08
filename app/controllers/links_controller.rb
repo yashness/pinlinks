@@ -123,7 +123,7 @@ class LinksController < ApplicationController
 			if not link.nil?
 				@link_id = link.id
 				link.delete
-				flash[:alert] = "Link successfully deleted!"
+				# flash[:alert] = "Link successfully deleted!"
 				respond_to do |format|
 		          format.js
 		      end

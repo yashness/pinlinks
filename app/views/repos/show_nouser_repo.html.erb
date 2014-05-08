@@ -1,3 +1,7 @@
+<div id="home_button"> 
+  <%=link_to("HOME", "/", :class => "btn btn-warning" )%>
+</div>
+<%= render(:partial => 'shared/catch_all_links', :locals => {:links => @links})%>
 <div id="session_repos"> 
   <%= render(:partial => 'shared/session_repos')%>
 </div>

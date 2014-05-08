@@ -1,3 +1,6 @@
+<div id="home_button"> 
+  <%=link_to("HOME", "/", :class => "btn btn-warning" )%>
+</div>
 <%= render(:partial => 'shared/catch_all_links', :locals => {:links => @links})%>
 <% if not current_user.nil? %>
 <div class="links new">
