@@ -105,7 +105,6 @@ class LinksController < ApplicationController
 
   def forget_session_repos
       session[:repo_names] = ""
-      redirect_to :back 
   end
 
 

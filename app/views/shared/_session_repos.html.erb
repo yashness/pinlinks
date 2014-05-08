@@ -11,3 +11,8 @@
     </tbody>
   </table>
 
+<div id="forget_session_repos"> 
+  <%if not session[:repo_names].blank? %>
+    <%=link_to("Forget Session Repos", forget_session_repos_path , :class => "btn btn-info" , :method => :post , :remote => true)%>
+  <%end%>
+</div>
