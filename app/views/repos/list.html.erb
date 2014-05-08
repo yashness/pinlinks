@@ -43,14 +43,17 @@
 
 <% if((not current_user.nil? ) || (not @user.nil?) )%>
 <div class="list_of_repos">	
-            <% if (current_user == @user and not current_user.nil?) or (@user.nil? and not current_user.nil?) %>
-              <p>Your repositories:</p>
-            <%elsif not @user.nil? %>
-              <p><%=@user.profile_name %>'s repositories:</p>
-            <%end%>
             <table class="table">
               <thead>
-
+                  <%if @repos.length > 0 rescue false%>
+                    <% if (current_user == @user and not current_user.nil?) or (@user.nil? and not current_user.nil?) %>
+                      <p>Your repositories:</p>
+                    <%elsif not @user.nil? %>
+                      <p><%=@user.profile_name %>'s repositories:</p>
+                    <%end%>
+                  <%else%>
+                      <p>No Repo yet created here!
+                  <%end%>
               </thead>
               <tbody id="repo_list">
                 <% if not @repos.nil? %>
@@ -65,9 +68,6 @@
                         <%= render(:partial => 'shared/repo_record', :locals => {:repo => repo ,:links => repo.links , :user => @user ,:owner => owner} )%>
                       </tr>
                     <%end%>
-                  <%end%>
-                  <% if @repos.empty? %>
-                    <p>Don't have any!</p>
                   <%end%>
                 <% end %>
               </tbody>
