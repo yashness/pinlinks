@@ -13,6 +13,9 @@
     <td class="show_repo_details" > 
         <%= render(:partial => 'shared/catch_all_links', :locals => {:links => repo.links})%>
     </td>
+    <td class="show_repo_details" > 
+        <%= render(:partial => 'shared/email_pinlinks', :locals => {:record_id => repo.id.to_s , :link_ids => repo.links.pluck(:id).join(",")})%>
+    </td>
     <% if owner %>
         <td class="update_link_details">
             <%=link_to("Delete Folder", delete_repo_path(:repo_id => repo.id) , :class => "link tag" , :method => :post , :remote => true , confirm: "Are you sure, you want to delete this folder?")%>

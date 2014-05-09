@@ -11,7 +11,9 @@
   <td class="show_link_details"> 
       <%= render(:partial => 'shared/catch_link', :locals => {:link => link})%>
   </td>
-
+  <td class="show_link_details"> 
+      <%= render(:partial => 'shared/email_pinlinks', :locals => {:record_id => link.id.to_s ,:link_ids => link.id})%>
+  </td>
   <% owner = session[:repo_names].include?(link.repo.name) rescue owner%>
   <% if owner %>
       <td class="update_link_details"> 

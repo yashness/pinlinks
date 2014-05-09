@@ -1,0 +1,23 @@
+      <%=  link_to_modal "Email Form", "#email_form_" + record_id , :class=>"button" %>
+
+        <div id="<%= 'email_form_' + record_id %>" class="demo-description" style="display: none; ">
+           <%= form_tag( send_pinlinks_path , {:remote => true , :method => :post , :id => "send_links_form_#{record_id}"  }) do %>
+               <div class="Receipients">
+                    <%= text_area_tag "receipients" , nil , placeholder: 'Enter receipients email'%>
+                </div>
+                <div class="Compose-Message">
+                    <%= text_area_tag "compose_message" , nil , placeholder: 'Compose Message' %>
+               </div>
+               <div class="Links" style="display: none; ">
+                    <%= text_area_tag "send_link_ids" , link_ids %>
+               </div>
+               <div class="Submit">
+                    <%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_links"%>
+               </div>
+           <%end%>
+           <%= link_to 'Cancel', "/", :rel => "modal:close" %>
+        </div>
+
+
+
+

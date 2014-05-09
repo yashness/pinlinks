@@ -22,15 +22,15 @@ class UserMailerController < ApplicationController
 	end
 
 	def send_pinlinks
-		send_links = params[:send_links]
+		send_link_ids = params[:send_link_ids]
 		receipients = params[:receipients]
 		compose_message = params[:compose_message]
 
 		receipients = receipients.chomp.split(",")
-		send_links = send_links.chomp.split("\n")
+		send_link_ids = send_link_ids.chomp.split(",")
 		@links = []
-		for link in send_links
-			x = Link.find_by_actual_link(link.strip)
+		for link_id in send_link_ids
+			x = Link.find_by_id(link_id)
 			if not x.nil?
 				@links << x
 			end
