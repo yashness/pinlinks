@@ -1,3 +1,4 @@
+  <%repo = link.repo %>
   <td class="show_link_details"> 
       <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
   </td>
@@ -14,12 +15,13 @@
   <td class="show_link_details"> 
       <%= render(:partial => 'shared/email_pinlinks', :locals => {:record_id => link.id.to_s ,:link_ids => link.id})%>
   </td>
-  <% owner = session[:repo_names].include?(link.repo.name) rescue owner%>
+  <% session_repos = [] if session[:repo_names].blank?%>
+  <% owner =  true if session_repos.include?(repo.name) %>
   <% if owner %>
       <td class="update_link_details"> 
           <%= render(:partial => 'shared/add_tags_and_describe', :locals => {:link => link})%>
       </td>
       <td class="update_link_details">
-         <%=link_to("Delete Link", delete_link_path(:repo_name => link.repo.name , :link_id => link.id) , :class => "link tag" , :method => :post , :remote => true)%>
+         <%=link_to("Delete Link", delete_link_path(:repo_name => repo.name , :link_id => link.id) , :class => "link tag" , :method => :post , :remote => true)%>
       </td>
   <% end %>

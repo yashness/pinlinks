@@ -36,7 +36,7 @@ class ReposController < ApplicationController
   if not @repo.nil?
    	@links = @repo.links
     # repo is private and user looking at it is not current_user then, dont allow him
-    if current_user != @user && @repo.is_private && current_user != nil
+    if current_user != @user && @repo.is_private && @user != nil
         #redirect to error page
         render file: 'public/404', status: 404, formats: [:html]    
     end
@@ -62,7 +62,7 @@ class ReposController < ApplicationController
   def show_nouser_repo
       repo_name = params[:repo_name]
       @repo = Repo.where( :name => repo_name ).first
-      if not @repo.nil?
+      if((not @repo.nil?) && (@repo.user_id.nil?))
           @links = @repo.links
           # render(:partial => 'shared/show_nouser_repo', :locals => { :repo => @repo , :links => @links})
       else

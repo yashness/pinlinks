@@ -27,7 +27,7 @@
 
       <div class="repo new">
         <h2>Create repo</h2>
-        <%= form_for(:repo, :url => {:action => 'create'}) do |f| %>
+        <%= form_for :repo , url: create_repo_path , html: { remote: true , id: "create_repo_form"} do |f| %>
         <table >
           <%= f.hidden_field :user_id, :value => current_user.id%>
           <tr>

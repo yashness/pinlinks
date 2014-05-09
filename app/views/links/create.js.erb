@@ -2,3 +2,5 @@
 $('#' + 'link_list').append("<%= escape_javascript( render(:partial => 'shared/multiple_link_records', :locals => {:repo => @repo ,:links => @saved_links , :user => current_user ,:owner => true} ) ) %>");
 $('#' + 'repo_list').append("<tr id= <%='repo_record_' + @repo.id.to_s%> ><%= escape_javascript(render(:partial => 'shared/repo_record', :locals => {:repo => @repo ,:links => @repo.links , :user => current_user, :owner => true} )) %></tr>");
 $('#' + 'drop_links_form')[0].reset()
+$(".remove_it.to_create_link").click();
+$('#' + 'all_links').val("");
