@@ -68,6 +68,8 @@ Pinlinks::Application.routes.draw do
   post '/add_tags_and_describe', to: 'links#add_tags_and_describe'
   post '/add_tags_update_name', to: 'repos#add_tags_update_name'
   get '/repo_search_results', to: 'repos#repo_search_results'
+  post '/send_manual_links', to: 'user_mailer#send_manual_links', as: :send_manual_links
+  post '/send_pinlinks', to: 'user_mailer#send_pinlinks', as: :send_pinlinks
   post '/remove_repo_tag', to: 'repos#remove_tag', as: :remove_repo_tag
   post '/remove_link_tag', to: 'links#remove_tag', as: :remove_link_tag
   post '/delete_repo', to: 'repos#destroy', as: :delete_repo
