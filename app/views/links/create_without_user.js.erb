@@ -6,7 +6,7 @@ $('#' + 'drop_links_form')[0].reset()
 var random_string = Math.random().toString(36).slice(-10);
 
 $("#close_repo_name").click();
-$(".remove_it").click();
+$(".remove_it.to_create_link").click();
 $('#' + 'all_links').val("");
 $('#will_store_at').text("Will Store at : www.pinlinks.com/no_user/" + random_string ); 
 $("#repo_name").val(random_string );

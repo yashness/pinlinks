@@ -41,16 +41,16 @@
 jQuery(document).ready( function () {
   var i = 0;
   $("#add_this").click( function() {
-    $("#text_box_records").append("<tr><td><%= escape_javascript(text_field_tag '100' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'X_100' class='remove_it label label-default'> X</a></td></tr>");
+    $("#text_box_records").append("<tr><td><%= escape_javascript(text_field_tag 'default_link_id' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'default_X_id' class='remove_it to_create_link label label-default'> X</a></td></tr>");
     i = i +1 ;
     var str = i.toString().match(/[0-9]+/)[0]
-    $('#100').attr('id', "text_" + str);
-    $('#X_100').attr('id', "X_" + str);
+    $('#default_link_id').attr('id', "text_" + str);
+    $('#default_X_id').attr('id', "X_" + str);
     console.log($('#text_' + i.toString()));
     $('#text_' + i.toString()).focus();
     return false;
   });
-  $('#text_box_records').on( 'click' , '.remove_it' , function() {
+  $('#text_box_records').on( 'click' , '.remove_it.to_create_link' , function() {
      // console.log(this.id);
     $(this).parent().parent().remove();
     return false;

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <table class="table">
+        <thead>
+            <h1>Hello , Someone you know has sent you some links using pinlinks.com</h1>
+                  <tr>
+                    <td>Links</td>
+                  </tr>
+        </thead>
+        <tbody id="links">
+             <% @links.each do |link| %>
+                  <tr>
+                    <td> 
+                        <%= link_to( "#{link}" , "link}" , method: :get) %>
+                    </td>
+                  </tr>
+             <%end%> 
+        </tbody>
+      </table>
+    <p>
+      To share and send links in realtime visit <a href="www.pinlinks.com">pinlinks</a>
+    </p>
+    <p>PinLinks Team</p>
+  </body>
+</html>
