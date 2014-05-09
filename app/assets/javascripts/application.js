@@ -14,3 +14,5 @@
 //= require jquery_ujs
 //= require zeroclipboard
 //= require_tree .
+//= require jquery.ui.all
+//= require jquery.modal
