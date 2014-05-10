@@ -70,6 +70,7 @@ Pinlinks::Application.routes.draw do
   get '/repo_search_results', to: 'repos#repo_search_results'
   post '/send_manual_links', to: 'user_mailer#send_manual_links', as: :send_manual_links
   post '/send_pinlinks', to: 'user_mailer#send_pinlinks', as: :send_pinlinks
+  post '/send_repolinks', to: 'user_mailer#send_repolinks', as: :send_repolinks
   post '/remove_repo_tag', to: 'repos#remove_tag', as: :remove_repo_tag
   post '/remove_link_tag', to: 'links#remove_tag', as: :remove_link_tag
   post '/delete_repo', to: 'repos#destroy', as: :delete_repo

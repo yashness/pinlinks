@@ -14,7 +14,7 @@
         <%= render(:partial => 'shared/catch_all_links', :locals => {:links => repo.links})%>
     </td>
     <td class="show_repo_details" > 
-        <%= render(:partial => 'shared/email_pinlinks', :locals => {:record_id => repo.id.to_s , :link_ids => repo.links.pluck(:id).join(",")})%>
+        <%= render(:partial => 'shared/email_repolinks', :locals => {:record_id => repo.id.to_s , :repo_ids => repo.id})%>
     </td>
     <% if owner %>
         <td class="update_link_details">

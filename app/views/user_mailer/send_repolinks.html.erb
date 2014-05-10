@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <table class="table">
+        <thead>
+            <h1>Hello , Someone you know has sent you some links bundled in a repo, using pinlinks.com</h1>
+            <h2> Message:</h2>
+            <h3> <%= @message %> </h3>
+                  <tr>
+                    <td>Repo</td>
+                    <td>Tags</td>
+                  </tr>
+        </thead>
+        <tbody id="links">
+             <% @repos.each do |repo| %>
+                  <tr>
+                    <td> 
+                        <%= link_to( "#{repo.name}" , "#{repo.url}" , method: :get) %>
+                    </td>
+                    <td class="show_repo_details" id=   "<%= 'repo_tags_' + repo.id.to_s %>" >
+                        <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
+                    </td>
+                  </tr>
+             <%end%> 
+        </tbody>
+      </table>
+    <p>
+      To share and send links in realtime visit <a href="www.pinlinks.com">pinlinks</a>
+    </p>
+    <p>PinLinks Team</p>
+  </body>
+</html>
