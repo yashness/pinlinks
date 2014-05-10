@@ -5,6 +5,9 @@
 <div id="session_repos"> 
   <%= render(:partial => 'shared/session_repos')%>
 </div>
+<div id="subscribe_partial">
+  <%= render(:partial => 'shared/subscribe_for_mailing')%>
+</div>
 <div class="links new">
   <%if not session[:repo_names].blank? %>
   <%= form_tag( create_nouser_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>

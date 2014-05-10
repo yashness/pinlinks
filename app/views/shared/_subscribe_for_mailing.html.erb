@@ -1,0 +1,16 @@
+      <%=  link_to_modal "Subscribe For Mailing List", "#subscribe_div" , :class=>"btn btn-info" %>
+
+      <div id= 'subscribe_div' class="demo-description" style="display: none; ">
+           <%= form_tag( subscribe_for_mailing_path , {:remote => true , :method => :post , :id => "subscribe_form"  }) do %>
+               <div class="ProfileName">
+                    <%= text_field_tag "profile_name" , nil , placeholder: 'Your Name' %>
+               </div>
+               <div class="Email">
+                    <%= text_field_tag "email" , nil , placeholder: 'Your Email'%>
+               </div>
+               <div class="Submit">
+                    <%= submit_tag "Submit" , :class => "btn btn-info" , :id => "subscribe"%>
+               </div>
+           <%end%>
+           <%= link_to 'Cancel', "/", :rel => "modal:close" %>
+      </div>

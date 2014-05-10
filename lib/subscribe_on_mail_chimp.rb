@@ -4,8 +4,9 @@ class SubscribeOnMailChimp < Struct.new(:email , :profile_name)
 	      id: $registerd_user_list_id,
 	      email: {email: email},
 	      :merge_vars => {:FNAME => profile_name},
-	      :double_optin: false
+	      double_optin: false
 	    })
-	    logger.info response
+	    puts "Subscribe For Mailing List Response:"
+	    puts response
 	end
 end

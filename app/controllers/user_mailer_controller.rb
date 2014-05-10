@@ -1,3 +1,4 @@
+require 'subscribe_on_mail_chimp'
 class UserMailerController < ApplicationController
 
 	def send_manual_links
@@ -111,5 +112,15 @@ class UserMailerController < ApplicationController
 
 	end
 
+	def subscribe_for_mailing
+		profile_name = params[:profile_name]
+		email = params[:email]
+		if ((not profile_name.nil?) && (not email.nil?))
+			Delayed::Job.enqueue(SubscribeOnMailChimp.new(email , profile_name))
+		end
+		respond_to do |format|
+	        format.js
+	    end
+	end
 
 end
