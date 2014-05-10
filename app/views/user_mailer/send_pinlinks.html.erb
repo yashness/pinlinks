@@ -19,7 +19,7 @@
              <% @links.each do |link| %>
                   <tr>
                     <td> 
-                        <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
+                        <%= link_to( "#{link.actual_link}" , "#{link.url}" , :target => '_blank') %>
                     </td>
                     <td>
                         <%= render(:partial => 'shared/show_link_tags', :locals => {:link => link})%>

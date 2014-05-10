@@ -18,7 +18,7 @@
              <% @repos.each do |repo| %>
                   <tr>
                     <td> 
-                        <%= link_to( "#{repo.name}" , "#{repo.url}" , method: :get) %>
+                        <%= link_to( "#{repo.name}" , "#{repo.url}" , method: :get , :target => '_blank') %>
                     </td>
                     <td class="show_repo_details" id=   "<%= 'repo_tags_' + repo.id.to_s %>" >
                         <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
@@ -28,7 +28,7 @@
         </tbody>
       </table>
     <p>
-      To share and send links in realtime visit <a href="www.pinlinks.com">pinlinks</a>
+      To share and send links in realtime visit <a href="http://www.pinlinks.com">pinlinks</a>
     </p>
     <p>PinLinks Team</p>
   </body>

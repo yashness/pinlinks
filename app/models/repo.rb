@@ -22,7 +22,7 @@ class Repo < ActiveRecord::Base
   def url
     x = self.user.profile_name rescue "no_user"
     y = self.name
-    return "www.pinlinks.com/" + x + "/" + y
+    return "http://www.pinlinks.com/" + x + "/" + y
   end
 
 

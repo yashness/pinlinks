@@ -1,7 +1,7 @@
   <%repo = link.repo %>
   <td class="show_link_details"> 
-      <%= link_to( "#{link.actual_link}" , "#{link.actual_link}" , method: :get) %>
-  </td>
+    <%= link_to( "#{link.actual_link}" , "#{link.url}", :target => '_blank') %>
+  </td> 
 
   <td id=   "<%= 'link_tags_' + link.id.to_s %>" class="show_link_details">
       <%= render(:partial => 'shared/show_link_tags', :locals => {:link => link})%>
