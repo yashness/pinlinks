@@ -1,7 +1,6 @@
-var ids_string = '<%= @link_ids %>'
+var ids_string = '<%= @repo_ids %>'
 var ids = ids_string.split(',')
 var i = 0;
-
 for(i=0 ; i< ids.length ; i++ ){
 	$('#send_links_form_' + ids[i].toString() )[0].reset();
 	$('#send_links_form_' + ids[i].toString() ).parent().css({ display: "none" });
