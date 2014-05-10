@@ -7,7 +7,13 @@
                     <%= text_area_tag "compose_message" , nil , placeholder: 'Compose Message' %>
                </div>
                <div class="Links" style="display: none; ">
-                    <%= text_area_tag "send_link_ids" , link_ids.join(",") %>
+                    <%= text_area_tag "send_link_ids" , links.pluck(:id).join(",") %>
+               </div>
+               <p>Links To Be Sent</p>
+               <div class ="to_send_links" style="height:300px; overflow: auto;" >
+                    <%for link in links%>
+                      <%= text_field_tag "to_send_links" , link.actual_link, :disabled => true%>
+                    <%end%>
                </div>
                <div class="Submit">
                     <%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_links"%>

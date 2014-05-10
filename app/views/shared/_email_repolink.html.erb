@@ -9,6 +9,10 @@
                <div class="Links" style="display: none; ">
                     <%= text_area_tag "send_repo_id" , repo.id %>
                </div>
+               <p>Repo To Be Sent</p>
+               <div class ="to_send_links">
+                    <%= text_field_tag "to_send_repo" , repo.name, :disabled => true%>
+               </div>
                <div class="Submit">
                     <%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_repos"%>
                </div>

@@ -9,6 +9,10 @@
                <div class="Links" style="display: none; ">
                     <%= text_area_tag "send_link_id" , link.id %>
                </div>
+               <p>Link To Be Sent</p>
+               <div class ="to_send_links">
+                    <%= text_field_tag "to_send_link" , link.actual_link, :disabled => true%>
+               </div>
                <div class="Submit">
                     <%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_links"%>
                </div>

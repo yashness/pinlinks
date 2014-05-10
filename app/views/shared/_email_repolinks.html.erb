@@ -7,7 +7,13 @@
                     <%= text_area_tag "compose_message" , nil , placeholder: 'Compose Message' %>
                </div>
                <div class="Links" style="display: none; ">
-                    <%= text_area_tag "send_repo_ids" , repo_ids.join(",") %>
+                    <%= text_area_tag "send_repo_ids" , repos.map { |r|  r.id}.compact.join(",") %>
+               </div>
+               <p>Repos To Be Sent</p>
+               <div class ="to_send_repos" style="height:300px; overflow: auto;" >
+                    <%for repo in repos%>
+                      <%= text_field_tag "to_send_repos" , repo.name, :disabled => true%>
+                    <%end%>
                </div>
                <div class="Submit">
                     <%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_repos"%>
