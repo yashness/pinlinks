@@ -25,6 +25,7 @@ gem 'progress_bar'
 gem 'zeroclipboard-rails'
 gem 'delayed_job_active_record'
 gem 'gibbon', github: "amro/gibbon"
+gem 'newrelic_rpm'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -85,6 +85,7 @@ GEM
     mini_portile (0.5.3)
     multi_json (1.9.2)
     multi_xml (0.5.5)
+    newrelic_rpm (3.7.1.182)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     options (2.3.2)
@@ -168,6 +169,7 @@ DEPENDENCIES
   jquery-modal-rails
   jquery-rails
   jquery-ui-rails
+  newrelic_rpm
   progress_bar
   rails (= 3.2.16)
   sass-rails (~> 3.2.3)
