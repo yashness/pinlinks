@@ -19,5 +19,13 @@ class Repo < ActiveRecord::Base
     end
   end
 
+  def url
+    x = self.user.profile_name rescue "no_user"
+    y = self.name
+    return "www.pinlinks.com/" + x + "/" + y
+  end
+
+
+
 end
 #use rake sunspot:reindex to reindex everytime you change searchable block
