@@ -1,0 +1,5 @@
+var id = '<%= @link.id %>'
+$('#send_links_form_' + id.toString() )[0].reset();
+$('#send_links_form_' + id.toString() ).parent().css({ display: "none" });
+$(".remove_it.to_email_link").click();	
+$('.jquery-modal.blocker').css({ display: "none" });

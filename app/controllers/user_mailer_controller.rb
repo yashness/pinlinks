@@ -48,6 +48,25 @@ class UserMailerController < ApplicationController
 
 	end
 
+	def send_pinlink
+		link_id = params[:send_link_id]
+		receipients = params[:receipients]
+		compose_message = params[:compose_message]
+		
+		receipients = receipients.chomp.split(",") rescue []
+		@link = Link.find_by_id(link_id)
+		if not @link.nil?
+			for receipient in receipients
+				UserMailer.send_pinlinks(receipient , [@link] , compose_message ).deliver
+			end
+		end
+	    respond_to do |format|
+	        format.js
+	    end
+
+	end
+
+
 
 	def send_repolinks
 		send_repo_ids = params[:send_repo_ids]
@@ -69,13 +88,28 @@ class UserMailerController < ApplicationController
 		for receipient in receipients
 			UserMailer.send_repolinks(receipient , @repos , compose_message ).deliver
 		end
-	
 	    respond_to do |format|
 	        format.js
 	    end
 
 	end
 
+	def send_repolink
+		repo_id = params[:send_repo_id]
+		receipients = params[:receipients]
+		compose_message = params[:compose_message]
+		receipients = receipients.chomp.split(",") rescue []
+		@repo = Repo.find_by_id(repo_id)
+		if not @repo.nil?
+			for receipient in receipients
+				UserMailer.send_repolinks(receipient , [@repo] , compose_message ).deliver
+			end
+		end
+	    respond_to do |format|
+	        format.js
+	    end
+
+	end
 
 
 end

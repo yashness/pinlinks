@@ -1,6 +1,10 @@
 <% if not @user.nil?%>
   <%= render(:partial => 'shared/search_form', :locals => {:user => @user})%>
 <%end%>
+<div id = "send_all_repolinks">
+      <%=  link_to_modal "Email All Repos", "#email_form_group" , :class=>"btn btn-info" %>
+      <%= render(:partial => 'shared/email_repolinks', :locals => {:repo_ids => @repos.map { |r|  r.id}.compact } )%>
+</div>
 <!-- Secure portion starts (show only if current user is present) -->
 <% if not current_user.nil? %>
       <div class="links new">

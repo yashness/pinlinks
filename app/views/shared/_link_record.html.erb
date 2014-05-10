@@ -13,7 +13,8 @@
       <%= render(:partial => 'shared/catch_link', :locals => {:link => link})%>
   </td>
   <td class="show_link_details"> 
-      <%= render(:partial => 'shared/email_pinlinks', :locals => {:record_id => link.id.to_s ,:link_ids => link.id})%>
+      <%=  link_to_modal "Email", "#email_form_" + link.id.to_s , :class=>"button" %>
+      <%= render(:partial => 'shared/email_pinlink', :locals => {:link => link})%>
   </td>
   <% session_repos = [] if session[:repo_names].blank?%>
   <% owner =  true if session_repos.include?(repo.name) %>

@@ -1,5 +1,5 @@
-         <div id="<%= 'email_form_group'%>" class="demo-description" style="display: none; ">
-           <%= form_tag( send_repolinks_path , {:remote => true , :method => :post , :id => "send_links_form_group"  }) do %>
+        <div id="<%= 'email_form_' + repo.id.to_s %>" class="demo-description" style="display: none; ">
+           <%= form_tag( send_repolink_path , {:remote => true , :method => :post , :id => "send_links_form_#{repo.id}" }) do %>
                <div class="Receipients">
                     <%= text_area_tag "receipients" , nil , placeholder: 'Enter receipients email'%>
                 </div>
@@ -7,7 +7,7 @@
                     <%= text_area_tag "compose_message" , nil , placeholder: 'Compose Message' %>
                </div>
                <div class="Links" style="display: none; ">
-                    <%= text_area_tag "send_repo_ids" , repo_ids.join(",") %>
+                    <%= text_area_tag "send_repo_id" , repo.id %>
                </div>
                <div class="Submit">
                     <%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_repos"%>

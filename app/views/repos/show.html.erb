@@ -2,6 +2,10 @@
   <%=link_to("HOME", "/", :class => "btn btn-warning" )%>
 </div>
 <%= render(:partial => 'shared/catch_all_links', :locals => {:links => @links})%>
+<div id = "send_all_pinlinks">
+      <%=  link_to_modal "Email All Links", "#email_form_group" , :class=>"btn btn-info" %>
+      <%= render(:partial => 'shared/email_pinlinks', :locals => {:link_ids => @repo.links.pluck(:id)})%>
+</div>
 <% if not current_user.nil? %>
 <div class="links new">
   <%= form_tag( create_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>
