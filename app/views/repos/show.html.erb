@@ -27,7 +27,9 @@
 <div class="list_of_links"> 
             <table class="table">
               <thead>
+                <div id="message">
                 <%= (not @links.blank?) ? "Links in this Repo:" : "No link yet dropped here!"%>
+                </div>
               </thead>
               <tbody id="link_list">
               <% owner = current_user==@repo.user %>

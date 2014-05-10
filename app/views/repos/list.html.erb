@@ -49,15 +49,9 @@
 <div class="list_of_repos">	
             <table class="table">
               <thead>
-                  <%if not @repos.blank?%>
-                    <% if (current_user == @user and not current_user.nil?) or (@user.nil? and not current_user.nil?) %>
-                      <p>Your repositories:</p>
-                    <%elsif not @user.nil? %>
-                      <p><%=@user.profile_name %>'s repositories:</p>
-                    <%end%>
-                  <%else%>
-                      <p>No Repo yet created here!
-                  <%end%>
+                  <div id="message">
+                    <%= @repos.blank? ? "No Repo yet Created Here!" : "Repositories:"%>
+                  </div>
               </thead>
               <tbody id="repo_list">
                 <% if not @repos.nil? %>
