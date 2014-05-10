@@ -74,12 +74,12 @@ jQuery(document).ready( function () {
 	  console.log('this actually works');
 	  var x = $("#name_repo").val();
 	  if(!(jQuery.type( x ) === "undefined")){
-	  var str = x.replace(/\s+/g," ").split(' ').join('_');
+	  var str = x.replace(/\\/g, '').replace(/\//g, '').replace(/\s+/g," ").split(' ').join('_');
 		  if(str.length <= 20){
 			  console.log( "Entered Name :" + str);
 			  var random_string = '<%= random_string %>'
 			  console.log("random_string :" + random_string);
-			  $('#will_store_at').text("Will Store at : www.pinlinks.com/" + random_string + str); 
+			  $('#will_store_at').text("Will Store at : www.pinlinks.com/no_user/" + random_string + str); 
 			  $("#repo_name").val(random_string + str);
 		  }
 	  }
@@ -92,7 +92,7 @@ jQuery(document).ready( function () {
 	    console.log("I am : " + flag.toString());
 	  	$("#name_repo").parent().remove();
 		var random_string = '<%= random_string %>'
-		$('#will_store_at').text("Will Store at : www.pinlinks.com/" + random_string ); 
+		$('#will_store_at').text("Will Store at : www.pinlinks.com/no_user/" + random_string ); 
         $("#repo_name").val(random_string);
   	}
   });
