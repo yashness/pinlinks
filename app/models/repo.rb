@@ -4,9 +4,11 @@ class Repo < ActiveRecord::Base
   belongs_to :user
   has_many :links
   # validates :user_id, presence: true
-  validates :name, presence: true
-  validates_uniqueness_of :name, :scope => :user_id
-
+  validates :name, presence: true 
+  validates :name, exclusion: { in: %W(no_user),
+    message: "name cannot be 'no_user'" } 
+  validates_uniqueness_of :name
+  validate :valid_repo_name
   searchable do
     text :name, :boost => 3
     text :tags
@@ -25,7 +27,13 @@ class Repo < ActiveRecord::Base
     return "http://www.pinlinks.com/" + x + "/" + y
   end
 
-
+  
+  def valid_repo_name
+    test = ( self.name.include?("\/") or self.name.include?("\\") ) rescue false 
+    if test
+      errors.add :email, "Repo Name you entered is invalid. Cant contain backslash or forward slash" unless self.name.blank?
+    end
+  end
 
 end
 #use rake sunspot:reindex to reindex everytime you change searchable block
