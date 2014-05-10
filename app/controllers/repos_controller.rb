@@ -129,7 +129,9 @@ class ReposController < ApplicationController
         @repo.save
       end
 
-      @repo.name = new_name
+      new_name = new_name.chomp.split(" ")
+      new_name = new_name.join("_")  
+      @repo.name = new_name if not new_name.blank?
       if @repo.save
         # check how to show Flash messages in this case.
         # Flash message would be : Your Repo has been updated.
