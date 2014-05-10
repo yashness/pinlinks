@@ -3,7 +3,7 @@
 <%end%>
 <div id = "send_all_repolinks">
       <%=  link_to_modal "Email All Repos", "#email_form_group" , :class=>"btn btn-info" %>
-      <%= render(:partial => 'shared/email_repolinks', :locals => {:repos => @repos})%>
+      <%= render(:partial => 'shared/email_repolinks', :locals => {:repos => @repos}) if not @repos.blank?%>
 </div>
 <!-- Secure portion starts (show only if current user is present) -->
 <% if not current_user.nil? %>

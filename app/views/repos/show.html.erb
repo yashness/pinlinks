@@ -4,7 +4,8 @@
 <%= render(:partial => 'shared/catch_all_links', :locals => {:links => @links})%>
 <div id = "send_all_pinlinks">
       <%=  link_to_modal "Email All Links", "#email_form_group" , :class=>"btn btn-info" %>
-      <%= render(:partial => 'shared/email_pinlinks', :locals => {:links => @repo.links})%>
+      <%repo_links = @repo.links%>
+      <%= render(:partial => 'shared/email_pinlinks', :locals => {:links => repo_links}) if not repo_links.blank? %>
 </div>
 <% if not current_user.nil? %>
 <div class="links new">
