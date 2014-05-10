@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/amro/gibbon.git
+  revision: d3bcde97c185625c5b3b40f44d833f6a537ebd44
+  specs:
+    gibbon (1.1.2)
+      httparty
+      multi_json (>= 1.3.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -54,6 +62,9 @@ GEM
     execjs (2.0.2)
     highline (1.6.21)
     hike (1.2.3)
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
     journey (1.0.4)
     jquery-modal-rails (0.0.4)
@@ -73,6 +84,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.3)
     multi_json (1.9.2)
+    multi_xml (0.5.5)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     options (2.3.2)
@@ -152,6 +164,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   delayed_job_active_record
   devise
+  gibbon!
   jquery-modal-rails
   jquery-rails
   jquery-ui-rails

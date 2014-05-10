@@ -14,4 +14,11 @@ class User < ActiveRecord::Base
   					  	message: 'Must be formatted correctly.'
   					  }
   has_many :repos  
+
+  after_create do
+    email = self.email
+    profile_name = self.profile_name
+    Delayed::Job.enqueue(SubscribeOnMailChimp.new(email , profile_name))
+  end
+
 end
