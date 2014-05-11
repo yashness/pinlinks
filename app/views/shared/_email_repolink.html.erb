@@ -1,7 +1,7 @@
         <div id="<%= 'email_form_' + repo.id.to_s %>" class="demo-description" style="display: none; ">
            <%= form_tag( send_repolink_path , {:remote => true , :method => :post , :id => "send_links_form_#{repo.id}" }) do %>
                <div class="Receipients">
-                    <%= text_area_tag "receipients" , nil , placeholder: 'Enter comma-seperated receipients\' email'%>
+                    <%= text_area_tag "receipients" , nil , placeholder: 'Enter tab/space-seperated receipients\' email'%>
                 </div>
                 <div class="Compose-Message">
                     <%= text_area_tag "compose_message" , nil , placeholder: 'Compose Message' %>
@@ -19,3 +19,17 @@
            <%end%>
            <%= link_to 'Cancel', "/", :rel => "modal:close" %>
         </div>
+<script type="text/javascript">
+jQuery(document).ready( function () {
+   $('#receipients').keydown( function(e) {
+    if (e.keyCode == 9 || e.keyCode == 32 || e.keyCode == 188 ) {
+      e.preventDefault();
+      var str = $(this).val();
+      if(!(str.substr(-1) === " ") && str.trim()){
+            $(this).val(str + " , " );
+      }
+
+    }
+   });
+});
+</script>           

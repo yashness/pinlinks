@@ -1,6 +1,6 @@
 <%= form_tag( send_manual_links_path , {:remote => true , :method => :post , :id => "send_links_form"}) do %>
       <div class="Receipients">
-          <%= text_area_tag "receipients" , nil , placeholder: 'Enter comma-seperated receipients\' email'%>
+          <%= text_area_tag "receipients" , nil , placeholder: 'Enter tab/space-seperated receipients\' email'%>
       </div>
       <div class="Compose-Message">
           <%= text_area_tag "compose_message" , nil , placeholder: 'Compose Message' %>
@@ -52,5 +52,16 @@ jQuery(document).ready( function () {
 
     return true;
   });
+  $('#receipients').keydown( function(e) {
+    if (e.keyCode == 9 || e.keyCode == 32 || e.keyCode == 188 ) {
+      e.preventDefault();
+      var str = $(this).val();
+      if(!(str.substr(-1) === " ") && str.trim()){
+            $(this).val(str + " , " );
+      }
+
+    }
+  });
+
 });
 </script> 
