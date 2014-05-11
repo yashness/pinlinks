@@ -1,0 +1,12 @@
+$("tr[id^='link_record_']").each(function() {
+	if(!(jQuery.type( $(this) ) === "undefined")){
+		// console.log("In here:)") 
+		$(this).remove();
+	}
+});
+$('#catch_all_links').val("") ;
+$('#catch_all_links').text("") ;
+$('.to_send_links').html("") ;
+$('#message').html("No link yet dropped here!")
+console.log("The clipping value now is:")
+console.log($('#catch_all_links').val())

@@ -2,10 +2,17 @@
   <%=link_to("HOME", "/", :class => "btn btn-warning" )%>
 </div>
 <%= render(:partial => 'shared/catch_all_links', :locals => {:links => @links})%>
-<div id = "send_all_pinlinks">
-      <%=  link_to_modal "Email All Links", "#email_form_group" , :class=>"btn btn-info" %>
-      <%repo_links = @repo.links%>
-      <%= render(:partial => 'shared/email_pinlinks', :locals => {:links => repo_links}) if not repo_links.blank? %>
+<div id="group_actions">
+    <div id = "send_all_pinlinks">
+          <%=  link_to_modal "Email All Links", "#email_form_group" , :class=>"btn btn-info" %>
+          <%repo_links = @repo.links%>
+          <%= render(:partial => 'shared/email_pinlinks', :locals => {:links => repo_links}) if not repo_links.blank? %>
+    </div>
+    <div id = "delete_all_links">
+        <%if not @repo.blank?%>
+            <%=  link_to "Delete All Links", delete_all_links_path(:repo_name => @repo.name) , :class=>"btn btn-info" , :remote => true , :method => :post , :confirm => "Are you sure, you want to delete all links in this folder?"%>
+        <%end%>
+    </div>
 </div>
 <% if not current_user.nil? %>
 <div class="links new">
@@ -21,9 +28,6 @@
   <%end%>
 </div>
 <% end %>
-<%if  !@has_forked_this_repo && !@is_user_same %>
-  <%= link_to "Fork ", "/fork_repo/#{@user.id}/#{@repo.id}"  %>
-<%end%>
 <!-- show list of links in this repo -->
 <div class="list_of_links"> 
             <table class="table">

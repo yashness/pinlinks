@@ -78,6 +78,7 @@ Pinlinks::Application.routes.draw do
   post '/remove_link_tag', to: 'links#remove_tag', as: :remove_link_tag
   post '/delete_repo', to: 'repos#destroy', as: :delete_repo
   post '/delete_link', to: 'links#destroy' , as: :delete_link  
+  post '/delete_all_links', to: 'links#destroy_all_links' , as: :delete_all_links  
   post '/forget_session_repos', to: 'links#forget_session_repos' , as: :forget_session_repos  
   get '/:repo_name/new_links', to: 'links#new'  
   get '/no_user/:repo_name', to: 'repos#show_nouser_repo' , as: :no_user_repo  

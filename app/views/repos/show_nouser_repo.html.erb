@@ -1,3 +1,4 @@
+<% repo = @links.first.repo rescue nil%>
 <div id="home_button"> 
   <%=link_to("HOME", "/", :class => "btn btn-warning" )%>
 </div>
@@ -6,7 +7,6 @@
   <%= render(:partial => 'shared/session_repos' , :locals => {:from_home => "false"})%>
 </div>
 <div id = "send_this_repolink">
-      <% repo = @links.first.repo rescue nil%>
       <%if not repo.blank?%>
           <%=  link_to_modal "Email this repo", "#email_form_#{repo.id}" , :class=>"btn btn-info" %>
           <%= render(:partial => 'shared/email_repolink', :locals => {:repo => repo})%>
@@ -14,6 +14,21 @@
 </div>
 <div id="subscribe_partial">
   <%= render(:partial => 'shared/subscribe_for_mailing')%>
+</div>
+
+<div id="group_actions">
+    <div id = "send_this_repolink">
+        <% repo = @links.first.repo rescue nil%>
+        <%if not repo.blank?%>
+            <%=  link_to_modal "Email this repo", "#email_form_#{repo.id}" , :class=>"btn btn-info" %>
+            <%= render(:partial => 'shared/email_repolink', :locals => {:repo => repo})%>
+        <%end%>
+    </div>
+    <div id = "delete_all_links">
+        <%if not repo.blank?%>
+            <%=  link_to "Delete All Links", delete_all_links_path(:repo_name => repo.name) , :class=>"btn btn-info" , :remote => true , :method => :post  , :confirm => "Are you sure, you want to delete all links in this folder?" %>
+        <%end%>
+    </div>
 </div>
 <div class="links new">
   <%if not session[:repo_names].blank? %>

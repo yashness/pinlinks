@@ -146,6 +146,30 @@ class LinksController < ApplicationController
 	end
   end
 
+  def destroy_all_links
+  	repo_name = params[:repo_name]
+  	repo = Repo.find_by_name(repo_name)
+  	session_repo_names = session[:repo_names] rescue ""
+  	@link_ids
+  	if not repo.nil?
+  		# check if repo belongs to current_user or the non-platform user has just created
+  		# it (ie. it would be in his session , hence he should be allowed to destroy link.)
+	  	links = repo.links
+	  	@link_ids = links.pluck(:id)
+	  	if (current_user == repo.user ) || (session[:repo_names].include?(repo_name))
+			links.delete_all
+			# flash[:alert] = "All Links successfully deleted!"
+			respond_to do |format|
+	          format.js
+	        end
+	    end
+	else 
+		# check how to show these flash messages, cuz its an ajax request.
+		# flash[:alert] = "Invalid Request!"
+		render :nothing => true
+	end
+  end
+
   def add_tags_and_describe
     @tags = params[:tags]
     @desription = params[:description]
