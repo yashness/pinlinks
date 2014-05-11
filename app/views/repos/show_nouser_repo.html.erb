@@ -3,7 +3,14 @@
 </div>
 <%= render(:partial => 'shared/catch_all_links', :locals => {:links => @links})%>
 <div id="session_repos"> 
-  <%= render(:partial => 'shared/session_repos')%>
+  <%= render(:partial => 'shared/session_repos' , :locals => {:from_home => "false"})%>
+</div>
+<div id = "send_this_repolink">
+      <% repo = @links.first.repo rescue nil%>
+      <%if not repo.blank?%>
+          <%=  link_to_modal "Email this repo", "#email_form_#{repo.id}" , :class=>"btn btn-info" %>
+          <%= render(:partial => 'shared/email_repolink', :locals => {:repo => repo})%>
+      <%end%>
 </div>
 <div id="subscribe_partial">
   <%= render(:partial => 'shared/subscribe_for_mailing')%>
@@ -13,6 +20,7 @@
   <%= form_tag( create_nouser_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>
 
     <%= hidden_field_tag "repo_name", @repo.name  %>
+    <%= hidden_field_tag "from_home", "false"  %>
     <%= text_area_tag "all_links" , nil , style: "display:none;" %>
     <div id = "text_box_records">
       <tr><td><%= text_field_tag "text_0" , nil , placeholder: 'Drop Link' %></td></tr>

@@ -7,7 +7,7 @@ class Repo < ActiveRecord::Base
   validates :name, presence: true 
   validates :name, exclusion: { in: %W(no_user),
     message: "name cannot be 'no_user'" } 
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name , :scope => :user_id
   validate :valid_repo_name
   searchable do
     text :name, :boost => 3
@@ -33,6 +33,11 @@ class Repo < ActiveRecord::Base
     if test
       errors.add :email, "Repo Name you entered is invalid. Cant contain backslash or forward slash" unless self.name.blank?
     end
+  end
+
+  def self.session_repos(sesion_repo_names)
+      session_repos = sesion_repo_names.split(",").uniq rescue []
+      return Repo.where(:name => session_repos)
   end
 
 end

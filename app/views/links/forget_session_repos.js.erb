@@ -1,3 +1,10 @@
-$('#session_repos').html("");
-$(".update_link_details").remove();
-$("#drop_links_form").remove();
+$('.repos_in_session').remove()
+$("#forget_session_repos").css({ display: "none" })
+$('#session_message').html("No Repo yet created in this session!")
+$('#' + 'drop_links_form')[0].reset()
+$("#send_sessioned_repos").css({ display: "none" });
+var from_home = "<%= @from_home%>";
+if(from_home == 'false')
+	$('#drop_links_form')[0].remove();
+	$(".update_link_details").remove();
+end

@@ -11,12 +11,11 @@ class LinksController < ApplicationController
   	all_links = params[:all_links]
   	is_private = params[:is_private]
   	repo_name = params[:repo_name]
-    repo_name = repo_name.chomp.split(" ")
-    repo_name = repo_name.join("_")  
   	if not repo_name.blank?
 	  	all_links = all_links.chomp.split("\n")
 		@repo = Repo.where( :name => repo_name , :user_id => current_user.id).first
 		@saved_links = []
+		@append_repo_record = true
 		if not @repo.nil?
 		# Means the repo name already exists.
 		# Ask User through modal form, whether he want to merge links in existing folder.
@@ -29,39 +28,43 @@ class LinksController < ApplicationController
 			  	@link.repo_id = repo_id
 			  	@saved_links << @link if @link.save
 		  	end
-		  	if all_links.empty?
-				#flash[:alert] = "Please enter atlest one link!"
-		  		# Check how to show flash message here
-			else
-				#flash[:alert] = "Links added to existing repository!"
-		  		# Check how to show flash message here
-			end
+		  	@append_repo_record = false 
+			respond_to do |format|
+		       	format.js
+		    end
 		else
 			#make a new repo with repo_name and add all_links in it
 			@repo = Repo.new
+			repo_name = repo_name.gsub(/[^0-9a-z ]/i, '')
+    		repo_name = repo_name.chomp.split(" ")
+		    repo_name = repo_name.join("_")  
 			@repo.name = repo_name
 			@repo.user_id = current_user.id
-			if is_private == "1"
-				@repo.is_private = true
-			end
-			@repo.save
-		  	for link in all_links
-			  	@link = Link.new()
-			  	@link.actual_link = link
-			  	@repo.links << @link
-		  	end
-			@saved_links = @repo.links
-			#flash[:alert] = "New Repo sucessfully created!"
-	  		# Check how to show flash message here
+			@repo.is_private = true if is_private == "1"			
+			if @repo.save
+			  	for link in all_links
+				  	@link = Link.new()
+				  	@link.actual_link = link
+				  	@repo.links << @link
+			  	end
+				@saved_links = @repo.links
+				#flash[:alert] = "New Repo sucessfully created!"
+		  		# Check how to show flash message here
+				respond_to do |format|
+		        	format.js
+		      	end
+	    	else
+				#flash[:alert] = "In valid Repo Name!"
+		  		# Check how to show flash message here	
+	    		render :nothing => true
+	    	end
 		end
-		respond_to do |format|
-        	format.js
-      	end
+
 	else
 			#flash message that reponame cant be blank
 			#flash[:alert] = "Repo-name cannot be blank!"
 	  		# Check how to show flash message here
-	  		redirect_to("/#{current_user.profile_name}/#{repo_name}")
+    		render :nothing => true
 	end
   end
 
@@ -69,9 +72,10 @@ class LinksController < ApplicationController
   	all_links = params[:all_links]
   	all_links = all_links.chomp.split("\n")
   	repo_name = params[:repo_name]
+  	repo_name = repo_name.gsub(/[^0-9a-z ]/i, '')
     repo_name = repo_name.chomp.split(" ")
     repo_name = repo_name.join("_")  
-
+    @from_home = params[:from_home]
     @saved_links = []
     @repo = Repo.where( :name => repo_name).first
 
@@ -104,6 +108,7 @@ class LinksController < ApplicationController
   end
 
   def forget_session_repos
+  	  @from_home = params[:from_home] 
       session[:repo_names] = ""
   end
 

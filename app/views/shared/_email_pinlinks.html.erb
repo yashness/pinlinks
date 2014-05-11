@@ -1,7 +1,7 @@
          <div id="<%= 'email_form_group'%>" class="demo-description" style="display: none; ">
            <%= form_tag( send_pinlinks_path , {:remote => true , :method => :post , :id => "send_links_form_group"  }) do %>
                <div class="Receipients">
-                    <%= text_area_tag "receipients" , nil , placeholder: 'Enter receipients email'%>
+                    <%= text_area_tag "receipients" , nil , placeholder: 'Enter comma-seperated receipients\' email'%>
                 </div>
                 <div class="Compose-Message">
                     <%= text_area_tag "compose_message" , nil , placeholder: 'Compose Message' %>

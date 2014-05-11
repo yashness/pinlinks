@@ -1,18 +1,27 @@
 <% session_repos = session[:repo_names].split(",").uniq rescue []%>
   <table class="table">
     <thead>
+       <div id="session_message">
           <%= (not session_repos.blank?) ? "Repos created in this Session:" : "No Repo yet created in this session!"%>
+       </div>
     </thead>
-    <tbody id="repos_in_session">
+    <tbody>
       <% session_repos.each do |repo| %>
         <br/>
-        <tr> <%=link_to("www.pinlinks.com/no_user/" + repo, no_user_repo_path(:repo_name => repo ) , :class => "link tag" , :method => :get)%> </tr>
+        <tr> <%=link_to("www.pinlinks.com/no_user/" + repo, no_user_repo_path(:repo_name => repo ) , :class => "link tag repos_in_session" , :method => :get)%> </tr>
       <%end%> 
     </tbody>
   </table>
 
 <div id="forget_session_repos"> 
   <%if not session[:repo_names].blank? %>
-    <%=link_to("Forget Session Repos", forget_session_repos_path , :class => "btn btn-info" , :method => :post , :remote => true)%>
+    <%=link_to("Forget Session Repos", forget_session_repos_path(:from_home => from_home) , :class => "btn btn-info" , :method => :post , :remote => true)%>
   <%end%>
+</div>
+<div id = "send_sessioned_repos">
+      <%session_repos = Repo.session_repos(session[:repo_names])%>
+      <%if not session_repos.blank?%>
+          <%=  link_to_modal "Email All Sessioned Repos", "#email_form_group" , :class=>"btn btn-info" %>
+          <%= render(:partial => 'shared/email_repolinks', :locals => {:repos => session_repos})%>
+      <%end%>
 </div>

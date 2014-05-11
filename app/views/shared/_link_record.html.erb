@@ -16,7 +16,7 @@
       <%=  link_to_modal "Email", "#email_form_" + link.id.to_s , :class=>"button" %>
       <%= render(:partial => 'shared/email_pinlink', :locals => {:link => link})%>
   </td>
-  <% session_repos = [] if session[:repo_names].blank?%>
+  <% session_repos = (session[:repo_names].blank? ) ? [] : session[:repo_names]%>
   <% owner =  true if session_repos.include?(repo.name) %>
   <% if owner %>
       <td class="update_link_details"> 

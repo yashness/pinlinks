@@ -1,5 +1,5 @@
 <div id="session_repos"> 
-  <%= render(:partial => 'shared/session_repos')%>
+  <%= render(:partial => 'shared/session_repos'  , :locals => {:from_home => "true"} )%>
 </div>
 <div id="subscribe_partial">
   <%= render(:partial => 'shared/subscribe_for_mailing')%>
@@ -8,6 +8,7 @@
   <%= form_tag( create_nouser_links_path , {:remote => true , :method => :post , :id => "drop_links_form"}) do %>
 
     <%= hidden_field_tag "repo_name", random_string  %>
+    <%= hidden_field_tag "from_home", "true"  %>
     <%= text_area_tag "all_links" , nil , style: "display:none;" %>
     <div id = "text_box_records">
       <tr><td><%= text_field_tag "text_0" , nil , placeholder: 'Drop Link' %></td></tr>
@@ -76,8 +77,8 @@ jQuery(document).ready( function () {
 	$(document).bind('input', function(){
 	  console.log('this actually works');
 	  var x = $("#name_repo").val();
-	  if(!(jQuery.type( x ) === "undefined")){
-	  var str = x.replace(/\\/g, '').replace(/\//g, '').replace(/\s+/g," ").split(' ').join('_');
+	  if(!(jQuery.type( x ) === "undefined")){   
+	  var str = x.split(' ').join('_').replace(/\W+/g, "");
 		  if(str.length <= 20){
 			  console.log( "Entered Name :" + str);
 			  var random_string = '<%= random_string %>'

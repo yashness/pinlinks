@@ -80,21 +80,21 @@ class ReposController < ApplicationController
   def create
   	@repo = Repo.new(params[:repo])
   	repo_name = @repo.name 
+    repo_name = repo_name.gsub(/[^0-9a-z ]/i, '')
     repo_name = repo_name.chomp.split(" ")
     repo_name = repo_name.join("_")  
     @repo.name = repo_name
 
-    logger.info "errors : #{@repo.errors.inspect}"  
     if @repo.save
       #check how to show flash messages over here(in presence of ajax).
       respond_to do |format|
           format.js
       end
   	else
-      error_messages = @repo.errors.full_messages.join("\n")
-      flash[:alert] = "Repo couldn't be created because: \n #{error_messages}"
+      # error_messages = @repo.errors.full_messages.join("\n")
+      # flash[:alert] = "Repo couldn't be created because: \n #{error_messages}"
       #check how to show flash messages over here(in presence of ajax).
-      redirect_to("/")
+      render :nothing => true
   	end
   end
 
@@ -110,7 +110,7 @@ class ReposController < ApplicationController
       end
     else
     	#not a valid request
-    	redirect_to("/")
+      render :nothing => true
     end
   end
 
@@ -128,7 +128,7 @@ class ReposController < ApplicationController
         @repo.tags = final_tags.join(" ") rescue ""
         @repo.save
       end
-
+      new_name = new_name.gsub(/[^0-9a-z ]/i, '')
       new_name = new_name.chomp.split(" ")
       new_name = new_name.join("_")  
       @repo.name = new_name if not new_name.blank?
@@ -142,10 +142,11 @@ class ReposController < ApplicationController
         # Handle this case later, (When repo name already exists)
         # Ask whether, want to merge both repos or choos different name
         # Do further steps accordingly.
+        render :nothing => true
       end
     else
       # check how to show Flash messages in this case.
-      redirect_to :back
+      render :nothing => true
     end
 
   end
