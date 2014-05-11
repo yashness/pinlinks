@@ -11,7 +11,7 @@
                </div>
                <p>Link To Be Sent</p>
                <div class ="to_send_links">
-                    <%= text_field_tag "to_send_link" , link.actual_link, :disabled => true%>
+                    <%= render :partial => 'shared/to_send_links' , :locals => {:links => [link]}%>
                </div>
                <div class="Submit">
                     <%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_links"%>

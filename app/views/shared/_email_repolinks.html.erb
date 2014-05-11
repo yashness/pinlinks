@@ -1,5 +1,5 @@
          <div id="<%= 'email_form_group'%>" class="demo-description" style="display: none; ">
-           <%= form_tag( send_repolinks_path , {:remote => true , :method => :post , :id => "send_links_form_group"  }) do %>
+           <%= form_tag( send_repolinks_path , {:remote => true , :method => :post , :id => "send_repos_form_group"  }) do %>
                <div class="Receipients">
                     <%= text_area_tag "receipients" , nil , placeholder: 'Enter tab/space-seperated receipients\' email'%>
                 </div>
@@ -11,9 +11,7 @@
                </div>
                <p>Repos To Be Sent</p>
                <div class ="to_send_repos" style="height:300px; overflow: auto;" >
-                    <%for repo in repos%>
-                      <%= text_field_tag "to_send_repos" , repo.name, :disabled => true%>
-                    <%end%>
+                    <%= render :partial => 'shared/to_send_repos' , :locals => {:repos => repos}%>
                </div>
                <div class="Submit">
                     <%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_repos"%>
