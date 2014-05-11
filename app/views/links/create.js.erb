@@ -6,4 +6,5 @@ $('#' + 'link_list').append("<%= escape_javascript( render(:partial => 'shared/m
 $('#' + 'drop_links_form')[0].reset()
 $(".remove_it.to_create_link").click();
 $('#' + 'all_links').val("");
-$('#message').html("Links in this Repo:")
+$('#message').html("Links in this Repo:");
+$('.to_send_links').html("<%=escape_javascript(render :partial => 'shared/to_send_links' , :locals => {:links => @saved_links})%>")
