@@ -17,7 +17,8 @@
              <% @links.each do |link| %>
                   <tr>
                     <td> 
-                        <%= link_to( "#{link}" , "link}" , method: :get) %>
+                        <%link_url = /^http/.match(link) ? link : "http://#{link}"%>
+                        <%= link_to( "#{link}" , link_url ,:target => '_blank' ) %>
                     </td>
                   </tr>
              <%end%> 

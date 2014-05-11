@@ -121,7 +121,7 @@ class LinksController < ApplicationController
   	if not repo.nil?
   		# check if repo belongs to current_user or the non-platform user has just created
   		# it (ie. it would be in his session , hence he should be allowed to destroy link.)
-	  	if (current_user == repo.user ) || (session[:repo_names].include?(repo_name))
+	  	if (current_user == repo.user ) || (session_repo_names.include?(repo_name))
 			link_id = params[:link_id]
 			@link = Link.find_by_id(link_id)
 			if not @link.nil?
@@ -156,7 +156,7 @@ class LinksController < ApplicationController
   		# it (ie. it would be in his session , hence he should be allowed to destroy link.)
 	  	links = repo.links
 	  	@link_ids = links.pluck(:id)
-	  	if (current_user == repo.user ) || (session[:repo_names].include?(repo_name))
+	  	if (current_user == repo.user ) || session_repo_names.include?(repo_name)
 			links.delete_all
 			# flash[:alert] = "All Links successfully deleted!"
 			respond_to do |format|
