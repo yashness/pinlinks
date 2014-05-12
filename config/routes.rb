@@ -67,7 +67,7 @@ Pinlinks::Application.routes.draw do
   
   post '/add_tags_and_describe', to: 'links#add_tags_and_describe'
   post '/add_tags_update_name', to: 'repos#add_tags_update_name'
-  get '/repo_search_results', to: 'repos#repo_search_results'
+  # get '/repo_search_results', to: 'repos#repo_search_results'
   post '/subscribe_for_mailing', to: 'user_mailer#subscribe_for_mailing', as: :subscribe_for_mailing
   post '/send_manual_links', to: 'user_mailer#send_manual_links', as: :send_manual_links
   post '/send_pinlink', to: 'user_mailer#send_pinlink', as: :send_pinlink
@@ -88,7 +88,7 @@ Pinlinks::Application.routes.draw do
   post '/create_repos', to: 'repos#create' , as: :create_repo  
   get '/new_repo', to: 'repos#new'  
   get '/:user_name', to: 'repos#list'
-  get '/fork_repo/:user_id/:repo_id', to: 'repos#fork'
+  # get '/fork_repo/:user_id/:repo_id', to: 'repos#fork'
   root :to => 'repos#index'
 
   match ':controller(/:action(/:id))(.:format)'

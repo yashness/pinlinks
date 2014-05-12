@@ -9,17 +9,17 @@ class Repo < ActiveRecord::Base
     message: "name cannot be 'p'" } 
   validates_uniqueness_of :name , :scope => :user_id
   validate :valid_repo_name
-  searchable do
-    text :name, :boost => 3
-    text :tags
-    integer :user_id
-	text :links do
-      links.map { |link| link.tags }
-    end
-	text :links do
-      links.map { |link| link.actual_link }
-    end
-  end
+ #  searchable do
+ #    text :name, :boost => 3
+ #    text :tags
+ #    integer :user_id
+	# text :links do
+ #      links.map { |link| link.tags }
+ #    end
+	# text :links do
+ #      links.map { |link| link.actual_link }
+ #    end
+ #  end
 
   def url
     x = self.user.profile_name rescue "p"

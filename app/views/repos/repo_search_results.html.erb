@@ -1,6 +1,6 @@
-<%= render(:partial => 'shared/search_form', :locals => {:user => @user})%>
 
-<!-- Secure portion starts (show only if current user is present) -->
+<!-- SEARCHING IS NOW COMMENTED (Not Required in Beta Version.)
+<%= render(:partial => 'shared/search_form', :locals => {:user => @user})%>
 <% if not current_user.nil? %>
       <div class="links new">
         <h2>Drop your links Here</h2>
@@ -98,4 +98,4 @@
                 <% end %>
               </tbody>
             </table>
-</div>
+</div> -->

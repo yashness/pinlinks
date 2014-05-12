@@ -1,6 +1,3 @@
-<% if not @user.nil?%>
-  <%= render(:partial => 'shared/search_form', :locals => {:user => @user})%>
-<%end%>
 <!-- Secure portion starts (show only if current user is present) -->
 <% if not current_user.nil? %>
       <div class="links new">

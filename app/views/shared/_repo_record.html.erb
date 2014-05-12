@@ -5,8 +5,6 @@
     <td class="show_repo_details">
         <%= "created " + time_ago_in_words(repo.created_at) + " ago" %>
     </td>
-    <td class="show_repo_details"><%= pluralize(repo.fork_counts, " fork") %>
-    </td>
     <td class="show_repo_details" id=   "<%= 'repo_tags_' + repo.id.to_s %>" >
         <%= render(:partial => 'shared/show_repo_tags', :locals => {:repo => repo})%>
     </td>

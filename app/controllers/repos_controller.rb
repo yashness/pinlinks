@@ -44,13 +44,8 @@ class ReposController < ApplicationController
     if current_user == @user 
        @is_user_same = true
     end
-    @has_forked_this_repo = false     
     repo_id = @repo.id if not @repo.nil? rescue 0
     current_user_id = current_user.id if not current_user.nil? rescue 0
-    user_forked = UserFork.where( :user_id => current_user_id , :repo_id => repo_id)
-      if not user_forked.empty?
-         @has_forked_this_repo = true
-      end
   else
    	# redirect to error page
     render file: 'public/404', status: 404, formats: [:html]
@@ -176,83 +171,83 @@ class ReposController < ApplicationController
   end
 
 
-  def fork
-    if current_user.nil?
-       flash[:alert] = "You need to be logged in, for forking!"         
-       redirect_to "/"
-    else
-      repo = Repo.find_by_id(params[:repo_id].to_i)
-      user = User.find_by_id(params[:user_id].to_i)
-      successful_fork = true
-      if user != nil? && repo != nil?
-          forked_repo = Repo.new
-          links = repo.links
-          forked_repo.name = repo.name
-          forked_repo.tags = repo.tags
-          forked_repo.user_id = current_user.id
-          if not forked_repo.save
-            successful_fork = false
-          end
-          for link in links
-            new_link = Link.new
-            new_link.tags = link.tags
-            new_link.actual_link = link.actual_link
-            new_link.description = link.description
-            new_link.repo_id = forked_repo.id
-            if not new_link.save
-              successful_fork = false
-            end
-          end
-          if successful_fork
-            flash[:alert] = "Successfully forked!"         
-            user_fork = UserFork.new
-            user_fork.user_id = current_user.id
-            user_fork.repo_id = repo.id
-            user_fork.save
-            repo.fork_counts += 1
-            repo.save 
-          else
-            flash[:alert] = "Un Successfull fork!"         
-          end
-          redirect_to("/#{user.profile_name}/#{repo.name}")
-      else
-            flash[:alert] = "Bad fork request! }"         
-            redirect_to("/#{user.profile_name}/#{repo.name}")
-      end
-    end
-  end
+  # def fork
+  #   if current_user.nil?
+  #      flash[:alert] = "You need to be logged in, for forking!"         
+  #      redirect_to "/"
+  #   else
+  #     repo = Repo.find_by_id(params[:repo_id].to_i)
+  #     user = User.find_by_id(params[:user_id].to_i)
+  #     successful_fork = true
+  #     if user != nil? && repo != nil?
+  #         forked_repo = Repo.new
+  #         links = repo.links
+  #         forked_repo.name = repo.name
+  #         forked_repo.tags = repo.tags
+  #         forked_repo.user_id = current_user.id
+  #         if not forked_repo.save
+  #           successful_fork = false
+  #         end
+  #         for link in links
+  #           new_link = Link.new
+  #           new_link.tags = link.tags
+  #           new_link.actual_link = link.actual_link
+  #           new_link.description = link.description
+  #           new_link.repo_id = forked_repo.id
+  #           if not new_link.save
+  #             successful_fork = false
+  #           end
+  #         end
+  #         if successful_fork
+  #           flash[:alert] = "Successfully forked!"         
+  #           user_fork = UserFork.new
+  #           user_fork.user_id = current_user.id
+  #           user_fork.repo_id = repo.id
+  #           user_fork.save
+  #           repo.fork_counts += 1
+  #           repo.save 
+  #         else
+  #           flash[:alert] = "Un Successfull fork!"         
+  #         end
+  #         redirect_to("/#{user.profile_name}/#{repo.name}")
+  #     else
+  #           flash[:alert] = "Bad fork request! }"         
+  #           redirect_to("/#{user.profile_name}/#{repo.name}")
+  #     end
+  #   end
+  # end
 
 
 
-  def repo_search_results
-    user_name = params[:user_name]
-    if user_name.nil? && current_user.nil?
-      return
-    elsif not user_name.nil?
-      @user = User.find_by_profile_name(user_name)
-      if not @user.nil?
-          logger.info @user.inspect
-          user_id = @user.id
-          @search = Repo.search do
-            fulltext params[:search]
-            with :user_id, user_id  
-          end
-          @repos = @search.results
-      else
-        flash[:alert] = "Page Doesn't Exist."
-        render file: 'public/404', status: 404, formats: [:html]
-      end
-    else
-      @user = current_user
-      user_id = @user.id
-      @search = Repo.search do
-        fulltext params[:search]
-        with :user_id, user_id 
-      end
-      @repos = @search.results
-    end
-    render('list')
-  end
+  # def repo_search_results
+  #   user_name = params[:user_name]
+  #   if user_name.nil? && current_user.nil?
+  #     return
+  #   elsif not user_name.nil?
+  #     @user = User.find_by_profile_name(user_name)
+  #     if not @user.nil?
+  #         logger.info @user.inspect
+  #         user_id = @user.id
+  #         @search = Repo.search do
+  #           fulltext params[:search]
+  #           with :user_id, user_id  
+  #         end
+  #         @repos = @search.results
+  #     else
+  #       flash[:alert] = "Page Doesn't Exist."
+  #       render file: 'public/404', status: 404, formats: [:html]
+  #     end
+  #   else
+  #     @user = current_user
+  #     user_id = @user.id
+  #     @search = Repo.search do
+  #       fulltext params[:search]
+  #       with :user_id, user_id 
+  #     end
+  #     @repos = @search.results
+  #   end
+  #   render('list')
+  # end
 
 end
 

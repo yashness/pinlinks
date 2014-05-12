@@ -19,9 +19,9 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem 'sunspot_rails'
-gem 'sunspot_solr'
-gem 'progress_bar'
+# gem 'sunspot_rails'
+# gem 'sunspot_solr'
+# gem 'progress_bar'
 gem 'zeroclipboard-rails'
 gem 'delayed_job_active_record'
 gem 'gibbon', github: "amro/gibbon"
