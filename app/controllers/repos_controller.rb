@@ -5,7 +5,7 @@ class ReposController < ApplicationController
 
   def index
     list
-    @random_string = SecureRandom.hex(5)
+    @random_string = SecureRandom.hex(3).chop
   	render('list')
   end
 

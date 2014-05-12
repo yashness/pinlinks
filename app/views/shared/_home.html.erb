@@ -17,7 +17,7 @@
       <tr><td><%= submit_tag "Drop Links" , :class => "btn btn-info" , :id => "drop_links"%></td></tr>
       <br/>
   <%end%>
-      <tr><div id="will_store_at"><td >Will Store at : www.pinlinks.com/no_user/<%= random_string %></td></div></tr>
+      <tr><div id="will_store_at"><td >Will Store at : www.pinlinks.in/p/<%= random_string %></td></div></tr>
       <tr><td><a href="#" id="add_repo_name" >Add Folder Name Suffix?</a></td></tr>
 
 </div>
@@ -83,7 +83,7 @@ jQuery(document).ready( function () {
 			  console.log( "Entered Name :" + str);
 			  var random_string = '<%= random_string %>'
 			  console.log("random_string :" + random_string);
-			  $('#will_store_at').text("Will Store at : www.pinlinks.com/no_user/" + random_string + str); 
+			  $('#will_store_at').text("Will Store at : www.pinlinks.in/p/" + random_string + str); 
 			  $("#repo_name").val(random_string + str);
 		  }
 	  }
@@ -96,7 +96,7 @@ jQuery(document).ready( function () {
 	    console.log("I am : " + flag.toString());
 	  	$("#name_repo").parent().remove();
 		var random_string = '<%= random_string %>'
-		$('#will_store_at').text("Will Store at : www.pinlinks.com/no_user/" + random_string ); 
+		$('#will_store_at').text("Will Store at : www.pinlinks.in/p/" + random_string ); 
         $("#repo_name").val(random_string);
   	}
   });

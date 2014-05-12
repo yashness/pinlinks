@@ -5,8 +5,8 @@ class Repo < ActiveRecord::Base
   has_many :links
   # validates :user_id, presence: true
   validates :name, presence: true 
-  validates :name, exclusion: { in: %W(no_user),
-    message: "name cannot be 'no_user'" } 
+  validates :name, exclusion: { in: %W(p),
+    message: "name cannot be 'p'" } 
   validates_uniqueness_of :name , :scope => :user_id
   validate :valid_repo_name
   searchable do
@@ -22,9 +22,9 @@ class Repo < ActiveRecord::Base
   end
 
   def url
-    x = self.user.profile_name rescue "no_user"
+    x = self.user.profile_name rescue "p"
     y = self.name
-    return "http://www.pinlinks.com/" + x + "/" + y
+    return "http://www.pinlinks.in/" + x + "/" + y
   end
 
   

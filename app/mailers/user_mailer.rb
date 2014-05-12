@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "admin@pinlinks.com"
+  default from: "admin@pinlinks.in"
 
 
   #links should be array of Link objects

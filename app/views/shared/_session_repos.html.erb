@@ -8,7 +8,7 @@
     <tbody>
       <% session_repos.each do |repo| %>
         <br/>
-        <tr> <%=link_to("www.pinlinks.com/no_user/" + repo, no_user_repo_path(:repo_name => repo ) , :class => "link tag repos_in_session" , :method => :get)%> </tr>
+        <tr> <%=link_to("www.pinlinks.in/p/" + repo, no_user_repo_path(:repo_name => repo ) , :class => "link tag repos_in_session" , :method => :get)%> </tr>
       <%end%> 
     </tbody>
   </table>

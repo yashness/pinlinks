@@ -2,11 +2,11 @@ $('#session_repos').html("<%= escape_javascript( render(:partial => 'shared/sess
 $('#link_list').append("<%= escape_javascript( render(:partial => 'shared/multiple_link_records', :locals => {:repo => @repo ,:links => @saved_links , :owner => false} ) ) %>");
 $('#' + 'drop_links_form')[0].reset()
 
-var random_string = Math.random().toString(36).slice(-10);
+var random_string = Math.random().toString(36).slice(-5);
 
 $("#close_repo_name").click();
 $(".remove_it.to_create_link").click();
 $('#' + 'all_links').val("");
-$('#will_store_at').text("Will Store at : www.pinlinks.com/no_user/" + random_string ); 
+$('#will_store_at').text("Will Store at : www.pinlinks.in/p/" + random_string ); 
 $("#repo_name").val(random_string );
 $('#message').html("Links in this Repo:")
