@@ -19,7 +19,8 @@ class User < ActiveRecord::Base
   after_create do
     email = self.email
     profile_name = self.profile_name
-    Delayed::Job.enqueue(SubscribeOnMailChimp.new(email , profile_name))
+    double_optin = true
+    Delayed::Job.enqueue(SubscribeOnMailChimp.new(email , profile_name , double_optin))
   end
 
 end

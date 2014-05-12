@@ -115,8 +115,9 @@ class UserMailerController < ApplicationController
 	def subscribe_for_mailing
 		profile_name = params[:profile_name]
 		email = params[:email]
+		double_optin = false
 		if ((not profile_name.nil?) && (not email.nil?))
-			Delayed::Job.enqueue(SubscribeOnMailChimp.new(email , profile_name))
+			Delayed::Job.enqueue(SubscribeOnMailChimp.new(email , profile_name , double_optin))
 		end
 		respond_to do |format|
 	        format.js

@@ -1,5 +1,5 @@
 $('#session_repos').html("<%= escape_javascript( render(:partial => 'shared/session_repos' , :locals => {:from_home => @from_home}) )%>")
-$('#link_list').append("<%= escape_javascript( render(:partial => 'shared/multiple_link_records', :locals => {:repo => @repo ,:links => @saved_links , :owner => false} ) ) %>");
+$('#link_list').prepend("<%= escape_javascript( render(:partial => 'shared/multiple_link_records', :locals => {:repo => @repo ,:links => @saved_links , :owner => false} ) ) %>");
 $('#' + 'drop_links_form')[0].reset()
 
 var random_string = Math.random().toString(36).slice(-5);

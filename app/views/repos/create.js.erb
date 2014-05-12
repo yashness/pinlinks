@@ -1,4 +1,4 @@
-$('#' + 'repo_list').append("<tr id= <%='repo_record_' + @repo.id.to_s%> ><%= escape_javascript(render(:partial => 'shared/repo_record', :locals => {:repo => @repo ,:links => @repo.links , :user => current_user, :owner => true} )) %></tr>");
+$('#' + 'repo_list').prepend("<tr id= <%='repo_record_' + @repo.id.to_s%> ><%= escape_javascript(render(:partial => 'shared/repo_record', :locals => {:repo => @repo ,:links => @repo.links , :user => current_user, :owner => true} )) %></tr>");
 $('#' + 'create_repo_form')[0].reset()
 $('#message').html("Repositories:")
-$($('#send_repos_form_group').children()[5]).append("<%=escape_javascript(render :partial => 'shared/to_send_repos' , :locals => {:repos => [@repo]})%>")
+$($('#send_repos_form_group').children()[5]).prepend("<%=escape_javascript(render :partial => 'shared/to_send_repos' , :locals => {:repos => [@repo]})%>")
