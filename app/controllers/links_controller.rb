@@ -29,6 +29,8 @@ class LinksController < ApplicationController
 			  	@saved_links << @link if @link.save
 		  	end
 		  	@append_repo_record = false 
+		    @flash_type = "success"
+		    @flash_message = "Successfully dropped your links"
 			respond_to do |format|
 		       	format.js
 		    end
@@ -49,22 +51,21 @@ class LinksController < ApplicationController
 			  	end
 				@saved_links = @repo.links
 				#flash[:alert] = "New Repo sucessfully created!"
-		  		# Check how to show flash message here
+			    @flash_type = "success"
+			    @flash_message = "Successfully dropped your links"
 				respond_to do |format|
 		        	format.js
 		      	end
 	    	else
-				#flash[:alert] = "In valid Repo Name!"
-		  		# Check how to show flash message here	
-	    		render :nothing => true
+		      	# @flash_message = "Repo couldn't be created of invalid repo name."
+		        render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Links could not be dropped because of Invalid Repo Name!</div>')"
 	    	end
 		end
 
 	else
-			#flash message that reponame cant be blank
-			#flash[:alert] = "Repo-name cannot be blank!"
-	  		# Check how to show flash message here
-    		render :nothing => true
+      	# @flash_message = "Repo name cant be blank."
+        render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Make sure that your repo name cannot be blank</div>')"
+
 	end
   end
 
@@ -94,7 +95,7 @@ class LinksController < ApplicationController
         session_repos = session[:repo_names].split(",")
         session_repos << repo_name
         session[:repo_names] = session_repos.uniq.join(",")
-	else
+    else
 		for link in all_links
 		  	@link = Link.new()
 		  	@link.actual_link = link.strip
@@ -102,6 +103,8 @@ class LinksController < ApplicationController
 		  	@saved_links << @link if @link.save
 		end
     end
+	@flash_type = "success"
+    @flash_message = "Successfully dropped your links."
 	respond_to do |format|
        	format.js
     end
@@ -110,6 +113,11 @@ class LinksController < ApplicationController
   def forget_session_repos
   	  @from_home = params[:from_home] 
       session[:repo_names] = ""
+	  @flash_type = "success"
+	  @flash_message = "Forgetting session repos successfull."
+	  respond_to do |format|
+	   	format.js
+	  end
   end
 
 
@@ -127,22 +135,23 @@ class LinksController < ApplicationController
 			if not @link.nil?
 				@link_id = @link.id
 				@link.delete
-				# flash[:alert] = "Link successfully deleted!"
+				@flash_type = "success"
+			    @flash_message = "Link deleted successfully."
 				respond_to do |format|
-		          format.js
-		      end
+			       	format.js
+			    end
 			else
-				#flash[:alert] = "Link doesn't exit. Bad Request."
-				render :nothing => true
+		     	@flash_message = "Link doesn't exit. Bad Request."
+		      	render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>#{@flash_message}</div>')"
 			end
 		else
-			#flash[:alert] = "You cannot delete others link!"
-			render :nothing => true
+	     	@flash_message = "You cannot operate on the repos not in your session or not belonging to you. Sorry."
+	      	render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>#{@flash_message}</div>')"
+
 		end
 	else 
-		# check how to show these flash messages, cuz its an ajax request.
-		# flash[:alert] = "Invalid Request!"
-		render :nothing => true
+     	# @flash_message = "Invalid Request. No such repo exist!"
+        render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Link could not be destroyed bescause of Invalid Repo Name!</div>')"
 	end
   end
 
@@ -158,15 +167,15 @@ class LinksController < ApplicationController
 	  	@link_ids = links.pluck(:id)
 	  	if (current_user == repo.user ) || session_repo_names.include?(repo_name)
 			links.delete_all
-			# flash[:alert] = "All Links successfully deleted!"
+			@flash_type = "success"
+	     	@flash_message = "Successfully, destroyed all your links, in this repo."
 			respond_to do |format|
 	          format.js
 	        end
 	    end
 	else 
-		# check how to show these flash messages, cuz its an ajax request.
-		# flash[:alert] = "Invalid Request!"
-		render :nothing => true
+     	# @flash_message = "Invalid Request. No such repo exist!"
+	    render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Links could not be destroyed because of Invalid Repo Name!</div>')"
 	end
   end
 
@@ -188,14 +197,19 @@ class LinksController < ApplicationController
 		    @link.tags = final_tags.join(" ") rescue ""
 		    @link.description = @desription 
 		    @link.save
+			@flash_type = "success"
+	     	@flash_message = "Successfully, updated your link."
 	        respond_to do |format|
 	                format.js
 	        end
 	    else
-			render :nothing => true
+	     	@flash_message = "You cannot operate on the links not in your session or not belonging to you. Sorry."
+	      	render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>#{@flash_message}</div>')"
+
 	    end
 	else
-		render :nothing => true
+     	# @flash_message = "Invalid Request. No such link exist!"
+        render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Link could not be updated because of Invalid Link!</div>')"
 	end
 
   end
@@ -218,14 +232,18 @@ class LinksController < ApplicationController
 			      @link.tags = tags
 			      @link.save
 			    end
+				@flash_type = "success"
+     			@flash_message = "Successfully removed the link tag."
 			    respond_to do |format|
 		          format.js
 		        end
 		else
-			render :nothing => true
+	     	@flash_message = "You cannot operate on the links not in your session or not belonging to you. Sorry."
+	      	render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>#{@flash_message}</div>')"
 		end
 	else
-		render :nothing => true
+     	# @flash_message = "Invalid Request. No such link exist!"
+	    render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Link tags could not be removed because of Invalid Link!</div>')"
     end
 
   end

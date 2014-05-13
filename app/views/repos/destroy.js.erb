@@ -1,2 +1,3 @@
 var id = '<%= @repo_id %>';
 $('#' + 'repo_record_' + id).remove()
+$('.ajax_flash').html("<%= escape_javascript(render(:partial => 'shared/flash_message', :locals => {:type => @flash_type ,:flash_message => @flash_message} )) %>");

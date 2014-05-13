@@ -82,14 +82,14 @@ class ReposController < ApplicationController
 
     if @repo.save
       #check how to show flash messages over here(in presence of ajax).
+      @flash_type = "success"
+      @flash_message = "Successfully created Repo"
       respond_to do |format|
           format.js
       end
   	else
-      # error_messages = @repo.errors.full_messages.join("\n")
-      # flash[:alert] = "Repo couldn't be created because: \n #{error_messages}"
-      #check how to show flash messages over here(in presence of ajax).
-      render :nothing => true
+      # @flash_message = "Repo couldn't be created because of invalid repo name."
+      render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>Repo could not be created because of Invalid Repo Name!</div>')"
   	end
   end
 
@@ -100,12 +100,14 @@ class ReposController < ApplicationController
     	links_ids = repo.links.pluck(:id)
     	repo.delete
     	Link.delete_all(:id => links_ids)
+      @flash_type = "success"
+      @flash_message = "successfully deleted your repo."
     	respond_to do |format|
           format.js
       end
     else
-    	#not a valid request
-      render :nothing => true
+      # @flash_message = "Not a Valid Request! No such repo exists!!"
+      render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button> Repo could not be destroyed because of Invalid Repo Name! </div>')"
     end
   end
 
@@ -128,8 +130,8 @@ class ReposController < ApplicationController
       new_name = new_name.join("_")  
       @repo.name = new_name if not new_name.blank?
       if @repo.save
-        # check how to show Flash messages in this case.
-        # Flash message would be : Your Repo has been updated.
+        @flash_type = "success"
+        @flash_message = "Successfully updated your Repo"
         respond_to do |format|
                 format.js
         end
@@ -140,8 +142,8 @@ class ReposController < ApplicationController
         render :nothing => true
       end
     else
-      # check how to show Flash messages in this case.
-      render :nothing => true
+      # @flash_message = "Not a Valid Request! No such repo exists!!"
+      render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button> Repo could not be updated because of Invalid Repo Name! </div>')"
     end
 
   end
@@ -160,12 +162,14 @@ class ReposController < ApplicationController
         @repo.tags = tags
         @repo.save
       end
+      @flash_type = "success"
+      @flash_message = "Successfully removed the tag."
       respond_to do |format|
           format.js
       end
     else
-      # check how to show Flash messages in this case.
-      redirect_to :back      
+      # @flash_message = "Not a Valid Request! No such repo exists!!"
+      render :js => "$('.ajax_flash').html('<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button> Repo tags could not be removed because of Invalid Repo Name! </div>')"
     end
 
   end

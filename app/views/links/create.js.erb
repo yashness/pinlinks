@@ -9,3 +9,4 @@ $('#' + 'all_links').val("");
 $('#message').html("Links in this Repo:");
 $($('#send_links_form_group').children()[5]).prepend("<%=escape_javascript(render :partial => 'shared/to_send_links' , :locals => {:links => @saved_links})%>")
 $($('#send_repos_form_group').children()[5]).prepend("<%=escape_javascript(render :partial => 'shared/to_send_repos' , :locals => {:repos => [@repo]})%>")
+$('.ajax_flash').html('<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>"<%= @flash_message%>".</div>')

@@ -9,4 +9,5 @@ $(".remove_it.to_create_link").click();
 $('#' + 'all_links').val("");
 $('#will_store_at').text("Will Store at : www.pinlinks.in/p/" + random_string ); 
 $("#repo_name").val(random_string );
-$('#message').html("Links in this Repo:")
+$('#message').html("Links in this Repo:");
+$('.ajax_flash').html('<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>"<%= @flash_message%>".</div>')

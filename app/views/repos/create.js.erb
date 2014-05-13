@@ -2,3 +2,4 @@ $('#' + 'repo_list').prepend("<tr id= <%='repo_record_' + @repo.id.to_s%> ><%= e
 $('#' + 'create_repo_form')[0].reset()
 $('#message').html("Repositories:")
 $($('#send_repos_form_group').children()[5]).prepend("<%=escape_javascript(render :partial => 'shared/to_send_repos' , :locals => {:repos => [@repo]})%>")
+$('.ajax_flash').html("<%= escape_javascript(render(:partial => 'shared/flash_message', :locals => {:type => @flash_type ,:flash_message => @flash_message} )) %>");

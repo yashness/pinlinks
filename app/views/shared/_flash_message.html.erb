@@ -1,0 +1,14 @@
+<%html_class = "alert"%>
+<%if type == "warning"%>
+	<% html_class = "alert alert-warning alert-dismissable" %>
+<%elsif type == "success"%>
+	<% html_class = "alert alert-success alert-dismissable" %>
+<%elsif type == "info"%>
+	<% html_class = "alert alert-info alert-dismissable" %>	
+<%elsif type == "danger"%>
+	<% html_class = "alert alert-danger alert-dismissable" %>	
+<%end%>
+<div class="<%= html_class %>">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<%= flash_message%>
+</div>

@@ -4,3 +4,4 @@ var id = '<%= @link.id %>';
 $('#' + 'link_tags_' + id).html("<%= escape_javascript(render(:partial => 'shared/show_link_tags', :locals => {:link => @link})) %>");
 $('#' + 'link_description_' + id).html("<%=  @link.description if not @link.description.nil? %>");
 $('#' + 'add_tags_and_describe_' + id)[0].reset();
+$('.ajax_flash').html("<%= escape_javascript(render(:partial => 'shared/flash_message', :locals => {:type => @flash_type ,:flash_message => @flash_message} )) %>");

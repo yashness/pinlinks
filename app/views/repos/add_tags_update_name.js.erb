@@ -5,3 +5,4 @@ var id = '<%= @repo.id %>';
 $('#' + 'repo_tags_' + id).html("<%= escape_javascript(render(:partial => 'shared/show_repo_tags', :locals => {:repo => @repo})) %>")
 $($('#' + 'repo_name_' + id).children()[0]).text('<%= @repo.name %>')
 $('#' + 'add_tags_update_name_' + id)[0].reset();
+$('.ajax_flash').html("<%= escape_javascript(render(:partial => 'shared/flash_message', :locals => {:type => @flash_type ,:flash_message => @flash_message} )) %>");

@@ -7,6 +7,7 @@ $("tr[id^='link_record_']").each(function() {
 $('#catch_all_links').val("") ;
 $('#catch_all_links').text("") ;
 $('.to_send_links').html("") ;
-$('#message').html("No link yet dropped here!")
-console.log("The clipping value now is:")
-console.log($('#catch_all_links').val())
+$('#message').html("No link yet dropped here!");
+console.log("The clipping value now is:");
+console.log($('#catch_all_links').val());
+$('.ajax_flash').html("<%= escape_javascript(render(:partial => 'shared/flash_message', :locals => {:type => @flash_type ,:flash_message => @flash_message} )) %>");

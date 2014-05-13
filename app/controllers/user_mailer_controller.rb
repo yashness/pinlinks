@@ -15,7 +15,8 @@ class UserMailerController < ApplicationController
 		for receipient in receipients
 			UserMailer.send_manual_links(receipient , send_links , compose_message ).deliver
 		end
-	
+	    @flash_type = "success"
+	    @flash_message = "Successfully sent link"	
 	    respond_to do |format|
 	        format.js
 	    end
@@ -42,7 +43,8 @@ class UserMailerController < ApplicationController
 		for receipient in receipients
 			UserMailer.send_pinlinks(receipient , @links , compose_message ).deliver
 		end
-	
+	    @flash_type = "success"
+	    @flash_message = "Successfully sent link"
 	    respond_to do |format|
 	        format.js
 	    end
@@ -61,6 +63,8 @@ class UserMailerController < ApplicationController
 				UserMailer.send_pinlinks(receipient , [@link] , compose_message ).deliver
 			end
 		end
+	    @flash_type = "success"
+	    @flash_message = "Successfully sent link"
 	    respond_to do |format|
 	        format.js
 	    end
@@ -89,6 +93,8 @@ class UserMailerController < ApplicationController
 		for receipient in receipients
 			UserMailer.send_repolinks(receipient , @repos , compose_message ).deliver
 		end
+	    @flash_type = "success"
+	    @flash_message = "Successfully sent link"
 	    respond_to do |format|
 	        format.js
 	    end
@@ -106,6 +112,8 @@ class UserMailerController < ApplicationController
 				UserMailer.send_repolinks(receipient , [@repo] , compose_message ).deliver
 			end
 		end
+	    @flash_type = "success"
+	    @flash_message = "Successfully sent link"
 	    respond_to do |format|
 	        format.js
 	    end

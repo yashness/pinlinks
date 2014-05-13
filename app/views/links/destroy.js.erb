@@ -12,3 +12,4 @@ console.log("final_clip:");
 console.log(final_clip);
 $('#catch_all_links').val(final_clip ) ;
 $('#catch_all_links').text(final_clip ) ;
+$('.ajax_flash').html("<%= escape_javascript(render(:partial => 'shared/flash_message', :locals => {:type => @flash_type ,:flash_message => @flash_message} )) %>");
