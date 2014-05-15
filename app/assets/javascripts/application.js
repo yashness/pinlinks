@@ -16,3 +16,11 @@
 //= require_tree .
 //= require jquery.ui.all
 //= require jquery.modal
+
+//script for invoking dialog box to message a friend on facebook
+function fb_msg_this(link_to_msg) {
+    FB.ui({
+    method: 'send',
+    link: link_to_msg,
+}, function(response){});
+}

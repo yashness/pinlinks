@@ -26,5 +26,12 @@
 
 <%= yield %>
 
+<!-- SCRIPTS for using facebook-dialog -->
+<%= fb_js %>
+<%= javascript_tag do %>
+  <%= fb_init_js %>
+<% end %>
+<!-- SCRIPTS ENDS-->
+
 </body>
 </html>

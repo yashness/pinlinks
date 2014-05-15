@@ -26,3 +26,6 @@
          <%=link_to("Delete Link", delete_link_path(:repo_name => repo.name , :link_id => link.id) , :class => "link tag" , :method => :post , :remote => true)%>
       </td>
   <% end %>
+  <td class="fb_message_link"> 
+    <%= link_to_function "share on fb", "fb_msg_this('#{link.actual_link.to_s}')" %>
+  </td>
