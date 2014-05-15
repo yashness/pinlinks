@@ -38,7 +38,7 @@
     <%= hidden_field_tag "from_home", "false"  %>
     <%= text_area_tag "all_links" , nil , style: "display:none;" %>
     <div id = "text_box_records">
-      <tr><td><%= text_field_tag "text_0" , nil , placeholder: 'Drop Link' %></td></tr>
+<!--  -->
     </div>
       <tr><td><a href="#" id="add_this" class="btn btn-success">AddBox</a></td></tr>
       <tr><td><%= submit_tag "Drop Links" , :class => "btn btn-info" , :id => "drop_links"%></td></tr>
@@ -69,6 +69,9 @@
 <script type="text/javascript">
 var flag = 0;//Shows state whether the enter repo name text field is On or Off
 jQuery(document).ready( function () {
+  $("#text_box_records").append("<tr><td><%= escape_javascript(text_field_tag 'text_0' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'X_0' class='remove_it to_create_link label label-default'> X</a></td></tr>");
+  $("#X_0").css({ display: "none" });
+  var total_open_counter = 1;
   var i = 0;
 
   $("#add_this").click( function() {
@@ -79,11 +82,25 @@ jQuery(document).ready( function () {
     $('#default_X_id').attr('id', "X_" + str);
     console.log($('#text_' + i.toString()));
     $('#text_' + i.toString()).focus();
+    total_open_counter += 1;
+    if(total_open_counter == 1){
+      $("a[id^='X_']").css({ display: "none" });
+    }
+    else{
+         $("a[id^='X_']").css({ display: "visible" });
+    }
     return false;
   });
   $('#text_box_records').on( 'click' , '.remove_it.to_create_link' , function() {
      // console.log(this.id);
     $(this).parent().parent().remove();
+    total_open_counter -= 1;
+    if(total_open_counter == 1){
+      $("a[id^='X_']").css({ display: "none" });
+    }
+    else{
+         $("a[id^='X_']").css({ display: "visible" });
+    }    
     return false;
   });
 

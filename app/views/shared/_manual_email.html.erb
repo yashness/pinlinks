@@ -8,7 +8,7 @@
       <div class="Links">
           <%= text_area_tag "send_links" , nil , style: "display:none;" %>
           <div id = "link_box_records">
-            <tr><td><%= text_field_tag "link_0" , nil , placeholder: 'Drop Link' %></td></tr>
+<!--             <tr><td><%= text_field_tag "link_0" , nil , placeholder: 'Drop Link' %></td></tr> -->
           </div>
             <tr><td><a href="#" id="add_send_link" class="btn btn-success">AddBox</a></td></tr>
             <tr><td><%= submit_tag "Send Email" , :class => "btn btn-info" , :id => "send_links"%></td></tr>
@@ -17,6 +17,9 @@
 
 <script type="text/javascript">
 jQuery(document).ready( function () {
+  $("#link_box_records").append("<tr><td><%= escape_javascript(text_field_tag 'link_0' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'XX_0' class='remove_it to_email_link label label-default'> X</a></td></tr>");
+  $("#XX_0").css({ display: "none" });
+  var total_open_counter = 1;
   var i = 0;
   $("#add_send_link").click( function() {
     $("#link_box_records").append("<tr><td><%= escape_javascript(text_field_tag 'default_link_id' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'default_X_id' class='remove_it to_email_link label label-default'> X</a></td></tr>");
@@ -28,11 +31,25 @@ jQuery(document).ready( function () {
     console.log("Final : \n" +  $("#send_links").val() );
     console.log($('#link_' + i.toString()));
     $('#link_' + i.toString()).focus();
+    total_open_counter += 1;
+    if(total_open_counter == 1){
+      $("a[id^='XX_']").css({ display: "none" });
+    }
+    else{
+         $("a[id^='XX_']").css({ display: "visible" });
+    }    
     return false;
   });
   $('#link_box_records').on( 'click' , '.remove_it.to_email_link' , function() {
      // console.log(this.id);
     $(this).parent().parent().remove();
+    total_open_counter -= 1;
+    if(total_open_counter == 1){
+      $("a[id^='XX_']").css({ display: "none" });
+    }
+    else{
+         $("a[id^='XX_']").css({ display: "visible" });
+    }    
     return false;
   });
 

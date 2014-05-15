@@ -6,7 +6,7 @@
           <td><%= text_field_tag "repo_name" , nil, placeholder: 'Enter folder name'%></td>
           <%= text_area_tag "all_links" , nil , style: "display:none;" %>
           <div id = "text_box_records">
-            <tr><td><%= text_field_tag "text_0" , nil , placeholder: 'Drop Link' %></td></tr>
+<!--  -->
           </div>
             <tr><td><a href="#" id="add_this" class="btn btn-success">AddBox</a></td></tr>
             <tr><td><%= submit_tag "Drop Links" , :class => "btn btn-info" , :id => "drop_links"%></td></tr>
@@ -72,6 +72,9 @@
 </div>
 <script type="text/javascript">
 jQuery(document).ready( function () {
+  $("#text_box_records").append("<tr><td><%= escape_javascript(text_field_tag 'text_0' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'X_0' class='remove_it to_create_link label label-default'> X</a></td></tr>");
+  $("#X_0").css({ display: "none" });
+  var total_open_counter = 1;
   var i = 0;
   $("#add_this").click( function() {
     $("#text_box_records").append("<tr><td><%= escape_javascript(text_field_tag 'default_link_id' , nil , placeholder: 'Drop Link' )%></td><td><a href='#' id = 'default_X_id' class='remove_it to_create_link label label-default'> X</a></td></tr>");
@@ -83,11 +86,26 @@ jQuery(document).ready( function () {
     console.log("Final : \n" +  $("#all_links").val() );
     console.log($('#text_' + i.toString()));
     $('#text_' + i.toString()).focus();
+    total_open_counter += 1;
+    if(total_open_counter == 1){
+      $("a[id^='X_']").css({ display: "none" });
+    }
+    else{
+         $("a[id^='X_']").css({ display: "visible" });
+    }
     return false;
   });
   $('#text_box_records').on( 'click' , '.remove_it.to_create_link' , function() {
      // console.log(this.id);
     $(this).parent().parent().remove();
+    total_open_counter -= 1;
+    if(total_open_counter == 1){
+      $("a[id^='X_']").css({ display: "none" });
+    }
+    else{
+         $("a[id^='X_']").css({ display: "visible" });
+    }    
+    
     return false;
   });
 
