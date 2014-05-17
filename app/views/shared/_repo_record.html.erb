@@ -23,3 +23,6 @@
           <%= render(:partial => 'shared/add_tags_update_name', :locals => {:repo => repo})%>
         </td>
     <%end%>
+  <td class="fb_message_repo"> 
+    <%= link_to_function "share repo on fb", "fb_msg_this('#{request.url}/#{user.profile_name}/#{repo.name}')" %>
+  </td>

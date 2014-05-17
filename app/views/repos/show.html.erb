@@ -1,6 +1,9 @@
 <div id="home_button"> 
   <%=link_to("HOME", "/", :class => "btn btn-warning" )%>
 </div>
+<div class="fb_message_repo"> 
+  <%=link_to_function "Share repo link on fb", "fb_msg_this('#{request.url}/#{@repo.user.profile_name}/#{@repo.name}')", :class => "btn btn-warning" %>
+</div>
 <%= render(:partial => 'shared/catch_all_links', :locals => {:links => @links})%>
 <div id="group_actions">
     <div id = "send_all_pinlinks">
