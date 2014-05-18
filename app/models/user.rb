@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
   					  	message: 'Must be formatted correctly.'
   					  }
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, :confirmation => true
-  validates :password_confirmation, :presence => true, :if => '!password.nil?'
+  validates :password, presence: true#, :confirmation => true
+  # validates :password_confirmation, :presence => true, :if => '!password.nil?'
   has_many :repos  
 
   after_create do
