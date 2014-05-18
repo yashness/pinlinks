@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   					  	with: /\A[a-zA-Z\-\_]+\Z/,
   					  	message: 'Must be formatted correctly.'
   					  }
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true, :confirmation => true
+  validates :password_confirmation, :presence => true, :if => '!password.nil?'
   has_many :repos  
 
   after_create do
