@@ -352,17 +352,18 @@ Type=simple
 User=www-data
 WorkingDirectory=/var/www/pinlinks
 Environment=RAILS_ENV=production
-# Find your bundle path with: which bundle
+# IMPORTANT: Replace /path/to/bundle with your actual bundle path
+# Find it with: which bundle
 # Or for rbenv: ~/.rbenv/shims/bundle
 # Or for rvm: ~/.rvm/wrappers/ruby-version/bundle
-ExecStart=/usr/bin/bundle exec script/delayed_job run
+ExecStart=/path/to/bundle exec script/delayed_job run
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-**Note**: Update the `ExecStart` path to match your bundle location. Find it with `which bundle`.
+**Note**: Replace `/path/to/bundle` with your actual bundle location. Find it with `which bundle`.
 
 Start the service:
 
