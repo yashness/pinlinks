@@ -149,11 +149,13 @@ config.action_mailer.smtp_settings = {
   port:                 587,
   domain:               'yourdomain.com',
   user_name:            ENV['SMTP_USERNAME'],
-  password:             ENV['SMTP_PASSWORD'],
+  password:             ENV['SMTP_PASSWORD'],  # Use App-Specific Password for Gmail
   authentication:       'plain',
   enable_starttls_auto: true
 }
 ```
+
+**Note for Gmail users**: Gmail requires an [App-Specific Password](https://support.google.com/accounts/answer/185833) for SMTP access. Regular account passwords will not work. Alternatively, consider using a service like SendGrid or Mailgun for production email.
 
 ## Database Setup
 
@@ -318,12 +320,12 @@ server {
     root /var/www/pinlinks/public;
 
     passenger_enabled on;
-    # IMPORTANT: Replace with your actual Ruby path
+    # IMPORTANT: Verify and update this Ruby path for your environment
     # Find it with: which ruby
-    # Or for rbenv: rbenv which ruby (typically ~/.rbenv/shims/ruby)
-    # Or for rvm: rvm which ruby (typically ~/.rvm/rubies/ruby-X.X.X/bin/ruby)
-    # passenger_ruby /usr/bin/ruby;  # Example for system Ruby
-    passenger_ruby /path/to/ruby;  # REPLACE THIS
+    # Or for rbenv: rbenv which ruby (e.g., /home/deploy/.rbenv/shims/ruby)
+    # Or for rvm: rvm which ruby (e.g., /usr/local/rvm/rubies/ruby-2.0.0/bin/ruby)
+    # Example for system Ruby:
+    passenger_ruby /usr/local/bin/ruby;  # VERIFY THIS PATH
 
     location ~ ^/(assets)/ {
         expires max;
