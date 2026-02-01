@@ -220,12 +220,20 @@ heroku addons:create heroku-postgresql:hobby-dev
 
 5. Set environment variables:
 
+First, generate a secret key:
+
+```bash
+rake secret
+```
+
+Copy the generated secret, then set your environment variables:
+
 ```bash
 heroku config:set FACEBOOK_APP_ID=your_facebook_app_id
 heroku config:set FACEBOOK_APP_SECRET=your_facebook_app_secret
 heroku config:set GOOGLE_CLIENT_ID=your_google_client_id
 heroku config:set GOOGLE_CLIENT_SECRET=your_google_client_secret
-heroku config:set SECRET_KEY_BASE=$(rake secret)
+heroku config:set SECRET_KEY_BASE=paste_generated_secret_here
 ```
 
 6. Deploy:
