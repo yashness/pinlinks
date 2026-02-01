@@ -25,6 +25,11 @@ Before deploying Pinlinks, ensure you have the following installed:
 ### Additional Requirements for Production
 
 - **PostgreSQL** or **MySQL**: Recommended for production instead of SQLite3
+  - SQLite3 is not suitable for production due to:
+    - Limited concurrent write operations
+    - No network access (file-based only)
+    - Scalability limitations for high-traffic applications
+    - Locking issues under heavy load
 - **Web Server**: Nginx or Apache
 - **Application Server**: Passenger, Puma, or Unicorn
 - **SSL Certificate**: For HTTPS (recommended)
@@ -313,7 +318,10 @@ server {
     root /var/www/pinlinks/public;
 
     passenger_enabled on;
-    passenger_ruby /path/to/ruby;
+    # Find your Ruby path with: which ruby
+    # Or for rbenv: rbenv which ruby
+    # Or for rvm: rvm which ruby
+    passenger_ruby /usr/bin/ruby;  # Update this to your actual Ruby path
 
     location ~ ^/(assets)/ {
         expires max;
@@ -344,12 +352,17 @@ Type=simple
 User=www-data
 WorkingDirectory=/var/www/pinlinks
 Environment=RAILS_ENV=production
-ExecStart=/usr/local/bin/bundle exec script/delayed_job run
+# Find your bundle path with: which bundle
+# Or for rbenv: ~/.rbenv/shims/bundle
+# Or for rvm: ~/.rvm/wrappers/ruby-version/bundle
+ExecStart=/usr/bin/bundle exec script/delayed_job run
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 ```
+
+**Note**: Update the `ExecStart` path to match your bundle location. Find it with `which bundle`.
 
 Start the service:
 
