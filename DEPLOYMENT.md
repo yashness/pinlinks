@@ -322,10 +322,11 @@ server {
     passenger_enabled on;
     # IMPORTANT: Verify and update this Ruby path for your environment
     # Find it with: which ruby
-    # Or for rbenv: rbenv which ruby (e.g., /home/deploy/.rbenv/shims/ruby)
-    # Or for rvm: rvm which ruby (e.g., /usr/local/rvm/rubies/ruby-2.0.0/bin/ruby)
-    # Example for system Ruby:
-    passenger_ruby /usr/local/bin/ruby;  # VERIFY THIS PATH
+    # Common paths:
+    #   System Ruby (Ubuntu/Debian): /usr/bin/ruby
+    #   rbenv: /home/deploy/.rbenv/shims/ruby
+    #   rvm: /usr/local/rvm/rubies/ruby-2.0.0/bin/ruby
+    passenger_ruby /usr/bin/ruby;  # VERIFY THIS PATH WITH 'which ruby'
 
     location ~ ^/(assets)/ {
         expires max;
@@ -356,20 +357,20 @@ Type=simple
 User=www-data
 WorkingDirectory=/var/www/pinlinks
 Environment=RAILS_ENV=production
-# IMPORTANT: Replace REPLACE_WITH_BUNDLE_PATH with your actual bundle path
+# IMPORTANT: Replace /path/to/bundle with your actual bundle path
 # Find it with: which bundle
-# Examples:
+# Common paths:
 #   System Ruby: /usr/bin/bundle
 #   rbenv: /home/username/.rbenv/shims/bundle
 #   rvm: /home/username/.rvm/wrappers/ruby-2.0.0/bundle
-ExecStart=REPLACE_WITH_BUNDLE_PATH exec script/delayed_job run
+ExecStart=/path/to/bundle exec script/delayed_job run
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-**Note**: Replace `REPLACE_WITH_BUNDLE_PATH` with your actual bundle location found via `which bundle`.
+**Note**: Replace `/path/to/bundle` in the ExecStart line with your actual bundle location found via `which bundle`.
 
 Start the service:
 
