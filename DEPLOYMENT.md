@@ -149,13 +149,13 @@ config.action_mailer.smtp_settings = {
   port:                 587,
   domain:               'yourdomain.com',
   user_name:            ENV['SMTP_USERNAME'],
-  password:             ENV['SMTP_PASSWORD'],  # Use App-Specific Password for Gmail
+  password:             ENV['SMTP_PASSWORD'],  # Use app-specific password for Gmail
   authentication:       'plain',
   enable_starttls_auto: true
 }
 ```
 
-**Note for Gmail users**: Gmail requires an [App-Specific Password](https://support.google.com/accounts/answer/185833) for SMTP access. Regular account passwords will not work. Alternatively, consider using a service like SendGrid or Mailgun for production email.
+**Note for Gmail users**: Gmail requires an [app-specific password](https://support.google.com/accounts/answer/185833) for SMTP access. Regular account passwords will not work. Alternatively, consider using a service like SendGrid or Mailgun for production email.
 
 ## Database Setup
 
